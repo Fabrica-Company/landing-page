@@ -1,457 +1,479 @@
 import {
-  PersonalInfo,
-  Project,
-  SideProject,
-  SocialLink,
+  AppProject,
+  CompanyInfo,
   NavItem,
-  Skill,
+  ProcessStep,
+  Service,
+  SocialLink,
+  Stat,
+  Testimonial,
+  WebsiteProject,
 } from "./types";
-// Updated icon imports: Added GithubIcon, removed TwitterIcon, DribbbleIcon
-// Added icons for skills
-// Removed FiTerminal, FiCheckSquare, FiImage as they are aliased or not directly exported.
-// CommandLineIcon (FiTerminal), CheckBadgeIcon (FiCheckCircle, used as FiCheckSquare), PuzzlePieceIcon (FiImage) are already imported.
 import {
-  HomeIcon,
-  UserIcon,
-  Squares2X2Icon,
-  ShoppingBagIcon,
-  CpuChipIcon,
-  PaintBrushIcon,
-  RocketLaunchIcon,
-  PuzzlePieceIcon,
-  PencilIcon,
-  CheckBadgeIcon,
-  ServerStackIcon,
-  LinkedinIcon,
-  InstagramIcon,
+  AppsIcon,
+  CodeIcon,
   GithubIcon,
-  FiShield,
-  FiWind,
-  FiCoffee,
-  FiHexagon,
-  FiRefreshCw,
-  FiFeather,
-  DocumentDuplicateIcon,
+  HomeIcon,
+  InstagramIcon,
+  LayersIcon,
+  LayoutIcon,
+  LinkedinIcon,
+  PenToolIcon,
+  RefreshIcon,
+  SearchIcon,
+  SendIcon,
+  TerminalIcon,
 } from "./components/icons";
 
-// Import assets properly for Vite to process them
-// import vaLogoCircle from "./assets/";
-// import vickeyAppsProject from "./assets/";
-// import superbScorerLogo from "./assets/";
-// import superbScorer from "./assets/";
-// import oohoFav from "./assets/";
-// import oohoProject from "./assets/";
-// import oohoLogin from "./assets/";
-
-// TODO: Replace with your own Web3Forms Access Key
-// You can get one for free at https://web3forms.com/
-export const WEB3FORMS_ACCESS_KEY = ""; // TODO: Replace with your own Web3Forms Access Key
-
-/** Template author credit in the footer (clickable) */
-export const DEVELOPER_CREDIT = {
-  name: "Anand Krishna",
-  animatedNameEnglish: "Krishna",
-  animatedNameJapanese: "クリシュナ",
-  url: "https://instagram.com/krishhnahere",
-};
-
-/**
- * Visitor count shown on the home hero.
+/*
+ * ---------------------------------------------------------------------------
+ * SAMPLE CONTENT
  *
- * Default: STATIC demo number (no Firebase / no personal data needed).
- * Live count: set enableLiveCount to true AND add your own Firebase keys in .env
- * (see VISITOR_COUNTER_SETUP.md).
+ * Client work, apps and testimonials below are placeholders so the layout can
+ * be reviewed. Replace every entry marked "TODO" with real work before this
+ * goes live. Images are intentionally omitted — the UI renders a labelled
+ * placeholder wherever an image is missing.
+ * ---------------------------------------------------------------------------
  */
-export const VISITOR_STATS = {
-  /** Shown when live Firebase counting is off or not configured */
-  staticCount: 10000800,
-  /**
-   * false = always show staticCount (recommended for the open-source template)
-   * true  = use your own Firebase Firestore counter when .env is filled in
-   */
-  enableLiveCount: false,
-};
 
-export const PERSONAL_INFO: PersonalInfo = {
-  name: "Monkey D. Luffy",
-  title: "Future Pirate King",
-  bio: "Captain of the Straw Hat Pirates, adventurer, and lover of meat. Sailing the Grand Line in search of the One Piece!",
-  imageUrl:
-    "https://i.pinimg.com/736x/17/f8/9a/17f89aeae95b7293d61dfd79c102cbc7.jpg", // Luffy's anime portrait
-  email: "luffy@strawhats.com",
-  githubUsername: "octocat",
-  // Text rotating around the profile photo on the home page
-  circularText: "MONKEY D. LUFFY • PIRATE KING • STRAW HAT • ",
-  // Gap between letters on the circular text (try "0.5em", "0.9em", "1.2em")
-  circularTextLetterSpacing: "0.9em",
-  // Name swap animation (home hero, About "It's Me", footer only)
-  animatedNameEnglish: "Luffy",
-  animatedNameJapanese: "ルフィ",
-  // Opening intro animation (full-screen splash before the site)
-  introLetter1: "L",
-  introLetter2: "U",
-  introTagline: "Pirate • Dream Chaser",
-  aboutMeIntro:
-    "Hi! I'm Monkey D. Luffy, captain of the Straw Hat Pirates and future King of the Pirates! I love adventure, my friends, and especially meat. I ate the Gum-Gum Devil Fruit, so my body stretches like rubber! I'm sailing the Grand Line with my amazing crew, searching for the legendary One Piece treasure. I believe in freedom, friendship, and never giving up on your dreams. If you want to join my crew, you better have a dream and be ready for the adventure of a lifetime! Shishishi!",
-  aboutMeDetailed: [
-    "Luffy set sail from Foosha Village to find the legendary treasure, One Piece. Along the way, he gathered a loyal crew, defeated powerful enemies, and made friends all over the world.",
-    "When not fighting Marines or rival pirates, Luffy enjoys eating, napping, and having fun with his crew. He believes in freedom, friendship, and never giving up on his dreams!",
-    "Luffy possesses the power of the Gum-Gum Fruit, making his body stretch like rubber. He's also mastered all three types of Haki, making him one of the most formidable pirates on the seas.",
-    "He has a knack for turning enemies into allies, inspiring others with his unwavering spirit and simple honesty.",
-    "Luffy has a bounty that keeps rising, currently one of the highest in the world, and is recognized as one of the Worst Generation.",
-    "He has led the Straw Hat Pirates through legendary battles at places like Alabasta, Enies Lobby, Marineford, Dressrosa, Whole Cake Island, and Wano.",
-    "Luffy's dream is not just to find the One Piece, but to live a life of complete freedom and help his friends achieve their dreams too.",
-    "Favorite foods: Meat (all kinds), fish, and anything Sanji cooks!",
-    "Famous catchphrases: 'I'm gonna be King of the Pirates!' and 'I want to eat meat!'",
-  ],
-  aboutPageImageUrl:
-    "https://i.pinimg.com/736x/2c/e0/6b/2ce06b2cd9ab54ccb23f4f50359b6acc.jpg", // Luffy's anime portrait
-  projectsPageIntro:
-    "Check out my greatest adventures and pirate achievements! Each project brought me closer to my dream of becoming Pirate King.",
-  sideProjectsPageIntro:
-    "Some of the wild side quests and inventions my crew and I have tackled on our journey!",
-  productsPageIntro:
-    "Explore the unique gadgets, ships, and treasures we've collected or built during our adventures!",
-  hireMePageTitle: "Join My Crew!",
-  hireMePageSubtitle:
-    "Got a dream? Want to sail the Grand Line? Send me a message and maybe you can join the Straw Hat Pirates!",
+/** Web3Forms key powering the contact form. Get one free at https://web3forms.com */
+export const WEB3FORMS_ACCESS_KEY = ""; // TODO: add your Web3Forms access key
+
+export const COMPANY_INFO: CompanyInfo = {
+  name: "FabricaLabs",
+  tagline: "Design & development studio",
+  heroHeadlinePrefix: "We build",
+  heroRotatingWords: ["websites", "web apps", "mobile apps"],
+  heroHeadlineSuffix: "that work as hard as you do.",
+  heroDescription:
+    "FabricaLabs designs new websites, modernizes dated ones, and builds web and mobile apps. One team from the first wireframe to the day it ships — and every release after that.",
+  email: "hello@fabricalabs.com", // TODO: replace with your real address
+  location: "Remote — working across Europe", // TODO: replace with your location
+  timezone: "Europe/Bucharest", // TODO: set your IANA timezone
+  timezoneLabel: "EET",
+  officeHours: { start: 9, end: 19 },
+  circularText: "FABRICA LABS • DESIGN • DEVELOPMENT • ",
+  circularTextLetterSpacing: "0.55em",
+  introLetter1: "F",
+  introLetter2: "L",
+  introTagline: "Design • Development • Modernization",
+  websitesPageIntro:
+    "Websites we designed, rebuilt and modernized for clients — with the results and the feedback that came out of each one.",
+  appsPageIntro:
+    "Web and mobile apps we designed and shipped, from internal tools to products live in the app stores.",
+  contactPageTitle: "Start a project",
+  contactPageSubtitle:
+    "Tell us what you're building or what needs modernizing. We reply within one business day with next steps and a ballpark.",
 };
 
 export const NAV_ITEMS_MAIN: NavItem[] = [
-  { id: "home", name: "Home", href: "#home", icon: HomeIcon },
-  { id: "about", name: "About", href: "#about", icon: UserIcon },
-  {
-    id: "projects",
-    name: "Projects",
-    href: "#projects-page",
-    icon: Squares2X2Icon,
-  },
-  {
-    id: "products",
-    name: "Products",
-    href: "#products-page",
-    icon: ShoppingBagIcon,
-  }, // New Products Nav Item
+  { id: "home", name: "Home", href: "/", icon: HomeIcon },
+  { id: "websites", name: "Websites", href: "/websites", icon: CodeIcon },
+  { id: "apps", name: "Apps", href: "/apps", icon: AppsIcon },
 ];
 
-export const PROJECTS: Project[] = [
+/** Headline numbers under the hero. TODO: replace with your real figures. */
+export const COMPANY_STATS: Stat[] = [
+  { value: "40+", label: "Sites designed & modernized" },
+  { value: "12", label: "Apps shipped" },
+  { value: "98", label: "Avg. PageSpeed after launch" },
+  { value: "6 yrs", label: "Building for the web" },
+];
+
+export const SERVICES: Service[] = [
   {
-    id: "project-going-merry",
-    iconComponent: RocketLaunchIcon,
-    iconBgColor: "bg-yellow-500 dark:bg-yellow-600",
-    name: "Going Merry Ship Upgrade",
+    id: "service-web-design",
+    name: "Website design",
     description:
-      "Major upgrades and repairs to the Straw Hats' first pirate ship, the Going Merry.",
-    technologies: [
-      "Woodworking",
-      "Engineering",
-      "Friendship",
-      "Sniper King Magic",
+      "New sites designed around what your business actually needs to say. Research, copy structure, visual design and a build that holds up.",
+    icon: LayoutIcon,
+    deliverables: [
+      "Brand-aligned visual design",
+      "Responsive layouts",
+      "Copy and content structure",
+      "Reusable design system",
     ],
-    cardImageUrl:
-      "https://preview.redd.it/going-merry-or-thousand-sunny-v0-zwgzn343tqzb1.jpg?width=562&format=pjpg&auto=webp&s=e9ecd2766cd1fd9953efae2622abad1abd1c5f8d",
-    logoImageUrl:
-      "https://preview.redd.it/going-merry-or-thousand-sunny-v0-zwgzn343tqzb1.jpg?width=562&format=pjpg&auto=webp&s=e9ecd2766cd1fd9953efae2622abad1abd1c5f8d",
-    client: "Straw Hat Pirates",
-    company: "Water 7 Shipwrights",
-    projectType: "Ship Repair, Adventure",
-    year: "Grand Line Era",
-    tagline:
-      "The Going Merry carried us through countless adventures. She was more than a ship—she was our friend!",
-    overview:
-      "After many battles and storms, the Going Merry needed serious repairs. With the help of the Water 7 shipwrights (and Usopp's determination), we gave her one last epic journey.",
-    liveLink: "https://onepiece.fandom.com/wiki/Going_Merry",
-    images: [
-      "https://static1.cbrimages.com/wordpress/wp-content/uploads/2022/12/67a971cb-baf1-4821-8e0e-f6a221e77f6d.jpeg",
-    ],
-    problemStatement: {
-      title: "Ship in Trouble!",
-      description:
-        "Our beloved ship was falling apart after so many adventures. We needed to fix her or risk losing our way to the Grand Line!",
-    },
   },
   {
-    id: "project-meat-inventory",
-    iconComponent: ShoppingBagIcon,
-    iconBgColor: "bg-red-500 dark:bg-red-600",
-    name: "Meat Inventory App",
+    id: "service-modernization",
+    name: "Modernization & redesign",
     description:
-      "A handy app to track all the meat supplies on the Thousand Sunny.",
-    technologies: ["React", "Meat Tracking", "Sanji's Recipes", "QR Code"],
-    cardImageUrl:
-      "https://preview.redd.it/if-sanji-tells-you-that-he-will-cook-any-dish-for-you-that-v0-txrdpkzu2fqb1.jpg?auto=webp&s=3cecbad31936393ee734a95dab67cfe30d77cb94",
-    logoImageUrl:
-      "https://preview.redd.it/if-sanji-tells-you-that-he-will-cook-any-dish-for-you-that-v0-txrdpkzu2fqb1.jpg?auto=webp&s=3cecbad31936393ee734a95dab67cfe30d77cb94",
-    client: "Luffy (for Sanji)",
-    company: "Straw Hat Pirates",
-    projectType: "Food Management, App",
-    year: "Grand Line Era",
-    tagline: "Never run out of meat again!",
-    overview:
-      "Sanji was tired of Luffy eating all the meat, so we built an app to keep track of supplies. Now, everyone gets their fair share (except when I get hungry).",
-    liveLink: "https://onepiece.fandom.com/wiki/Sanji",
-    images: [
-      "https://i.pinimg.com/736x/23/5f/15/235f15beabf134c30e3dc437a22ec884.jpg",
+      "Your site works but feels a decade old and loads like it. We rebuild it on a modern stack without losing the SEO you've earned.",
+    icon: RefreshIcon,
+    deliverables: [
+      "UX and performance audit",
+      "Rebuild on a modern stack",
+      "SEO and redirect mapping",
+      "Accessibility pass",
     ],
-    problemStatement: {
-      title: "Where's the Meat?",
-      description:
-        "Meat kept disappearing from the kitchen. We needed a way to track it and keep Luffy honest!",
-    },
   },
   {
-    id: "project-crew-recruitment",
-    iconComponent: UserIcon,
-    iconBgColor: "bg-blue-600 dark:bg-blue-700",
-    name: "Pirate Crew Recruitment Portal",
+    id: "service-web-apps",
+    name: "Web app development",
     description:
-      "A portal for recruiting new Straw Hat Pirates with big dreams.",
-    technologies: [
-      "React",
-      "Dream Detection",
-      "Wanted Posters",
-      "Grand Line Map",
+      "Dashboards, portals and internal tools. Real product work with authentication, data and the boring reliability details handled.",
+    icon: LayersIcon,
+    deliverables: [
+      "Product and UX design",
+      "Front and back end build",
+      "Integrations and APIs",
+      "Deployment and monitoring",
     ],
-    cardImageUrl:
-      "https://logowik.com/content/uploads/images/straw-hat-pirates3177.logowik.com.webp",
-    logoImageUrl:
-      "https://logowik.com/content/uploads/images/straw-hat-pirates3177.logowik.com.webp",
-    client: "Monkey D. Luffy",
-    company: "Straw Hat Pirates",
-    projectType: "Recruitment, Adventure",
-    year: "Grand Line Era",
-    tagline: "Got a dream? Join my crew!",
-    overview:
-      "We needed more nakama for our journey. This portal lets dreamers from all over the world apply to join the Straw Hat Pirates. Only those with true spirit make the cut!",
-    liveLink: "https://onepiece.fandom.com/wiki/Straw_Hat_Pirates",
-    images: [
-      "https://i.pinimg.com/736x/dc/e6/72/dce67240d40184611e1ee2d301b6d9ab.jpg",
-    ],
-    problemStatement: {
-      title: "Need More Nakama!",
-      description:
-        "The Grand Line is tough. We need strong, loyal friends to help us reach the end!",
-    },
   },
   {
-    id: "project-grand-line-map",
-    iconComponent: ServerStackIcon,
-    iconBgColor: "bg-green-600 dark:bg-green-700",
-    name: "Grand Line Navigation System",
+    id: "service-mobile-apps",
+    name: "Mobile app development",
     description:
-      "A high-tech map and log pose tracker for navigating the Grand Line.",
-    technologies: [
-      "Log Pose",
-      "Weather Science",
-      "Nami's Cartography",
-      "React",
+      "iOS and Android apps from a single codebase, taken all the way through store review and out to your users.",
+    icon: AppsIcon,
+    deliverables: [
+      "Native-feeling UI",
+      "iOS and Android builds",
+      "App Store and Play submission",
+      "Release and update pipeline",
     ],
-    cardImageUrl:
-      "https://upload.wikimedia.org/wikipedia/commons/3/39/Onepiece-welt_(2).png",
-    logoImageUrl:
-      "https://upload.wikimedia.org/wikipedia/commons/3/39/Onepiece-welt_(2).png",
-    client: "Nami",
-    company: "Straw Hat Pirates",
-    projectType: "Navigation, Mapping",
-    year: "Grand Line Era",
-    tagline: "Never get lost again! (Unless Luffy's steering)",
-    overview:
-      "Nami built a navigation system to help us survive the Grand Line's crazy weather and islands. Now we only get lost when Luffy ignores her directions!",
-    liveLink: "https://onepiece.fandom.com/wiki/Nami",
-    images: [
-      "https://preview.redd.it/one-piece-world-map-v0-phf7wbld54zc1.jpeg?width=1080&crop=smart&auto=webp&s=540c62ca48e64cade0d16c251b1e46d6ebe3197c",
-    ],
-    problemStatement: {
-      title: "Lost at Sea",
-      description:
-        "The Grand Line is full of surprises. We needed a way to track our journey and avoid danger!",
-    },
   },
 ];
 
-export const SIDE_PROJECTS: SideProject[] = [
+export const PROCESS_STEPS: ProcessStep[] = [
   {
-    id: "side-1",
-    iconComponent: PaintBrushIcon,
-    iconBgColor: "bg-pink-500 dark:bg-pink-600",
-    name: "Wanted Poster Generator",
-    tag: "OPEN SOURCE",
-    link: "#",
-    linkText: "Try Now",
+    id: "step-discover",
+    title: "Discover",
     description:
-      "Create your own pirate wanted poster! Upload a photo and get your bounty.",
-    cardImageUrl:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcRNIzKewfHkPM_RztQBv_NA4JyRlgVi6cgA&s",
-    year: "2024",
-    projectType: "Web App",
-    tagline: "Make yourself look dangerous — even if you just ate meat.",
-    overview:
-      "A fun demo product page showing how side projects can open a full details view in this portfolio template.",
-    technologies: ["React", "Canvas", "Typography"],
-    keyFeatures: [
-      "Upload a face and generate a poster",
-      "Customize bounty text",
-      "Export as image",
-    ],
+      "We dig into your business, your customers and whatever you have today. You get a written scope with a fixed price before anything is built.",
   },
   {
-    id: "side-2",
-    iconComponent: CpuChipIcon,
-    iconBgColor: "bg-teal-500 dark:bg-teal-600",
-    name: "Devil Fruit Encyclopedia",
-    tag: "LIVE DEMO",
-    link: "#",
-    linkText: "Explore",
+    id: "step-design",
+    title: "Design",
     description:
-      "Browse all known Devil Fruits and their powers. Beware of side effects!",
-    cardImageUrl:
-      "https://static.vecteezy.com/system/resources/previews/046/805/836/non_2x/devil-fruits-gomu-gomu-no-monkey-d-luffy-one-piece-free-png.png",
+      "Layouts and flows in the browser, not static mockups you have to imagine. You review real screens and we iterate until it's right.",
+  },
+  {
+    id: "step-build",
+    title: "Build",
+    description:
+      "Built in weekly increments on a staging URL you can open any time. No black box, no waiting until the end to see progress.",
+  },
+  {
+    id: "step-launch",
+    title: "Launch & iterate",
+    description:
+      "We handle the migration, redirects and monitoring. Then we stay on to measure what's working and keep improving it.",
+  },
+];
+
+export const PROCESS_STEP_ICONS = [
+  SearchIcon,
+  PenToolIcon,
+  TerminalIcon,
+  SendIcon,
+];
+
+/**
+ * Client website work.
+ * TODO: replace all sample entries with real projects, and add images to
+ * `cardImageUrl`, `logoImageUrl` and `images`.
+ */
+export const WEBSITE_PROJECTS: WebsiteProject[] = [
+  {
+    id: "northwind-dental",
+    name: "Northwind Dental",
+    client: "Northwind Dental",
+    industry: "Healthcare",
+    workType: "Modernization",
     year: "2025",
-    projectType: "Web App",
-    tagline: "Know every fruit before you bite it.",
-    overview: "Example product with richer metadata for the details page.",
-    technologies: ["React", "Search", "Content"],
+    description:
+      "A 2014-era practice site rebuilt into a fast, bookable site that ranks.",
+    tagline:
+      "Twelve years of accumulated plugins replaced with a site that loads in under a second.",
+    overview:
+      "Northwind had a site that technically worked but took nine seconds to load on mobile and had no way to book an appointment. We rebuilt it from scratch, kept every ranking URL intact, and wired online booking straight into the practice management system.",
+    services: [
+      "UX audit",
+      "Visual redesign",
+      "Performance rebuild",
+      "SEO migration",
+    ],
+    technologies: ["React", "TypeScript", "Tailwind CSS", "Vite"],
+    liveLink: "",
+    metrics: [
+      { label: "Load time", value: "9.1s → 0.8s" },
+      { label: "Mobile bookings", value: "+240%" },
+      { label: "PageSpeed", value: "34 → 99" },
+    ],
+    challenge:
+      "The old site was built on a theme that had been patched for a decade. Every page loaded the same three megabytes of scripts, and patients had to phone during opening hours to book.",
+    solution:
+      "A clean rebuild with booking as the primary action on every page. We mapped all 180 existing URLs to their new homes so the practice kept its first-page rankings through the switch.",
+    testimonial: {
+      id: "testimonial-northwind",
+      quote:
+        "Our old site was embarrassing and we knew it. The new one loads instantly and patients book themselves in overnight, which has quietly removed a job from our front desk.",
+      authorName: "Dr. Elena Marcu",
+      authorRole: "Practice Owner",
+      company: "Northwind Dental",
+    },
   },
   {
-    id: "side-3",
-    iconComponent: PencilIcon,
-    iconBgColor: "bg-yellow-500 dark:bg-yellow-600",
-    name: "Zoro's Sword Tracker",
-    tag: "Live on Play Store",
-    playStoreStats: {
-      downloads: "1K+",
-      rating: "4.5",
-    },
-    link: "#",
-    linkText: "Play Store",
-    description: "Keep track of all swords Zoro has owned (and lost).",
-    cardImageUrl:
-      "https://image.made-in-china.com/202f0j00wtkMBPJAMEqi/104cm-Roronoa-Zoro-Carbon-Steel-One-Piece-Anime-Cartoon-Cosplay-Sword-Purple.webp",
-    year: "2026",
-    projectType: "Android App",
-    tagline: "Never lose a sword again (or do, and still track it).",
+    id: "atlas-strength",
+    name: "Atlas Strength",
+    client: "Atlas Strength",
+    industry: "Fitness",
+    workType: "New build",
+    year: "2025",
+    description:
+      "A membership site with class schedules and a members-only portal.",
+    tagline: "A gym site that sells memberships while the front desk sleeps.",
     overview:
-      "Demo of Play Store metrics badges (downloads + average rating) on product cards and detail pages.",
-    technologies: ["Android", "Flutter"],
+      "Atlas was opening a second location and running everything through direct messages. We built a site with live class schedules, trainer profiles and self-serve membership signup.",
+    services: [
+      "Brand-aligned design",
+      "Design system",
+      "Site build",
+      "Payments integration",
+    ],
+    technologies: ["React", "TypeScript", "Tailwind CSS", "Stripe"],
+    liveLink: "",
+    metrics: [
+      { label: "Signups in month one", value: "180" },
+      { label: "Admin time saved", value: "6 hrs/week" },
+    ],
+    challenge:
+      "Two locations, twelve trainers and a schedule that changed weekly, all managed by hand in a spreadsheet and posted to social media.",
+    solution:
+      "A schedule the staff edit themselves, trainer pages that double as landing pages, and membership checkout that works on a phone in the car park.",
+    testimonial: {
+      id: "testimonial-atlas",
+      quote:
+        "They asked better questions than the two agencies we spoke to before. The schedule alone saves us most of a day every week.",
+      authorName: "Tom Ridley",
+      authorRole: "Co-founder",
+      company: "Atlas Strength",
+    },
+  },
+  {
+    id: "verdant-interiors",
+    name: "Verdant Interiors",
+    client: "Verdant Interiors",
+    industry: "Design & architecture",
+    workType: "Redesign",
+    year: "2024",
+    description:
+      "A portfolio redesign that turned browsing into enquiries.",
+    tagline: "Beautiful work that was being let down by the site showing it.",
+    overview:
+      "Verdant's project photography was excellent and their old site made it look small. We rebuilt the portfolio around full-width imagery with a clear enquiry path on every project page.",
+    services: ["Visual redesign", "Content strategy", "Site build"],
+    technologies: ["React", "TypeScript", "Tailwind CSS"],
+    liveLink: "",
+    metrics: [
+      { label: "Enquiry rate", value: "+85%" },
+      { label: "Time on page", value: "1:10 → 3:40" },
+    ],
+    challenge:
+      "Thumbnail-sized images in a rigid grid, and a contact form buried three clicks deep.",
+    solution:
+      "Photography at the scale it deserves, project stories written as case studies, and an enquiry form attached to every project.",
+    testimonial: {
+      id: "testimonial-verdant",
+      quote:
+        "We finally have a site that looks like the work we do. Clients now arrive at the first call already knowing what we're capable of.",
+      authorName: "Sofia Lindqvist",
+      authorRole: "Principal Designer",
+      company: "Verdant Interiors",
+    },
+  },
+  {
+    id: "harbor-logistics",
+    name: "Harbor Logistics",
+    client: "Harbor Logistics",
+    industry: "Logistics",
+    workType: "Modernization",
+    year: "2024",
+    description:
+      "A corporate site plus a customer tracking portal on one codebase.",
+    tagline: "One rebuild that replaced a brochure site and three spreadsheets.",
+    overview:
+      "Harbor needed a credible public site and a place for customers to check shipment status without emailing an account manager. We shipped both together on one stack.",
+    services: [
+      "Information architecture",
+      "Visual redesign",
+      "Portal build",
+      "Accessibility pass",
+    ],
+    technologies: ["React", "TypeScript", "Tailwind CSS", "Node.js"],
+    liveLink: "",
+    metrics: [
+      { label: "Status emails", value: "-70%" },
+      { label: "WCAG level", value: "AA" },
+    ],
+    challenge:
+      "Customers phoned or emailed for every shipment update, and the public site hadn't been touched since 2016.",
+    solution:
+      "A modern marketing site with a logged-in tracking portal behind it, so account managers stopped being a lookup service.",
+    testimonial: {
+      id: "testimonial-harbor",
+      quote:
+        "The portal paid for the whole project inside a quarter. Our account managers got their mornings back.",
+      authorName: "Marcus Vogel",
+      authorRole: "Operations Director",
+      company: "Harbor Logistics",
+    },
+  },
+];
+
+/**
+ * Web and mobile apps.
+ * TODO: replace all sample entries with real work, and add images to
+ * `cardImageUrl` and `images`.
+ */
+export const APP_PROJECTS: AppProject[] = [
+  {
+    id: "sitepulse",
+    name: "SitePulse",
+    kind: "Web App",
+    platforms: ["Web"],
+    tag: "Live",
+    year: "2025",
+    client: "FabricaLabs",
+    description:
+      "An uptime and performance dashboard we run for every site we ship.",
+    tagline: "We got tired of finding out about outages from our clients.",
+    overview:
+      "SitePulse watches every site we maintain, tracks Core Web Vitals over time and alerts us before a client notices. It started as an internal tool and is now part of every maintenance plan.",
+    technologies: ["React", "TypeScript", "Node.js", "PostgreSQL"],
     keyFeatures: [
-      "Log every sword in the collection",
-      "Mark lost / found status",
-      "Share bounty-ready screenshots",
+      "Per-site uptime and response monitoring",
+      "Core Web Vitals tracked over time",
+      "Alerts to email and Slack",
+      "Monthly client-ready reports",
+    ],
+    link: "",
+    linkText: "View app",
+    metrics: [
+      { label: "Sites monitored", value: "40+" },
+      { label: "Check interval", value: "60s" },
     ],
   },
   {
-    id: "side-4",
-    iconComponent: PuzzlePieceIcon,
-    iconBgColor: "bg-indigo-500 dark:bg-indigo-600",
-    name: "Chopper's Medical Kit",
-    tag: "HOBBY PROJECT",
-    link: "#",
-    linkText: "View Kit",
+    id: "atlas-member-app",
+    name: "Atlas Member App",
+    kind: "Mobile App",
+    platforms: ["iOS", "Android", "Cross-platform"],
+    tag: "Live in both stores",
+    year: "2025",
+    client: "Atlas Strength",
     description:
-      "A digital guide to Chopper's favorite remedies and medicines.",
-    cardImageUrl: "https://s1.zerochan.net/Tony.Tony.Chopper.600.2356091.jpg",
-    year: "2023",
-    projectType: "Web Tool",
+      "Class booking, check-in and membership management in members' pockets.",
+    tagline: "The gym counter, rebuilt as an app members actually open.",
+    overview:
+      "Built on the same backend as the Atlas Strength website, the app lets members book classes, check in with a QR code and manage their membership without talking to anyone.",
+    technologies: ["React Native", "TypeScript", "Expo", "Stripe"],
+    keyFeatures: [
+      "Class booking with waitlists",
+      "QR check-in at the door",
+      "Membership and payment management",
+      "Push reminders before class",
+    ],
+    link: "",
+    linkText: "View app",
+    storeStats: {
+      downloads: "5K+",
+      rating: "4.7",
+    },
+    testimonial: {
+      id: "testimonial-atlas-app",
+      quote:
+        "Members booked more classes in the first month on the app than in the previous three combined.",
+      authorName: "Tom Ridley",
+      authorRole: "Co-founder",
+      company: "Atlas Strength",
+    },
+  },
+  {
+    id: "harbor-track",
+    name: "Harbor Track",
+    kind: "Web App",
+    platforms: ["Web"],
+    tag: "Live",
+    year: "2024",
+    client: "Harbor Logistics",
+    description:
+      "A customer portal for live shipment status and document history.",
+    tagline: "Shipment status without sending a single email.",
+    overview:
+      "Harbor's customers log in to see where their freight is, download paperwork and review history. It replaced a shared inbox and a stack of spreadsheets.",
+    technologies: ["React", "TypeScript", "Node.js", "PostgreSQL"],
+    keyFeatures: [
+      "Live shipment tracking",
+      "Document and invoice history",
+      "Role-based access per customer",
+      "CSV export for finance teams",
+    ],
+    link: "",
+    linkText: "View app",
+    metrics: [
+      { label: "Status emails", value: "-70%" },
+      { label: "Active accounts", value: "300+" },
+    ],
+  },
+  {
+    id: "northwind-booking",
+    name: "Northwind Booking",
+    kind: "Mobile App",
+    platforms: ["iOS", "Android", "Cross-platform"],
+    tag: "In development",
+    year: "2026",
+    client: "Northwind Dental",
+    description:
+      "Appointment booking and reminders for a multi-site dental practice.",
+    tagline: "Fewer no-shows, fewer phone calls.",
+    overview:
+      "A companion app to the Northwind website that handles booking, rescheduling and treatment reminders, syncing with the practice management system the staff already use.",
+    technologies: ["React Native", "TypeScript", "Expo"],
+    keyFeatures: [
+      "Book and reschedule appointments",
+      "Treatment and check-up reminders",
+      "Practice management sync",
+      "Family profiles on one account",
+    ],
+    link: "",
+    linkText: "Coming soon",
   },
 ];
+
+/** Feedback shown on the websites page. Pulled from client projects. */
+export const TESTIMONIALS: Testimonial[] = WEBSITE_PROJECTS.map(
+  (project) => project.testimonial
+).filter((testimonial): testimonial is Testimonial => Boolean(testimonial));
 
 export const SOCIAL_LINKS: SocialLink[] = [
-  {
-    name: "Instagram",
-    url: "https://instagram.com/monkeydluffy",
-    icon: InstagramIcon,
-  },
+  // TODO: point these at your real profiles
   {
     name: "LinkedIn",
     url: "https://linkedin.com/",
     icon: LinkedinIcon,
   },
-  { name: "GitHub", url: "https://github.com/", icon: GithubIcon },
+  {
+    name: "GitHub",
+    url: "https://github.com/",
+    icon: GithubIcon,
+  },
+  {
+    name: "Instagram",
+    url: "https://instagram.com/",
+    icon: InstagramIcon,
+  },
 ];
 
-export const SKILLS: Skill[] = [
-  {
-    name: "Gum-Gum Powers",
-    backgroundColor: "bg-yellow-400",
-    textColor: "text-black",
-    icon: FiRefreshCw, // reuse React icon for stretching
-  },
-  {
-    name: "Haki",
-    backgroundColor: "bg-indigo-700",
-    textColor: "text-white",
-    icon: FiShield, // shield for protection
-  },
-  {
-    name: "Navigation",
-    backgroundColor: "bg-blue-500",
-    textColor: "text-white",
-    icon: FiWind, // wind for sailing
-  },
-  {
-    name: "Swordsmanship",
-    backgroundColor: "bg-green-600",
-    textColor: "text-white",
-    icon: PencilIcon, // pencil as a sword (closest match)
-  },
-  {
-    name: "Cooking",
-    backgroundColor: "bg-red-500",
-    textColor: "text-white",
-    icon: FiCoffee, // coffee for food
-  },
-  {
-    name: "Medical Skills",
-    backgroundColor: "bg-pink-400",
-    textColor: "text-white",
-    icon: PuzzlePieceIcon, // puzzle for Chopper's medical kit
-  },
-  {
-    name: "Sniping",
-    backgroundColor: "bg-yellow-500",
-    textColor: "text-black",
-    icon: DocumentDuplicateIcon, // document icon for Usopp
-  },
-  {
-    name: "Shipwright",
-    backgroundColor: "bg-blue-700",
-    textColor: "text-white",
-    icon: ServerStackIcon, // server stack for building
-  },
-  {
-    name: "Archaeology",
-    backgroundColor: "bg-purple-500",
-    textColor: "text-white",
-    icon: DocumentDuplicateIcon, // document icon for Robin
-  },
-  {
-    name: "Music",
-    backgroundColor: "bg-indigo-500",
-    textColor: "text-white",
-    icon: FiFeather, // feather for music (closest match)
-  },
-  {
-    name: "Fishman Karate",
-    backgroundColor: "bg-teal-500",
-    textColor: "text-white",
-    icon: FiHexagon, // hexagon for Jinbe
-  },
-  {
-    name: "Dream Chasing",
-    backgroundColor: "bg-orange-400",
-    textColor: "text-white",
-    icon: RocketLaunchIcon, // rocket for dreams
-  },
-  {
-    name: "Meat Eating",
-    backgroundColor: "bg-red-600",
-    textColor: "text-white",
-    icon: ShoppingBagIcon, // shopping bag for food
-  },
-  {
-    name: "Friendship",
-    backgroundColor: "bg-green-400",
-    textColor: "text-white",
-    icon: CheckBadgeIcon, // badge for friendship
-  },
-];
+/**
+ * Visitor count shown on the home hero.
+ *
+ * Default: static number, no Firebase needed.
+ * Live count: set enableLiveCount to true and add your Firebase keys to .env
+ * (see VISITOR_COUNTER_SETUP.md).
+ */
+export const VISITOR_STATS = {
+  staticCount: 12400, // TODO: replace or switch on live counting
+  enableLiveCount: false,
+};

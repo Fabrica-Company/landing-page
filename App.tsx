@@ -1,32 +1,55 @@
-import React, { useRef, useState, useEffect, useCallback } from 'react';
-import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from 'react-router-dom';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  useLocation,
+  useNavigate,
+} from 'react-router-dom';
 import { useSwipeable } from 'react-swipeable';
+import { useLenis } from 'lenis/react';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
-import { ProjectsSection } from './components/ProjectsSection';
-import { SideProjectsSection } from './components/SideProjectsSection';
+import { ServicesSection } from './components/ServicesSection';
+import { WebsitesSection } from './components/WebsitesSection';
+import { AppsSection } from './components/AppsSection';
+import { ProcessSection } from './components/ProcessSection';
+import { TestimonialsSection } from './components/TestimonialsSection';
 import { CallToAction } from './components/CallToAction';
 import { Footer } from './components/Footer';
-import { AboutPage } from './components/AboutPage';
-import { ProjectsPage } from './components/ProjectsPage';
-import { ProductsPage } from './components/ProductsPage';
-import { HireMePage } from './components/HireMePage';
-import { ProjectDetailsPage } from './components/ProjectDetailsPage';
-import { SideProjectDetailsPage } from './components/SideProjectDetailsPage';
-import { PERSONAL_INFO, PROJECTS, SIDE_PROJECTS, SOCIAL_LINKS, SKILLS, DEVELOPER_CREDIT } from './constants';
+import { WebsitesPage } from './components/WebsitesPage';
+import { WebsiteDetailsPage } from './components/WebsiteDetailsPage';
+import { AppsPage } from './components/AppsPage';
+import { AppDetailsPage } from './components/AppDetailsPage';
+import { ContactPage } from './components/ContactPage';
 import { IntroAnimation } from './components/IntroAnimation';
-import { SmoothScrollProvider, SmoothScrollToTop } from './components/SmoothScrollProvider';
-import { useLenis } from 'lenis/react';
+import {
+  SmoothScrollProvider,
+  SmoothScrollToTop,
+} from './components/SmoothScrollProvider';
+import {
+  APP_PROJECTS,
+  COMPANY_INFO,
+  COMPANY_STATS,
+  NAV_ITEMS_MAIN,
+  PROCESS_STEPS,
+  SERVICES,
+  SOCIAL_LINKS,
+  TESTIMONIALS,
+  WEBSITE_PROJECTS,
+} from './constants';
 import clickSound from './assets/click_sound.wav';
 
-// Wrapper component to handle navigation and theme
+/** Left-to-right order used by mobile swipe navigation. */
+const MENU_TABS = ['home', 'websites', 'apps'];
+
 const AppContent: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const lenis = useLenis();
   const [showIntro, setShowIntro] = useState(true);
-  
-  // Theme state initialization
+  const [isTransitioning, setIsTransitioning] = useState(false);
+
   const [theme, setTheme] = useState<'light' | 'dark'>(() => {
     if (typeof window !== 'undefined') {
       return (localStorage.getItem('theme') as 'light' | 'dark') || 'light';
@@ -34,14 +57,9 @@ const AppContent: React.FC = () => {
     return 'light';
   });
 
-  const [isTransitioning, setIsTransitioning] = useState(false);
-
-  const handleAnimationComplete = useCallback(() => {
-    setShowIntro(false);
-  }, []);
+  const handleAnimationComplete = useCallback(() => setShowIntro(false), []);
 
   useEffect(() => {
-    // Sync theme with HTML class and localStorage
     if (theme === 'dark') {
       document.documentElement.classList.add('dark');
     } else {
@@ -53,7 +71,7 @@ const AppContent: React.FC = () => {
   }, [theme]);
 
   useEffect(() => {
-    // Global UI click sound for buttons/menus
+    // Global UI click sound for buttons and menus.
     const audio = new Audio(clickSound);
     audio.preload = 'auto';
     audio.volume = 0.35;
@@ -62,11 +80,12 @@ const AppContent: React.FC = () => {
       const target = event.target as HTMLElement | null;
       if (!target) return;
 
-      // Skip form typing interactions
+      // Skip form typing interactions.
       if (target.closest('input, textarea, select, label')) return;
 
-      // Play for interactive UI controls
-      const interactive = target.closest('button, a, [role="button"], [data-click-sound="true"]');
+      const interactive = target.closest(
+        'button, a, [role="button"], [data-click-sound="true"]'
+      );
       if (!interactive) return;
       if ((interactive as HTMLButtonElement).disabled) return;
       if (interactive.getAttribute('aria-disabled') === 'true') return;
@@ -75,7 +94,7 @@ const AppContent: React.FC = () => {
         audio.currentTime = 0;
         void audio.play();
       } catch {
-        // Ignore autoplay / platform restrictions
+        // Ignore autoplay / platform restrictions.
       }
     };
 
@@ -86,117 +105,105 @@ const AppContent: React.FC = () => {
     };
   }, []);
 
-  const toggleTheme = useCallback(
-    (_event?: React.MouseEvent) => {
-      const nextTheme = theme === 'light' ? 'dark' : 'light';
-      const doc = document as unknown as {
-        startViewTransition?: (cb: () => void) => {
-          ready: Promise<void>;
-          finished: Promise<void>;
-        };
+  const toggleTheme = useCallback(() => {
+    const nextTheme = theme === 'light' ? 'dark' : 'light';
+    const doc = document as unknown as {
+      startViewTransition?: (callback: () => void) => {
+        ready: Promise<void>;
+        finished: Promise<void>;
       };
+    };
 
-      document.documentElement.setAttribute('data-theme-transition', nextTheme);
+    document.documentElement.setAttribute('data-theme-transition', nextTheme);
 
-      if (doc.startViewTransition) {
-        const transition = doc.startViewTransition(() => {
-          setTheme(nextTheme);
-        });
-
-        void transition.finished.finally(() => {
-          document.documentElement.removeAttribute('data-theme-transition');
-        });
-        return;
-      }
-
-      // Fallback: plain state toggle
-      setTheme(nextTheme);
-      window.setTimeout(() => {
+    if (doc.startViewTransition) {
+      const transition = doc.startViewTransition(() => setTheme(nextTheme));
+      void transition.finished.finally(() => {
         document.documentElement.removeAttribute('data-theme-transition');
-      }, 500);
+      });
+      return;
+    }
+
+    setTheme(nextTheme);
+    window.setTimeout(() => {
+      document.documentElement.removeAttribute('data-theme-transition');
+    }, 500);
+  }, [theme]);
+
+  const handleSetPage = useCallback(
+    (page: string, itemId?: string) => {
+      setIsTransitioning(true);
+      window.setTimeout(() => {
+        if (page === 'home') {
+          navigate('/');
+        } else if (page === 'website-detail' && itemId) {
+          navigate(`/websites/${itemId}`);
+        } else if (page === 'app-detail' && itemId) {
+          navigate(`/apps/${itemId}`);
+        } else {
+          navigate(`/${page}`);
+        }
+
+        setIsTransitioning(false);
+        if (lenis) {
+          lenis.scrollTo(0, { immediate: true });
+        } else {
+          window.scrollTo(0, 0);
+        }
+      }, 150);
     },
-    [theme]
+    [navigate, lenis]
   );
 
-  const handleSetPage = useCallback((page: string, projectId?: string) => {
-    setIsTransitioning(true);
-    setTimeout(() => {
-      if (page === 'home') {
-        navigate('/');
-      } else if (page === 'project-detail' && projectId) {
-        navigate(`/project/${projectId}`);
-      } else {
-        navigate(`/${page}`);
-      }
-      setIsTransitioning(false);
-      if (lenis) {
-        lenis.scrollTo(0, { immediate: true });
-      } else {
-        window.scrollTo(0, 0);
-      }
-    }, 150);
-  }, [navigate, lenis]);
+  const path = location.pathname;
 
-  // Menu tab order for swipe navigation
-  const menuTabs = ['home', 'about', 'projects', 'products', 'hire'];
-
-  // Get current page from location
-  const getCurrentPage = () => {
-    const path = location.pathname;
+  // Detail pages keep their section's nav pill lit.
+  const currentPage = (() => {
     if (path === '/') return 'home';
-    if (path.startsWith('/project/')) return 'project-detail';
-    return path.slice(1); // Remove leading slash
-  };
+    if (path.startsWith('/websites')) return 'websites';
+    if (path.startsWith('/apps')) return 'apps';
+    return path.slice(1);
+  })();
 
-  const currentPage = getCurrentPage();
+  const isDetailPage = /^\/(websites|apps)\/.+/.test(path);
 
-  // Swipe gesture handlers (only on mobile, not on project-detail)
-  const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
-  const currentTabIdx = menuTabs.indexOf(currentPage);
+  const isMobile =
+    typeof window !== 'undefined' && window.innerWidth <= 768;
+  const currentTabIdx = MENU_TABS.indexOf(currentPage);
   const swipeStartAllowedRef = useRef(true);
-  const swipeStartAtRef = useRef<{ x: number; y: number } | null>(null);
 
-  const goToTab = (idx: number) => {
-    if (idx >= 0 && idx < menuTabs.length) {
-      handleSetPage(menuTabs[idx]);
+  const goToTab = (index: number) => {
+    if (index >= 0 && index < MENU_TABS.length) {
+      handleSetPage(MENU_TABS[index]);
     }
   };
-  const swipeHandlers = useSwipeable({
-    onSwipeStart: (e) => {
-      // Only allow deliberate horizontal swipe starting from middle of the screen.
-      // This reduces accidental tab changes when user slightly drags/scrolls.
-      const touch = 'touches' in e && e.touches && e.touches[0] ? e.touches[0] : null;
-      const x = touch?.clientX ?? 0;
-      const y = touch?.clientY ?? 0;
-      swipeStartAtRef.current = { x, y };
 
-      const w = window.innerWidth || 1;
-      const startRatio = x / w;
+  const canSwipe = isMobile && currentTabIdx !== -1 && !isDetailPage;
+
+  const swipeHandlers = useSwipeable({
+    onSwipeStart: (event) => {
+      // Only deliberate horizontal swipes from the middle of the screen count,
+      // so slight drags while scrolling don't change tabs.
+      const startRatio = event.initial[0] / (window.innerWidth || 1);
       const withinMiddle = startRatio >= 0.22 && startRatio <= 0.78;
 
-      const target = e.target as HTMLElement | null;
+      const target = event.event.target as HTMLElement | null;
       const isTyping = !!target?.closest('input, textarea, select, label');
       const isInteractive = !!target?.closest('button, a, [role="button"]');
 
       swipeStartAllowedRef.current = withinMiddle && !isTyping && !isInteractive;
     },
     onSwipedLeft: () => {
-      if (!swipeStartAllowedRef.current) return;
-      if (isMobile && currentTabIdx !== -1 && currentPage !== 'project-detail') {
-        goToTab(currentTabIdx + 1);
-      }
+      if (!swipeStartAllowedRef.current || !canSwipe) return;
+      goToTab(currentTabIdx + 1);
     },
     onSwipedRight: () => {
-      if (!swipeStartAllowedRef.current) return;
-      if (isMobile && currentTabIdx !== -1 && currentPage !== 'project-detail') {
-        goToTab(currentTabIdx - 1);
-      }
+      if (!swipeStartAllowedRef.current || !canSwipe) return;
+      goToTab(currentTabIdx - 1);
     },
     trackTouch: true,
     trackMouse: false,
-    // Make swipe less sensitive so slight moves don't switch pages
     delta: 60,
-    // Prefer allowing scroll unless a real swipe happens
     preventScrollOnSwipe: false,
   });
 
@@ -213,126 +220,139 @@ const AppContent: React.FC = () => {
         theme={theme}
         toggleTheme={toggleTheme}
       />
-      <main 
-        key={location.pathname} // Force re-render on route change for animations
-        className={`w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-16 md:space-y-24 flex-grow page-transition ${isTransitioning ? 'page-fade-exit-active' : 'page-fade-enter-active'}`}
+
+      <main
+        key={location.pathname} // Re-run entry animations on route change.
+        className={`w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-16 md:space-y-24 flex-grow page-transition ${
+          isTransitioning ? 'page-fade-exit-active' : 'page-fade-enter-active'
+        }`}
       >
         <Routes>
-          <Route path="/" element={
-            <>
-              <Hero
-                name={PERSONAL_INFO.name}
-                title={PERSONAL_INFO.title}
-                bio={PERSONAL_INFO.bio}
-                imageUrl={PERSONAL_INFO.imageUrl}
-                email={PERSONAL_INFO.email}
-                circularText={PERSONAL_INFO.circularText}
-                circularTextLetterSpacing={PERSONAL_INFO.circularTextLetterSpacing}
-                animatedNameEnglish={PERSONAL_INFO.animatedNameEnglish}
-                animatedNameJapanese={PERSONAL_INFO.animatedNameJapanese}
-                instagramUrl={SOCIAL_LINKS.find((link) => link.name === 'Instagram')?.url ?? 'https://instagram.com'}
-                setCurrentPage={handleSetPage}
-              />
-              <ProjectsSection 
-                projects={PROJECTS} 
-                onViewAllClick={() => handleSetPage('projects')} 
-                setCurrentPage={handleSetPage}
-                title="Featured Projects"
-                maxItems={3}
-              />
-              <SideProjectsSection 
-                sideProjects={SIDE_PROJECTS} 
-                title="Explore My Products" 
-                onViewAllClick={() => handleSetPage('products')}
-                viewAllText="View All Products"
-              />
-              <CallToAction email={PERSONAL_INFO.email} setCurrentPage={handleSetPage} />
-            </>
-          } />
-          
-          <Route path="/about" element={
-            <AboutPage 
-              personalInfo={PERSONAL_INFO} 
-              sideProjects={SIDE_PROJECTS} 
-              email={PERSONAL_INFO.email} 
-              setCurrentPage={handleSetPage} 
-              theme={theme} 
-              skills={SKILLS} 
-            />
-          } />
-          
-          <Route path="/projects" element={
-            <ProjectsPage 
-              projects={PROJECTS} 
-              sideProjects={SIDE_PROJECTS} 
-              email={PERSONAL_INFO.email} 
-              setCurrentPage={handleSetPage} 
-            />
-          } />
-          
-          <Route path="/products" element={
-            <ProductsPage 
-              sideProjects={SIDE_PROJECTS} 
-              personalInfo={{email: PERSONAL_INFO.email, productsPageIntro: PERSONAL_INFO.productsPageIntro }} 
-              setCurrentPage={handleSetPage} 
-            />
-          } />
+          <Route
+            path="/"
+            element={
+              <>
+                <Hero
+                  company={COMPANY_INFO}
+                  stats={COMPANY_STATS}
+                  setCurrentPage={handleSetPage}
+                />
+                <ServicesSection
+                  services={SERVICES}
+                  title="What we do"
+                  subtitle="Four things, done properly: new sites, modernizing dated ones, and web and mobile apps."
+                />
+                <WebsitesSection
+                  websites={WEBSITE_PROJECTS}
+                  setCurrentPage={handleSetPage}
+                  title="Recent client websites"
+                  subtitle="Sites we designed, rebuilt and modernized — and what changed for the business afterwards."
+                  maxItems={2}
+                  onViewAllClick={() => handleSetPage('websites')}
+                />
+                <AppsSection
+                  apps={APP_PROJECTS}
+                  setCurrentPage={handleSetPage}
+                  title="Web & mobile apps"
+                  subtitle="Product work that goes beyond a website: portals, dashboards and apps in the stores."
+                  maxItems={2}
+                  onViewAllClick={() => handleSetPage('apps')}
+                />
+                <ProcessSection
+                  steps={PROCESS_STEPS}
+                  title="How we work"
+                  subtitle="A fixed scope up front, weekly progress you can click through, and support after launch."
+                />
+                <TestimonialsSection
+                  testimonials={TESTIMONIALS.slice(0, 2)}
+                  title="What clients say"
+                  subtitle="Feedback from the people who signed off on the work."
+                />
+                <CallToAction setCurrentPage={handleSetPage} />
+              </>
+            }
+          />
 
-          <Route path="/product/:sideProjectId" element={
-            <SideProjectDetailsPage
-              setCurrentPage={handleSetPage}
-              email={PERSONAL_INFO.email}
-            />
-          } />
-          
-          <Route path="/hire" element={
-            <HireMePage 
-              personalInfo={PERSONAL_INFO} 
-              socialLinks={SOCIAL_LINKS} 
-              setCurrentPage={handleSetPage} 
-            />
-          } />
-          
-          <Route path="/project/:projectId" element={
-            <ProjectDetailsPage 
-              setCurrentPage={handleSetPage}
-              email={PERSONAL_INFO.email}
-            />
-          } />
-          
-          <Route path="*" element={
-            <div className="text-center py-10">
-              <h1 className="text-2xl font-bold mb-4">Page Not Found</h1>
-              <p className="text-text-secondary dark:text-dark-text-secondary mb-6">The page you are looking for does not exist.</p>
-              <button
-                onClick={() => handleSetPage('home')}
-                className="px-4 py-2 bg-button-primary-bg text-button-primary-text rounded-lg hover:bg-button-primary-hover"
-              >
-                Go Home
-              </button>
-            </div>
-          } />
+          <Route
+            path="/websites"
+            element={
+              <WebsitesPage
+                websites={WEBSITE_PROJECTS}
+                testimonials={TESTIMONIALS}
+                intro={COMPANY_INFO.websitesPageIntro}
+                setCurrentPage={handleSetPage}
+              />
+            }
+          />
+
+          <Route
+            path="/websites/:websiteId"
+            element={<WebsiteDetailsPage setCurrentPage={handleSetPage} />}
+          />
+
+          <Route
+            path="/apps"
+            element={
+              <AppsPage
+                apps={APP_PROJECTS}
+                intro={COMPANY_INFO.appsPageIntro}
+                setCurrentPage={handleSetPage}
+              />
+            }
+          />
+
+          <Route
+            path="/apps/:appId"
+            element={<AppDetailsPage setCurrentPage={handleSetPage} />}
+          />
+
+          <Route
+            path="/contact"
+            element={
+              <ContactPage
+                company={COMPANY_INFO}
+                setCurrentPage={handleSetPage}
+              />
+            }
+          />
+
+          <Route
+            path="*"
+            element={
+              <div className="text-center py-10">
+                <h1 className="text-2xl font-bold mb-4">Page not found</h1>
+                <p className="text-text-secondary dark:text-dark-text-secondary mb-6">
+                  The page you are looking for does not exist.
+                </p>
+                <button
+                  type="button"
+                  onClick={() => handleSetPage('home')}
+                  className="px-4 py-2 rounded-lg bg-button-primary-bg dark:bg-dark-button-primary-bg text-button-primary-text dark:text-dark-button-primary-text hover:bg-button-primary-hover dark:hover:bg-dark-button-primary-hover transition-colors"
+                >
+                  Go home
+                </button>
+              </div>
+            }
+          />
         </Routes>
       </main>
+
       <Footer
+        company={COMPANY_INFO}
         socialLinks={SOCIAL_LINKS}
-        developerName={DEVELOPER_CREDIT.name}
-        developerUrl={DEVELOPER_CREDIT.url}
-        animatedNameEnglish={DEVELOPER_CREDIT.animatedNameEnglish}
-        animatedNameJapanese={DEVELOPER_CREDIT.animatedNameJapanese}
+        navItems={NAV_ITEMS_MAIN}
+        setCurrentPage={handleSetPage}
       />
     </div>
   );
 };
 
-const App: React.FC = () => {
-  return (
-    <SmoothScrollProvider>
-      <Router>
-        <AppContent />
-      </Router>
-    </SmoothScrollProvider>
-  );
-};
+const App: React.FC = () => (
+  <SmoothScrollProvider>
+    <Router>
+      <AppContent />
+    </Router>
+  </SmoothScrollProvider>
+);
 
 export default App;

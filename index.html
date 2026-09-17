@@ -3,8 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href="/strawHat-fav.webp" type="image/webp" />
-    <title>Monkey D. Luffy - Pirate Portfolio Template</title>
+    <title>FabricaLabs — Websites, web apps & mobile apps</title>
+    <meta
+      name="description"
+      content="FabricaLabs is a design and development studio. We design new websites, modernize dated ones, and build web and mobile apps."
+    />
+    <!-- TODO: add favicon files to the project root and link them here -->
+    <meta name="theme-color" content="#1C1C1E" />
     <script>
       // IIFE to avoid polluting global scope
       (function () {
@@ -489,191 +494,6 @@
       }
       .anim-delay-700 {
         animation-delay: 0.7s;
-      }
-
-      /* About page profile image: clean glitch (no base shake) */
-      .about-profile-glitch-wrap {
-        position: relative;
-        overflow: hidden;
-        border-radius: 0.5rem; /* keep rounded even with overflow hidden */
-        background: transparent;
-        cursor: pointer;
-        --mx: 50%;
-        --my: 50%;
-      }
-      .about-profile-glitch-base {
-        display: block;
-      }
-      /* Black & white only under cursor (masked layer) */
-      .about-profile-glitch-bw {
-        position: absolute;
-        inset: 0;
-        opacity: 0;
-        pointer-events: none;
-        filter: grayscale(1) contrast(1.08);
-        will-change:
-          opacity,
-          -webkit-mask-image,
-          mask-image;
-        -webkit-mask-image: radial-gradient(
-          circle 200px at var(--mx) var(--my),
-          rgba(0, 0, 0, 0.9) 0%,
-          rgba(0, 0, 0, 0.65) 38%,
-          rgba(0, 0, 0, 0.28) 62%,
-          rgba(0, 0, 0, 0) 85%
-        );
-        mask-image: radial-gradient(
-          circle 200px at var(--mx) var(--my),
-          rgba(0, 0, 0, 0.9) 0%,
-          rgba(0, 0, 0, 0.65) 38%,
-          rgba(0, 0, 0, 0.28) 62%,
-          rgba(0, 0, 0, 0) 85%
-        );
-      }
-      .about-profile-glitch-wrap:hover .about-profile-glitch-bw,
-      .about-profile-glitch-wrap.is-glitching .about-profile-glitch-bw {
-        opacity: 1;
-        transition: opacity 140ms ease;
-      }
-      .about-profile-glitch-layer {
-        position: absolute;
-        inset: 0;
-        opacity: 0;
-        pointer-events: none;
-        mix-blend-mode: screen;
-        will-change: opacity, clip-path, filter, transform;
-      }
-
-      @keyframes glitch-hover-a {
-        0%,
-        100% {
-          opacity: 0;
-          clip-path: inset(0 0 100% 0);
-          filter: none;
-          transform: translate3d(0, 0, 0);
-        }
-        25% {
-          opacity: 0.14;
-          clip-path: inset(18% 0 76% 0);
-          filter: hue-rotate(95deg) saturate(1.15);
-          transform: translate3d(1px, 0, 0);
-        }
-        55% {
-          opacity: 0.1;
-          clip-path: inset(62% 0 30% 0);
-          filter: hue-rotate(115deg) saturate(1.18);
-          transform: translate3d(-1px, 0, 0);
-        }
-      }
-
-      @keyframes glitch-hover-b {
-        0%,
-        100% {
-          opacity: 0;
-          clip-path: inset(0 0 100% 0);
-          filter: none;
-          transform: translate3d(0, 0, 0);
-        }
-        35% {
-          opacity: 0.12;
-          clip-path: inset(34% 0 56% 0);
-          filter: hue-rotate(-18deg) saturate(1.2) contrast(1.05);
-          transform: translate3d(-1.5px, 0, 0);
-        }
-        70% {
-          opacity: 0.08;
-          clip-path: inset(72% 0 20% 0);
-          filter: hue-rotate(-8deg) saturate(1.16);
-          transform: translate3d(1.5px, 0, 0);
-        }
-      }
-
-      /* Hover interaction: clean, subtle shimmer */
-      .about-profile-glitch-wrap:hover .about-profile-glitch-layer--a {
-        animation: glitch-hover-a 900ms ease-in-out both;
-      }
-      .about-profile-glitch-wrap:hover .about-profile-glitch-layer--b {
-        animation: glitch-hover-b 900ms ease-in-out both;
-      }
-
-      /* Click/tap interaction: short burst */
-      @keyframes glitch-burst-a {
-        0% {
-          opacity: 0;
-          clip-path: inset(0 0 100% 0);
-          filter: none;
-          transform: translate3d(0, 0, 0);
-        }
-        20% {
-          opacity: 0.32;
-          clip-path: inset(10% 0 78% 0);
-          filter: hue-rotate(110deg) saturate(1.35);
-          transform: translate3d(2px, 0, 0);
-        }
-        45% {
-          opacity: 0.26;
-          clip-path: inset(52% 0 38% 0);
-          filter: hue-rotate(135deg) saturate(1.4) contrast(1.06);
-          transform: translate3d(-2px, 0, 0);
-        }
-        70% {
-          opacity: 0.18;
-          clip-path: inset(76% 0 18% 0);
-          filter: hue-rotate(95deg) saturate(1.3);
-          transform: translate3d(1px, 0, 0);
-        }
-        100% {
-          opacity: 0;
-          clip-path: inset(0 0 100% 0);
-          filter: none;
-          transform: translate3d(0, 0, 0);
-        }
-      }
-      @keyframes glitch-burst-b {
-        0% {
-          opacity: 0;
-          clip-path: inset(0 0 100% 0);
-          filter: none;
-          transform: translate3d(0, 0, 0);
-        }
-        30% {
-          opacity: 0.24;
-          clip-path: inset(28% 0 60% 0);
-          filter: hue-rotate(-22deg) saturate(1.35) contrast(1.08);
-          transform: translate3d(-3px, 0, 0);
-        }
-        55% {
-          opacity: 0.18;
-          clip-path: inset(66% 0 26% 0);
-          filter: hue-rotate(-10deg) saturate(1.25);
-          transform: translate3d(3px, 0, 0);
-        }
-        100% {
-          opacity: 0;
-          clip-path: inset(0 0 100% 0);
-          filter: none;
-          transform: translate3d(0, 0, 0);
-        }
-      }
-      .about-profile-glitch-wrap.is-glitching .about-profile-glitch-layer--a {
-        animation: glitch-burst-a 420ms ease-out both;
-      }
-      .about-profile-glitch-wrap.is-glitching .about-profile-glitch-layer--b {
-        animation: glitch-burst-b 420ms ease-out both;
-      }
-
-      @media (prefers-reduced-motion: reduce) {
-        .about-profile-glitch-layer {
-          animation: none !important;
-          filter: none !important;
-          transform: none !important;
-          opacity: 0 !important;
-        }
-        .about-profile-glitch-bw {
-          opacity: 0 !important;
-          -webkit-mask-image: none !important;
-          mask-image: none !important;
-        }
       }
     </style>
     <script type="importmap">

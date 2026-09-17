@@ -11,93 +11,134 @@ export interface NavItem {
   icon: React.ComponentType<IconProps>;
 }
 
-export interface PersonalInfo {
+export interface CompanyInfo {
   name: string;
-  title: string;
-  bio: string;
-  imageUrl: string;
+  /** Short label shown above the hero headline. */
+  tagline: string;
+  /** Static first half of the hero headline, e.g. "We design". */
+  heroHeadlinePrefix: string;
+  /** Words cycled after the prefix, e.g. "websites", "web apps". */
+  heroRotatingWords: string[];
+  /** Static text closing the hero headline. */
+  heroHeadlineSuffix: string;
+  heroDescription: string;
   email: string;
-  /** Text spinning around the profile image on the home hero. Falls back to name if omitted. */
-  circularText?: string;
-  /** Letter spacing for the circular text (CSS value, e.g. "0.9em", "4px"). */
-  circularTextLetterSpacing?: string;
-  /** English word that swaps with Japanese on home / about title / footer */
-  animatedNameEnglish?: string;
-  /** Japanese (or alt) text shown in the name swap animation */
-  animatedNameJapanese?: string;
-  /** First letter shown in the opening intro animation */
-  introLetter1?: string;
-  /** Second letter shown in the opening intro animation */
-  introLetter2?: string;
-  /** Tagline shown at the bottom of the opening intro animation */
-  introTagline?: string;
-  aboutMeIntro: string;
-  aboutMeDetailed: string[];
-  aboutPageImageUrl: string;
-  projectsPageIntro: string;
-  sideProjectsPageIntro: string;
-  productsPageIntro?: string; // Optional: Intro for the new Products page
-  hireMePageTitle: string; // For Hire Me page
-  hireMePageSubtitle: string; // For Hire Me page
-  githubUsername?: string; // Added for GitHub contributions
+  location: string;
+  /** IANA timezone used by the live clock and availability dot. */
+  timezone: string;
+  /** Suffix appended to the live clock, e.g. "CET". */
+  timezoneLabel: string;
+  /** Local hours (inclusive start, exclusive end) the studio shows as online. */
+  officeHours: { start: number; end: number };
+  /** Text spinning around the hero monogram. */
+  circularText: string;
+  circularTextLetterSpacing: string;
+  /** Opening splash: two letters plus a tagline. */
+  introLetter1: string;
+  introLetter2: string;
+  introTagline: string;
+  websitesPageIntro: string;
+  appsPageIntro: string;
+  contactPageTitle: string;
+  contactPageSubtitle: string;
 }
 
-export interface ProjectStatement {
-  title?: string;
+export interface Service {
+  id: string;
+  name: string;
   description: string;
-  images?: string[];
+  icon: React.ComponentType<IconProps>;
+  deliverables: string[];
 }
 
-export interface Project {
-  id: string;
-  iconChar?: string;
-  iconBgColor?: string;
-  iconComponent?: React.ComponentType<IconProps>;
-  name: string;
-  description: string; // Short description for card
-  technologies: string[];
-  longDescription?: string; // Could be deprecated or merged into overview
-  images?: string[]; // Main project images for carousel/gallery
-  liveLink?: string;
-  repoLink?: string;
-  cardImageUrl?: string; // New field for card image
-  logoImageUrl?: string; // New field for logo image
-
-  // New fields for Project Details Page
-  client?: string;
-  company?: string;
-  projectType?: string;
-  year?: string;
-  tagline?: string; // Engaging sentence under the main title on detail page
-  overview?: string; // Main introductory paragraph on detail page
-  problemStatement?: ProjectStatement;
-  solutionStatement?: ProjectStatement;
+export interface Stat {
+  label: string;
+  value: string;
 }
 
-export interface SideProject {
+export interface ProcessStep {
   id: string;
-  iconChar?: string;
-  iconBgColor?: string;
-  iconComponent?: React.ComponentType<IconProps>;
-  name: string;
-  tag: string;
-  link?: string;
-  linkText?: string;
-  description?: string;
-  keyFeatures?: string[];
-  cardImageUrl?: string; // New field for card image
+  title: string;
+  description: string;
+}
 
-  // Optional fields for a details page (like main projects)
-  year?: string;
-  projectType?: string;
+export interface Testimonial {
+  id: string;
+  quote: string;
+  authorName: string;
+  authorRole: string;
+  company: string;
+  /** Client logo. A placeholder is rendered when omitted. */
+  logoImageUrl?: string;
+}
+
+export interface ProjectMetric {
+  label: string;
+  value: string;
+}
+
+export type WebsiteWorkType = "New build" | "Redesign" | "Modernization";
+
+export interface WebsiteProject {
+  id: string;
+  name: string;
+  client: string;
+  industry: string;
+  workType: WebsiteWorkType;
+  year: string;
+  /** One-line summary used on cards. */
+  description: string;
+  /** Headline sentence on the detail page. */
   tagline?: string;
   overview?: string;
-  technologies?: string[];
+  /** What we delivered, e.g. "UX audit", "Design system". */
+  services: string[];
+  technologies: string[];
+  liveLink?: string;
+  /** Card thumbnail. A placeholder is rendered when omitted. */
+  cardImageUrl?: string;
+  /** Client logo. A placeholder is rendered when omitted. */
+  logoImageUrl?: string;
+  /** Detail page gallery. Placeholders are rendered when empty. */
   images?: string[];
-  playStoreStats?: {
+  /** Before/after numbers shown on the detail page. */
+  metrics?: ProjectMetric[];
+  challenge?: string;
+  solution?: string;
+  /** Client feedback shown on the detail page and the websites index. */
+  testimonial?: Testimonial;
+}
+
+export type AppPlatform = "iOS" | "Android" | "Web" | "Cross-platform";
+
+export type AppKind = "Mobile App" | "Web App";
+
+export interface AppProject {
+  id: string;
+  name: string;
+  kind: AppKind;
+  platforms: AppPlatform[];
+  /** Status badge, e.g. "Live on the App Store". */
+  tag: string;
+  description: string;
+  tagline?: string;
+  overview?: string;
+  year: string;
+  client?: string;
+  technologies: string[];
+  keyFeatures?: string[];
+  link?: string;
+  linkText?: string;
+  /** Card thumbnail. A placeholder is rendered when omitted. */
+  cardImageUrl?: string;
+  /** Detail page gallery. Placeholders are rendered when empty. */
+  images?: string[];
+  storeStats?: {
     downloads: string;
     rating: string;
   };
+  metrics?: ProjectMetric[];
+  testimonial?: Testimonial;
 }
 
 export interface SocialLink {
@@ -106,80 +147,66 @@ export interface SocialLink {
   icon: React.ComponentType<IconProps>;
 }
 
-export interface Skill {
-  name: string;
-  backgroundColor: string; // e.g., 'bg-blue-500'
-  textColor: string; // e.g., 'text-white'
-  icon?: React.ComponentType<IconProps>;
-}
-
 export interface HeroProps {
-  name: string;
-  title: string;
-  bio: string;
-  imageUrl: string;
-  email: string;
-  instagramUrl: string;
-  circularText?: string;
-  circularTextLetterSpacing?: string;
-  animatedNameEnglish?: string;
-  animatedNameJapanese?: string;
-  setCurrentPage: (pageId: string, projectId?: string) => void;
+  company: CompanyInfo;
+  stats: Stat[];
+  setCurrentPage: (pageId: string, itemId?: string) => void;
 }
 
 export interface CallToActionProps {
-  email: string;
-  setCurrentPage: (pageId: string, projectId?: string) => void;
+  setCurrentPage: (pageId: string, itemId?: string) => void;
 }
 
-export interface AboutPageProps {
-  personalInfo: PersonalInfo;
-  sideProjects: SideProject[];
-  email: string;
-  setCurrentPage: (pageId: string, projectId?: string) => void;
-  theme: "light" | "dark"; // Updated theme prop type
-  skills: Skill[]; // Added skills prop
-}
-
-export interface ProjectsPageProps {
-  projects: Project[];
-  sideProjects: SideProject[];
-  email: string;
-  setCurrentPage: (pageId: string, projectId?: string) => void;
-}
-
-export interface ProductsPageProps {
-  // New Props for Products Page
-  sideProjects: SideProject[];
-  personalInfo: Pick<PersonalInfo, "email" | "productsPageIntro">; // Only need email and intro
-  setCurrentPage: (pageId: string, projectId?: string) => void;
-}
-
-export interface HireMePageProps {
-  personalInfo: PersonalInfo;
-  socialLinks: SocialLink[];
-  setCurrentPage: (pageId: string) => void; // Added setCurrentPage
-}
-
-export interface ProjectsSectionProps {
-  projects: Project[];
-  onViewAllClick?: () => void;
-  setCurrentPage: (pageId: string, projectId?: string) => void; // Added for project selection
-  title?: string; // Optional title for reusability
-  maxItems?: number; // Optional max items to display
-}
-
-export interface SideProjectsSectionProps {
-  sideProjects: SideProject[];
+export interface ServicesSectionProps {
+  services: Service[];
   title?: string;
   subtitle?: string;
-  onViewAllClick?: () => void; // Added for "View All" functionality
-  viewAllText?: string; // Added for custom "View All" text
 }
 
-export interface ProjectDetailsPageProps {
-  project: Project;
-  otherProjects: Project[];
-  setCurrentPage: (pageId: string, projectId?: string) => void;
-  email: string; // For CTA
+export interface ProcessSectionProps {
+  steps: ProcessStep[];
+  title?: string;
+  subtitle?: string;
+}
+
+export interface TestimonialsSectionProps {
+  testimonials: Testimonial[];
+  title?: string;
+  subtitle?: string;
+}
+
+export interface WebsitesSectionProps {
+  websites: WebsiteProject[];
+  setCurrentPage: (pageId: string, itemId?: string) => void;
+  title?: string;
+  subtitle?: string;
+  maxItems?: number;
+  onViewAllClick?: () => void;
+}
+
+export interface AppsSectionProps {
+  apps: AppProject[];
+  setCurrentPage: (pageId: string, itemId?: string) => void;
+  title?: string;
+  subtitle?: string;
+  maxItems?: number;
+  onViewAllClick?: () => void;
+}
+
+export interface WebsitesPageProps {
+  websites: WebsiteProject[];
+  testimonials: Testimonial[];
+  intro: string;
+  setCurrentPage: (pageId: string, itemId?: string) => void;
+}
+
+export interface AppsPageProps {
+  apps: AppProject[];
+  intro: string;
+  setCurrentPage: (pageId: string, itemId?: string) => void;
+}
+
+export interface ContactPageProps {
+  company: CompanyInfo;
+  setCurrentPage: (pageId: string) => void;
 }

@@ -1,11 +1,11 @@
 # Visitor counter setup (optional)
 
-By default this template shows a **static** visitor number from `constants.ts`.
-You do **not** need Firebase (or anyone else's keys) for that.
+By default the site shows a **static** visitor number from `constants.ts`.
+You do **not** need Firebase for that.
 
 ```ts
 export const VISITOR_STATS = {
-  staticCount: 10800,   // change this any time
+  staticCount: 12400, // change this any time
   enableLiveCount: false, // keep false for static
 };
 ```
@@ -22,7 +22,7 @@ In `constants.ts`:
 
 ```ts
 export const VISITOR_STATS = {
-  staticCount: 10800, // fallback if Firebase fails
+  staticCount: 12400, // fallback if Firebase fails
   enableLiveCount: true,
 };
 ```
@@ -92,4 +92,4 @@ Each page load increments `stats/website.visitors` in **your** Firestore.
 | Live on + valid `.env` | Real Firestore counter |
 | Live on but Firebase missing/broken | Falls back to `staticCount` |
 
-Edit `staticCount` in `constants.ts` whenever you want a different demo number.
+Edit `staticCount` in `constants.ts` whenever you want a different number.
