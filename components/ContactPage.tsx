@@ -5,7 +5,7 @@ import { ArrowLeftIcon, CheckCircleIcon, MailIcon, MapPinIcon } from './icons';
 
 const PROJECT_TYPES = [
   'New website',
-  'Website modernization / redesign',
+  'Website modernization',
   'Web app',
   'Mobile app',
   'Not sure yet',
@@ -135,7 +135,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({
   const fieldNormal =
     'bg-input-bg dark:bg-dark-input-bg border-input-border dark:border-dark-input-border';
   const fieldFocus =
-    'focus:outline-none focus:border-accent-green focus:ring-2 focus:ring-accent-green focus:ring-opacity-50';
+    'focus:outline-none focus:border-accent-blue focus:ring-2 focus:ring-accent-blue focus:ring-opacity-50';
   const fieldError = 'border-accent-red dark:border-dark-accent-red';
 
   return (
@@ -158,7 +158,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({
             <span className="inline-block w-1.5 h-1.5 mr-2 rounded-full bg-text-secondary dark:bg-dark-text-secondary" />
             Contact
           </h2>
-          <span className="inline-flex items-center px-2.5 py-0.5 text-xs font-medium rounded-full bg-accent-green/20 text-accent-green">
+          <span className="inline-flex items-center px-2.5 py-0.5 text-xs font-medium rounded-full bg-accent-blue/20 text-accent-blue">
             <CheckCircleIcon className="w-3 h-3 mr-1" aria-hidden />
             Taking on new projects
           </span>
@@ -306,7 +306,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({
           </button>
 
           {status === 'success' && (
-            <p className="text-sm text-accent-green">
+            <p className="text-sm text-accent-blue">
               Thanks — your enquiry is in. We&rsquo;ll reply within one business
               day.
             </p>

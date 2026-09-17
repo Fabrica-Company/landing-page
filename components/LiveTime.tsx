@@ -32,7 +32,7 @@ export const LiveTime: React.FC<LiveTimeProps> = ({ timezone, timezoneLabel }) =
 
   return (
     <div className="flex items-center gap-2 text-xs text-text-secondary dark:text-dark-text-secondary">
-      <ClockIcon className="w-4 h-4 text-accent-green" aria-hidden />
+      <ClockIcon className="w-4 h-4 text-accent-blue" aria-hidden />
       <span>
         {time} {timezoneLabel}
       </span>

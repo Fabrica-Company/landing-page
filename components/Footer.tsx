@@ -1,17 +1,15 @@
 import React from 'react';
-import { CompanyInfo, NavItem, SocialLink } from '../types';
+import { CompanyInfo, NavItem } from '../types';
 import { MailIcon, MapPinIcon } from './icons';
 
 interface FooterProps {
   company: CompanyInfo;
-  socialLinks: SocialLink[];
   navItems: NavItem[];
   setCurrentPage: (pageId: string) => void;
 }
 
 export const Footer: React.FC<FooterProps> = ({
   company,
-  socialLinks,
   navItems,
   setCurrentPage,
 }) => (
@@ -75,21 +73,6 @@ export const Footer: React.FC<FooterProps> = ({
               {company.location}
             </li>
           </ul>
-
-          <div className="flex items-center gap-3 mt-4">
-            {socialLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center justify-center w-9 h-9 rounded-full bg-button-primary-bg dark:bg-dark-button-primary-bg text-button-primary-text dark:text-dark-button-primary-text hover:opacity-80 transition-opacity"
-                aria-label={`${company.name} on ${link.name}`}
-              >
-                <link.icon className="w-4 h-4" aria-hidden />
-              </a>
-            ))}
-          </div>
         </div>
       </div>
 

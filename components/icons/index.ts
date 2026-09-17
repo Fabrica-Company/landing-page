@@ -16,20 +16,18 @@ export {
   FiMail as MailIcon,
   FiMapPin as MapPinIcon,
   FiClock as ClockIcon,
-  FiUsers as UsersIcon,
   FiCheckCircle as CheckCircleIcon,
 
   // Services
   FiLayout as LayoutIcon,
-  FiRefreshCw as RefreshIcon,
   FiLayers as LayersIcon,
   FiMonitor as MonitorIcon,
 
   // Process
   FiSearch as SearchIcon,
-  FiPenTool as PenToolIcon,
   FiTerminal as TerminalIcon,
-  FiSend as SendIcon,
+  FiRefreshCw as RefreshIcon,
+  FiServer as ServerIcon,
 
   // App store metrics
   FiStar as StarIcon,
@@ -37,10 +35,4 @@ export {
 
   // Media
   FiImage as ImageIcon,
-
-  // Social
-  FiGithub as GithubIcon,
-  FiLinkedin as LinkedinIcon,
-  FiInstagram as InstagramIcon,
-  FiTwitter as TwitterIcon,
 } from "react-icons/fi";

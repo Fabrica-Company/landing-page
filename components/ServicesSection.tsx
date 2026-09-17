@@ -18,7 +18,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
           style={{ animationDelay: `${index * 100 + 200}ms` }}
         >
           <div className="flex items-center gap-3 mb-3">
-            <span className="flex items-center justify-center w-10 h-10 shrink-0 rounded-full bg-accent-green/15 text-accent-green">
+            <span className="flex items-center justify-center w-10 h-10 shrink-0 rounded-full bg-accent-blue/15 text-accent-blue">
               <service.icon className="w-5 h-5" aria-hidden />
             </span>
             <h3 className="text-lg font-semibold text-text-primary dark:text-dark-text-primary">

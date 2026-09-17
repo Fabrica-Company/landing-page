@@ -11,14 +11,10 @@ import { useLenis } from 'lenis/react';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
 import { ServicesSection } from './components/ServicesSection';
-import { WebsitesSection } from './components/WebsitesSection';
-import { AppsSection } from './components/AppsSection';
 import { ProcessSection } from './components/ProcessSection';
-import { TestimonialsSection } from './components/TestimonialsSection';
 import { CallToAction } from './components/CallToAction';
 import { Footer } from './components/Footer';
 import { WebsitesPage } from './components/WebsitesPage';
-import { WebsiteDetailsPage } from './components/WebsiteDetailsPage';
 import { AppsPage } from './components/AppsPage';
 import { AppDetailsPage } from './components/AppDetailsPage';
 import { ContactPage } from './components/ContactPage';
@@ -34,8 +30,6 @@ import {
   NAV_ITEMS_MAIN,
   PROCESS_STEPS,
   SERVICES,
-  SOCIAL_LINKS,
-  TESTIMONIALS,
   WEBSITE_PROJECTS,
 } from './constants';
 import clickSound from './assets/click_sound.wav';
@@ -136,8 +130,6 @@ const AppContent: React.FC = () => {
       window.setTimeout(() => {
         if (page === 'home') {
           navigate('/');
-        } else if (page === 'website-detail' && itemId) {
-          navigate(`/websites/${itemId}`);
         } else if (page === 'app-detail' && itemId) {
           navigate(`/apps/${itemId}`);
         } else {
@@ -157,15 +149,14 @@ const AppContent: React.FC = () => {
 
   const path = location.pathname;
 
-  // Detail pages keep their section's nav pill lit.
+  // App detail pages keep the Apps nav pill lit.
   const currentPage = (() => {
     if (path === '/') return 'home';
-    if (path.startsWith('/websites')) return 'websites';
     if (path.startsWith('/apps')) return 'apps';
     return path.slice(1);
   })();
 
-  const isDetailPage = /^\/(websites|apps)\/.+/.test(path);
+  const isDetailPage = /^\/apps\/.+/.test(path);
 
   const isMobile =
     typeof window !== 'undefined' && window.innerWidth <= 768;
@@ -242,31 +233,11 @@ const AppContent: React.FC = () => {
                   title="What we do"
                   subtitle="Four things, done properly: new sites, modernizing dated ones, and web and mobile apps."
                 />
-                <WebsitesSection
-                  websites={WEBSITE_PROJECTS}
-                  setCurrentPage={handleSetPage}
-                  title="Recent client websites"
-                  subtitle="Sites we designed, rebuilt and modernized — and what changed for the business afterwards."
-                  maxItems={2}
-                  onViewAllClick={() => handleSetPage('websites')}
-                />
-                <AppsSection
-                  apps={APP_PROJECTS}
-                  setCurrentPage={handleSetPage}
-                  title="Web & mobile apps"
-                  subtitle="Product work that goes beyond a website: portals, dashboards and apps in the stores."
-                  maxItems={2}
-                  onViewAllClick={() => handleSetPage('apps')}
-                />
                 <ProcessSection
                   steps={PROCESS_STEPS}
                   title="How we work"
-                  subtitle="A fixed scope up front, weekly progress you can click through, and support after launch."
-                />
-                <TestimonialsSection
-                  testimonials={TESTIMONIALS.slice(0, 2)}
-                  title="What clients say"
-                  subtitle="Feedback from the people who signed off on the work."
+                  subtitle="A fixed scope up front, record delivery, and support after launch."
+                  onViewAllClick={() => handleSetPage('websites')}
                 />
                 <CallToAction setCurrentPage={handleSetPage} />
               </>
@@ -278,16 +249,10 @@ const AppContent: React.FC = () => {
             element={
               <WebsitesPage
                 websites={WEBSITE_PROJECTS}
-                testimonials={TESTIMONIALS}
                 intro={COMPANY_INFO.websitesPageIntro}
                 setCurrentPage={handleSetPage}
               />
             }
-          />
-
-          <Route
-            path="/websites/:websiteId"
-            element={<WebsiteDetailsPage setCurrentPage={handleSetPage} />}
           />
 
           <Route
@@ -339,7 +304,6 @@ const AppContent: React.FC = () => {
 
       <Footer
         company={COMPANY_INFO}
-        socialLinks={SOCIAL_LINKS}
         navItems={NAV_ITEMS_MAIN}
         setCurrentPage={handleSetPage}
       />

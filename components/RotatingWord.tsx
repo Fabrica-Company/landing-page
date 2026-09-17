@@ -52,7 +52,7 @@ export const RotatingWord: React.FC<RotatingWordProps> = ({
         </span>
       ))}
       <span
-        className={`col-start-1 row-start-1 whitespace-nowrap text-accent-green dark:text-dark-accent-green transition-all duration-200 ease-out motion-reduce:transition-none ${
+        className={`col-start-1 row-start-1 whitespace-nowrap text-accent-blue dark:text-dark-accent-blue transition-all duration-200 ease-out motion-reduce:transition-none ${
           phase === 'in'
             ? 'opacity-100 translate-y-0'
             : 'opacity-0 -translate-y-2'

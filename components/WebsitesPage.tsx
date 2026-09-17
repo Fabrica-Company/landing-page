@@ -2,14 +2,12 @@ import React, { useMemo, useState } from 'react';
 import { WebsiteProject, WebsitesPageProps, WebsiteWorkType } from '../types';
 import { SectionTitle } from './SectionTitle';
 import { WebsiteCard } from './WebsiteCard';
-import { TestimonialsSection } from './TestimonialsSection';
 import { CallToAction } from './CallToAction';
 
-const WORK_TYPES: WebsiteWorkType[] = ['New build', 'Redesign', 'Modernization'];
+const WORK_TYPES: WebsiteWorkType[] = ['New build', 'Modernization'];
 
 export const WebsitesPage: React.FC<WebsitesPageProps> = ({
   websites,
-  testimonials,
   intro,
   setCurrentPage,
 }) => {
@@ -71,7 +69,6 @@ export const WebsitesPage: React.FC<WebsitesPageProps> = ({
             <WebsiteCard
               key={website.id}
               website={website}
-              onSelect={(websiteId) => setCurrentPage('website-detail', websiteId)}
               className="animated-item anim-fadeInUp"
               style={{ animationDelay: `${index * 100 + 100}ms` }}
             />
@@ -84,12 +81,6 @@ export const WebsitesPage: React.FC<WebsitesPageProps> = ({
           </p>
         )}
       </section>
-
-      <TestimonialsSection
-        testimonials={testimonials}
-        title="Client feedback"
-        subtitle="What the people who hired us said once the site was live."
-      />
 
       <CallToAction setCurrentPage={setCurrentPage} />
     </div>

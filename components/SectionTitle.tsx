@@ -17,7 +17,7 @@ export const SectionTitle: React.FC<SectionTitleProps> = ({ title, subtitle, vie
           {title}
         </h2>
         {viewAllLink && (
-          <a href={viewAllLink} className="text-sm font-medium text-accent-green hover:text-accent-green/80 transition-colors">
+          <a href={viewAllLink} className="text-sm font-medium text-accent-blue hover:text-accent-blue/80 transition-colors">
             {viewAllText} &rarr;
           </a>
         )}

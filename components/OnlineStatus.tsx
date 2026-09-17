@@ -30,7 +30,7 @@ export const OnlineStatus: React.FC = () => {
     <span
       className={`inline-block w-2 h-2 rounded-full mr-2 shrink-0 ${
         isOnline
-          ? 'bg-accent-green animate-pulse'
+          ? 'bg-accent-blue animate-pulse'
           : 'bg-text-placeholder dark:bg-dark-text-placeholder'
       }`}
       title={isOnline ? 'Online now' : 'Outside office hours'}

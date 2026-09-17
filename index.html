@@ -8,7 +8,14 @@
       name="description"
       content="FabricaLabs is a design and development studio. We design new websites, modernize dated ones, and build web and mobile apps."
     />
-    <!-- TODO: add favicon files to the project root and link them here -->
+    <!-- Favicons live in public/ and are served from the site root. -->
+    <link rel="icon" type="image/webp" href="/favicon.webp" />
+    <!-- TODO: export the icons below, drop them in public/, then uncomment.
+         favicon.ico        — 32x32, for Safari and older browsers
+         apple-touch-icon.png — 180x180, for iOS home screen
+    <link rel="icon" sizes="32x32" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    -->
     <meta name="theme-color" content="#1C1C1E" />
     <script>
       // IIFE to avoid polluting global scope
@@ -58,8 +65,12 @@
               "button-secondary-text": "#1C1C1E", // Using --color-text-primary
               "button-secondary-hover": "#DCDCE0", // Derived: slightly darker
 
-              "accent-green": "#34C759", // --color-accent (light)
-              "accent-green-bg": "#E6F9EC", // --color-accent-bg (light)
+              // Brand accent, sampled from the logo (hues 191–206)
+              "accent-blue": "#32ADE6", // --color-accent (light)
+              "accent-blue-bg": "#E6F6FD", // --color-accent-bg (light)
+
+              // Kept for the service deliverable checkmarks only
+              "accent-green": "#34C759",
               "accent-red": "#FF3B30", // System Red (Light)
 
               // Dark theme based on user's new palette
@@ -81,14 +92,16 @@
               "dark-button-secondary-text": "#FFFFFF", // Using --color-text-primary (dark)
               "dark-button-secondary-hover": "#4A4A4C", // Derived: slightly lighter
 
-              "dark-accent-green": "#30D158", // --color-accent (dark)
-              "dark-accent-green-bg": "#054F27", // --color-accent-bg (dark)
+              "dark-accent-blue": "#64D2FF", // --color-accent (dark)
+              "dark-accent-blue-bg": "#042D4D", // --color-accent-bg (dark), the logo navy
+
+              "dark-accent-green": "#30D158",
               "dark-accent-red": "#FF453A", // System Red (Dark)
             },
             ringColor: (theme) => ({
               // For focus rings
-              DEFAULT: theme("colors.accent-green"), // Use light accent green for default focus ring
-              // Dark mode focus rings will be handled by dark:ring-dark-accent-green or similar specific classes
+              DEFAULT: theme("colors.accent-blue"), // Use light accent blue for default focus ring
+              // Dark mode focus rings will be handled by dark:ring-dark-accent-blue or similar specific classes
             }),
             animation: {
               // Add custom animation
@@ -151,12 +164,12 @@
 
       /* Header nav active pill */
       :root {
-        --current-accent-color-text: #34c759; /* For active icon text (light) */
+        --current-accent-color-text: #32ade6; /* For active icon text (light) */
         --current-accent-pill-bg: #ececec; /* For pill background (light theme card-hover) */
       }
       html.dark {
         /* More specific selector for when <html> has 'dark' class */
-        --current-accent-color-text: #30d158; /* For active icon text (dark) */
+        --current-accent-color-text: #64d2ff; /* For active icon text (dark) */
         --current-accent-pill-bg: #38383a; /* For pill background (dark theme dark-card-hover) */
       }
       .nav-active-pill {
@@ -345,7 +358,7 @@
         background:
           radial-gradient(
             circle at 30% 30%,
-            rgba(52, 199, 89, 0.65),
+            rgba(50, 173, 230, 0.65),
             transparent 62%
           ),
           radial-gradient(
@@ -360,7 +373,7 @@
         background:
           radial-gradient(
             circle at 30% 30%,
-            rgba(48, 209, 88, 0.55),
+            rgba(100, 210, 255, 0.55),
             transparent 62%
           ),
           radial-gradient(

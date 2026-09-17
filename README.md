@@ -7,14 +7,16 @@ Built with React 19, TypeScript, Tailwind CSS and Vite.
 
 ## Pages
 
-| Route             | Nav icon | Contents                                                              |
-| ----------------- | -------- | --------------------------------------------------------------------- |
-| `/`               | Home     | Agency landing: hero, services, featured work, process, testimonials  |
-| `/websites`       | Code     | Client website work, filterable by type, plus client feedback         |
-| `/websites/:id`   | —        | Case study: metrics, screens, challenge, what we did, client quote    |
-| `/apps`           | Phone    | Web and mobile apps, filterable by type                               |
-| `/apps/:id`       | —        | App detail: store stats, screens, key features, stack                 |
-| `/contact`        | —        | Project enquiry form (reached from the header CTA)                    |
+| Route       | Nav icon | Contents                                                             |
+| ----------- | -------- | -------------------------------------------------------------------- |
+| `/`         | Home     | Agency landing: hero, services, featured work, process, testimonials |
+| `/websites` | Code     | Client website work, filterable by type, plus client feedback        |
+| `/apps`     | Phone    | Web and mobile apps, filterable by type                              |
+| `/apps/:id` | —        | App detail: store stats, screens, key features, stack                |
+| `/contact`  | —        | Project enquiry form (reached from the header CTA)                   |
+
+Website cards open the client's live site in a new tab. Until a project has a
+`liveLink` set in `constants.ts`, clicking its card shows an alert instead.
 
 ## Quick start
 
@@ -30,13 +32,11 @@ Open the URL Vite prints (usually `http://localhost:5173`).
 Everything the site renders lives in `constants.ts`:
 
 - `COMPANY_INFO` — name, hero copy, email, location, timezone, office hours
-- `COMPANY_STATS` — the four headline numbers under the hero
-- `SERVICES` — the four service cards on the home page
+- `COMPANY_STATS` — the headline numbers under the hero
+- `SERVICES` — the service cards on the home page
 - `PROCESS_STEPS` — the "how we work" steps
-- `WEBSITE_PROJECTS` — client website work, each with an optional `testimonial`
-- `APP_PROJECTS` — web and mobile apps, with optional `storeStats`
-- `TESTIMONIALS` — derived from the testimonials attached to website projects
-- `SOCIAL_LINKS` — footer profile links
+- `WEBSITE_PROJECTS` — client website work
+- `APP_PROJECTS` — web and mobile apps, with optional `storeStats` and `testimonial`
 - `WEB3FORMS_ACCESS_KEY` — required for the contact form to send
 
 > The client work, apps and testimonials shipped in `constants.ts` are **sample
@@ -45,9 +45,10 @@ Everything the site renders lives in `constants.ts`:
 
 ## Images
 
-No images are bundled. Anywhere artwork is expected, the UI renders a labelled
-placeholder via `components/ImagePlaceholder.tsx`. To add real images, drop
-files into `assets/` and set the matching field in `constants.ts`:
+The company logo is `assets/Logo.webp`, shown inside the rotating badge in the
+hero. Everywhere else artwork is expected, the UI renders a labelled placeholder
+via `components/ImagePlaceholder.tsx`. To add real images, drop files into
+`assets/` and set the matching field in `constants.ts`:
 
 ```ts
 import northwindPreview from "./assets/northwind-preview.webp";
@@ -56,21 +57,29 @@ import northwindPreview from "./assets/northwind-preview.webp";
 cardImageUrl: northwindPreview,
 ```
 
-The fields that accept images are `cardImageUrl`, `logoImageUrl` and `images`
-on website projects, `cardImageUrl` and `images` on apps, and `logoImageUrl` on
-testimonials. A favicon still needs to be added and linked in `index.html`.
+The fields that accept images are `cardImageUrl` on website projects,
+`cardImageUrl` and `images` on apps, and `logoImageUrl` on testimonials.
+
+## Favicon
+
+Files in `public/` are copied to the site root untouched, so they can be linked
+with absolute paths. `public/favicon.webp` is the current icon. WebP icons don't
+work in Safari and can't be used for the iOS home screen, so export these two as
+well, drop them in `public/`, and uncomment the matching lines in `index.html`:
+
+| File                   | Size    | Used by                    |
+| ---------------------- | ------- | -------------------------- |
+| `favicon.ico`          | 32×32   | Safari, older browsers     |
+| `apple-touch-icon.png` | 180×180 | iOS home screen (PNG only) |
+
+Export icons cropped square — a wide lockup is illegible at 16px — and keep them
+small, since the browser fetches the icon on every page load.
 
 ## Contact form
 
 The enquiry form posts to [Web3Forms](https://web3forms.com). Add your free
 access key to `WEB3FORMS_ACCESS_KEY` in `constants.ts`; until then the form
 reports that it isn't connected instead of silently failing.
-
-## Visitor counter
-
-The hero shows a static visitor number from `VISITOR_STATS` in `constants.ts`.
-Live counting through your own Firebase project is optional — see
-`VISITOR_COUNTER_SETUP.md`.
 
 ## Scripts
 

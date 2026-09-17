@@ -49,7 +49,7 @@ export const IntroAnimation: React.FC<IntroAnimationProps> = ({
         <span className="intro-letter block" style={{ animationDelay: '0.2s' }}>
           {introLetter2}
         </span>
-        <div className="intro-line absolute bottom-0 w-full h-0.5 bg-accent-green dark:bg-dark-accent-green" />
+        <div className="intro-line absolute bottom-0 w-full h-0.5 bg-accent-blue dark:bg-dark-accent-blue" />
       </div>
 
       <div className="intro-tagline absolute bottom-8 sm:bottom-10 md:bottom-12 left-1/2 -translate-x-1/2 px-4 text-center text-[10px] sm:text-xs md:text-sm uppercase tracking-[0.18em] sm:tracking-[0.25em] text-text-secondary dark:text-dark-text-secondary whitespace-nowrap">

@@ -12,6 +12,7 @@ import {
   AppsIcon,
   ArrowLeftIcon,
   ArrowRightIcon,
+  DownloadIcon,
   ExternalLinkIcon,
   MonitorIcon,
 } from './icons';
@@ -67,21 +68,52 @@ export const AppDetailsPage: React.FC<{
 
       <header className="animated-item anim-fadeInUp anim-delay-100">
         <div className="flex flex-wrap items-center gap-2 mb-4">
-          <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 text-xs font-medium rounded-full bg-accent-green/15 text-accent-green">
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 text-xs font-medium rounded-full bg-accent-blue/15 text-accent-blue">
             <KindIcon className="w-3.5 h-3.5 shrink-0" aria-hidden />
             {app.kind}
           </span>
-          <span className="px-2.5 py-0.5 text-xs rounded-full bg-card dark:bg-dark-card border border-border dark:border-dark-border text-text-secondary dark:text-dark-text-secondary">
-            {app.tag}
-          </span>
+          {app.tag && (
+            <span className="px-2.5 py-0.5 text-xs rounded-full bg-card dark:bg-dark-card border border-border dark:border-dark-border text-text-secondary dark:text-dark-text-secondary">
+              {app.tag}
+            </span>
+          )}
           <span className="px-2.5 py-0.5 text-xs rounded-full bg-card dark:bg-dark-card border border-border dark:border-dark-border text-text-secondary dark:text-dark-text-secondary">
             {app.year}
           </span>
         </div>
 
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-text-primary dark:text-dark-text-primary">
-          {app.name}
-        </h1>
+        <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-text-primary dark:text-dark-text-primary">
+            {app.name}
+          </h1>
+
+          {app.privacyPolicyUrl ? (
+            <a
+              href={app.privacyPolicyUrl}
+              download
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center px-3 py-1.5 text-xs font-medium rounded-lg bg-card dark:bg-dark-card border border-border dark:border-dark-border text-text-secondary dark:text-dark-text-secondary hover:text-text-primary dark:hover:text-dark-text-primary transition-colors"
+            >
+              Check privacy policy
+              <DownloadIcon
+                className="w-3.5 h-3.5 ml-1.5 transition-transform group-hover:translate-y-0.5"
+                aria-hidden
+              />
+            </a>
+          ) : (
+            // TODO: temporary until `privacyPolicyUrl` is set in constants.ts.
+            <button
+              type="button"
+              onClick={() =>
+                window.alert(`${app.name} doesn't have a privacy policy yet.`)
+              }
+              className="inline-flex items-center px-3 py-1 text-xs font-medium rounded-lg bg-card dark:bg-dark-card border border-border dark:border-dark-border text-text-secondary dark:text-dark-text-secondary hover:text-text-primary dark:hover:text-dark-text-primary transition-colors"
+            >
+              Check privacy policy
+            </button>
+          )}
+        </div>
 
         {app.client && (
           <p className="mt-3 text-sm text-text-secondary dark:text-dark-text-secondary">
@@ -92,6 +124,12 @@ export const AppDetailsPage: React.FC<{
         {app.tagline && (
           <p className="mt-4 max-w-3xl text-lg text-text-secondary dark:text-dark-text-secondary leading-relaxed">
             {app.tagline}
+          </p>
+        )}
+
+        {app.overview && (
+          <p className="mt-4 max-w-3xl text-sm text-text-secondary dark:text-dark-text-secondary leading-relaxed">
+            {app.overview}
           </p>
         )}
 
@@ -157,17 +195,6 @@ export const AppDetailsPage: React.FC<{
         </div>
       </section>
 
-      {app.overview && (
-        <section className="animated-item anim-fadeInUp anim-delay-300 space-y-4">
-          <h2 className="text-2xl font-bold text-text-primary dark:text-dark-text-primary">
-            Overview
-          </h2>
-          <p className="max-w-3xl text-text-secondary dark:text-dark-text-secondary leading-relaxed">
-            {app.overview}
-          </p>
-        </section>
-      )}
-
       {app.keyFeatures && app.keyFeatures.length > 0 && (
         <section className="animated-item anim-fadeInUp anim-delay-400 space-y-4">
           <h2 className="text-2xl font-bold text-text-primary dark:text-dark-text-primary">
@@ -195,7 +222,7 @@ export const AppDetailsPage: React.FC<{
             {app.platforms.map((platform) => (
               <span
                 key={platform}
-                className="px-3 py-1 text-sm rounded-full bg-card dark:bg-dark-card border border-border dark:border-dark-border text-text-secondary dark:text-dark-text-secondary"
+                className="px-3 py-1 text-sm rounded-full bg-card dark:bg-dark-card border border-border dark:border-dark-border text-text-secondary dark:text-dark-text-secondary transition-colors hover:bg-accent-blue/15 hover:border-accent-blue/30 hover:text-accent-blue"
               >
                 {platform}
               </span>
@@ -210,7 +237,7 @@ export const AppDetailsPage: React.FC<{
             {app.technologies.map((technology) => (
               <span
                 key={technology}
-                className="px-3 py-1 text-sm rounded-full bg-card dark:bg-dark-card border border-border dark:border-dark-border text-text-secondary dark:text-dark-text-secondary"
+                className="px-3 py-1 text-sm rounded-full bg-card dark:bg-dark-card border border-border dark:border-dark-border text-text-secondary dark:text-dark-text-secondary transition-colors hover:bg-accent-blue/15 hover:border-accent-blue/30 hover:text-accent-blue"
               >
                 {technology}
               </span>
@@ -244,7 +271,7 @@ export const AppDetailsPage: React.FC<{
             <button
               type="button"
               onClick={() => setCurrentPage('apps')}
-              className="group inline-flex items-center text-sm font-medium text-accent-green hover:text-accent-green/80 transition-colors"
+              className="group inline-flex items-center text-sm font-medium text-accent-blue hover:text-accent-blue/80 transition-colors"
             >
               View all apps
               <ArrowRightIcon

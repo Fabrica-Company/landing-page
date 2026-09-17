@@ -77,35 +77,23 @@ export interface ProjectMetric {
   value: string;
 }
 
-export type WebsiteWorkType = "New build" | "Redesign" | "Modernization";
+export type WebsiteWorkType = "New build" | "Modernization";
 
 export interface WebsiteProject {
   id: string;
   name: string;
-  client: string;
   industry: string;
   workType: WebsiteWorkType;
   year: string;
-  /** One-line summary used on cards. */
+  /** One-line summary shown on the card. */
   description: string;
-  /** Headline sentence on the detail page. */
-  tagline?: string;
-  overview?: string;
   /** What we delivered, e.g. "UX audit", "Design system". */
   services: string[];
-  technologies: string[];
+  /** The live site. Cards link straight to it; without it they alert instead. */
   liveLink?: string;
   /** Card thumbnail. A placeholder is rendered when omitted. */
   cardImageUrl?: string;
-  /** Client logo. A placeholder is rendered when omitted. */
-  logoImageUrl?: string;
-  /** Detail page gallery. Placeholders are rendered when empty. */
-  images?: string[];
-  /** Before/after numbers shown on the detail page. */
-  metrics?: ProjectMetric[];
-  challenge?: string;
-  solution?: string;
-  /** Client feedback shown on the detail page and the websites index. */
+  /** Client feedback, surfaced in the websites page feedback grid. */
   testimonial?: Testimonial;
 }
 
@@ -118,8 +106,8 @@ export interface AppProject {
   name: string;
   kind: AppKind;
   platforms: AppPlatform[];
-  /** Status badge, e.g. "Live on the App Store". */
-  tag: string;
+  /** Optional status badge, e.g. "Live on the App Store". */
+  tag?: string;
   description: string;
   tagline?: string;
   overview?: string;
@@ -129,6 +117,8 @@ export interface AppProject {
   keyFeatures?: string[];
   link?: string;
   linkText?: string;
+  /** Privacy policy. The detail page alerts instead while this is empty. */
+  privacyPolicyUrl?: string;
   /** Card thumbnail. A placeholder is rendered when omitted. */
   cardImageUrl?: string;
   /** Detail page gallery. Placeholders are rendered when empty. */
@@ -139,12 +129,6 @@ export interface AppProject {
   };
   metrics?: ProjectMetric[];
   testimonial?: Testimonial;
-}
-
-export interface SocialLink {
-  name: string;
-  url: string;
-  icon: React.ComponentType<IconProps>;
 }
 
 export interface HeroProps {
@@ -167,35 +151,11 @@ export interface ProcessSectionProps {
   steps: ProcessStep[];
   title?: string;
   subtitle?: string;
-}
-
-export interface TestimonialsSectionProps {
-  testimonials: Testimonial[];
-  title?: string;
-  subtitle?: string;
-}
-
-export interface WebsitesSectionProps {
-  websites: WebsiteProject[];
-  setCurrentPage: (pageId: string, itemId?: string) => void;
-  title?: string;
-  subtitle?: string;
-  maxItems?: number;
-  onViewAllClick?: () => void;
-}
-
-export interface AppsSectionProps {
-  apps: AppProject[];
-  setCurrentPage: (pageId: string, itemId?: string) => void;
-  title?: string;
-  subtitle?: string;
-  maxItems?: number;
   onViewAllClick?: () => void;
 }
 
 export interface WebsitesPageProps {
   websites: WebsiteProject[];
-  testimonials: Testimonial[];
   intro: string;
   setCurrentPage: (pageId: string, itemId?: string) => void;
 }

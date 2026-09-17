@@ -43,12 +43,12 @@ export const AppCard: React.FC<AppCardProps> = ({
 
         <div className="flex flex-col flex-grow p-5">
           <div className="flex items-center gap-2 mb-3">
-            <span className="inline-flex items-center gap-1.5 px-2 py-0.5 text-xs font-medium rounded-full bg-accent-green/15 text-accent-green">
+            <span className="inline-flex items-center gap-1.5 px-2 py-0.5 text-xs font-medium rounded-full bg-accent-blue/15 text-accent-blue">
               <KindIcon className="w-3.5 h-3.5 shrink-0" aria-hidden />
               {app.kind}
             </span>
             <span className="text-xs text-text-secondary dark:text-dark-text-secondary">
-              {app.tag} &middot; {app.year}
+              {app.tag ? `${app.tag} \u00b7 ${app.year}` : app.year}
             </span>
           </div>
 

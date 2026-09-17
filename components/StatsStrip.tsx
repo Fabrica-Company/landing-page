@@ -6,12 +6,26 @@ interface StatsStripProps {
   className?: string;
 }
 
+/**
+ * The hairlines between tiles are the container background showing through a
+ * 1px gap, so any empty cell renders as a solid grey block. Columns therefore
+ * have to divide the tile count exactly.
+ */
+const COLUMNS_BY_COUNT: Record<number, string> = {
+  1: 'grid-cols-1',
+  2: 'grid-cols-2',
+  3: 'grid-cols-1 sm:grid-cols-3',
+  4: 'grid-cols-2 lg:grid-cols-4',
+};
+
 export const StatsStrip: React.FC<StatsStripProps> = ({ stats, className = '' }) => {
   if (stats.length === 0) return null;
 
+  const columns = COLUMNS_BY_COUNT[stats.length] ?? 'grid-cols-1 sm:grid-cols-2';
+
   return (
     <dl
-      className={`grid grid-cols-2 lg:grid-cols-4 gap-px overflow-hidden rounded-xl border border-border dark:border-dark-border bg-border dark:bg-dark-border ${className}`}
+      className={`grid ${columns} gap-px overflow-hidden rounded-xl border border-border dark:border-dark-border bg-border dark:bg-dark-border ${className}`}
     >
       {stats.map((stat, index) => (
         <div

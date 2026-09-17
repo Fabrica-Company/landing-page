@@ -1,28 +1,22 @@
 import React from 'react';
 import { WebsiteProject } from '../types';
-import { ArrowRightIcon } from './icons';
+import { ExternalLinkIcon } from './icons';
 import { ImagePlaceholder } from './ImagePlaceholder';
 
 interface WebsiteCardProps {
   website: WebsiteProject;
-  onSelect: (websiteId: string) => void;
   className?: string;
   style?: React.CSSProperties;
 }
 
 export const WebsiteCard: React.FC<WebsiteCardProps> = ({
   website,
-  onSelect,
   className = '',
   style,
-}) => (
-  <button
-    type="button"
-    onClick={() => onSelect(website.id)}
-    className={`group block w-full text-left ${className}`}
-    style={style}
-    aria-label={`View the ${website.name} case study`}
-  >
+}) => {
+  const wrapperClasses = `group block w-full text-left ${className}`;
+
+  const body = (
     <article className="flex flex-col h-full overflow-hidden bg-card dark:bg-dark-card border border-border dark:border-dark-border rounded-xl shadow-lg transition-all duration-300 ease-in-out group-hover:-translate-y-1 group-hover:bg-card-hover dark:group-hover:bg-dark-card-hover">
       {website.cardImageUrl ? (
         <img
@@ -39,7 +33,7 @@ export const WebsiteCard: React.FC<WebsiteCardProps> = ({
 
       <div className="flex flex-col flex-grow p-5">
         <div className="flex items-center gap-2 mb-3">
-          <span className="px-2 py-0.5 text-xs font-medium rounded-full bg-accent-green/15 text-accent-green">
+          <span className="px-2 py-0.5 text-xs font-medium rounded-full bg-accent-blue/15 text-accent-blue">
             {website.workType}
           </span>
           <span className="text-xs text-text-secondary dark:text-dark-text-secondary">
@@ -68,13 +62,43 @@ export const WebsiteCard: React.FC<WebsiteCardProps> = ({
         )}
 
         <span className="mt-5 pt-4 border-t border-border dark:border-dark-border inline-flex items-center text-sm font-medium text-text-primary dark:text-dark-text-primary">
-          View case study
-          <ArrowRightIcon
-            className="w-4 h-4 ml-1.5 transition-transform duration-200 ease-in-out group-hover:translate-x-1"
+          Visit website
+          <ExternalLinkIcon
+            className="w-4 h-4 ml-1.5 transition-transform duration-200 ease-in-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
             aria-hidden
           />
         </span>
       </div>
     </article>
-  </button>
-);
+  );
+
+  if (website.liveLink) {
+    return (
+      <a
+        href={website.liveLink}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={wrapperClasses}
+        style={style}
+        aria-label={`Visit the ${website.name} website`}
+      >
+        {body}
+      </a>
+    );
+  }
+
+  // TODO: temporary until every project has a `liveLink` in constants.ts.
+  return (
+    <button
+      type="button"
+      onClick={() =>
+        window.alert(`${website.name} doesn't have a live URL yet.`)
+      }
+      className={wrapperClasses}
+      style={style}
+      aria-label={`${website.name} — live URL not available yet`}
+    >
+      {body}
+    </button>
+  );
+};

@@ -3,16 +3,12 @@ import { HeroProps } from '../types';
 import { CircularText } from './CircularText';
 import { RotatingWord } from './RotatingWord';
 import { StatsStrip } from './StatsStrip';
-import { VisitorStats } from './VisitorStats';
-import { useVisitorCount } from '../hooks/useVisitorCount';
 import { LiveTime } from './LiveTime';
 import { OnlineStatus } from './OnlineStatus';
 import { ArrowRightIcon, MailIcon } from './icons';
+import logo from '../assets/Logo.webp';
 
 export const Hero: React.FC<HeroProps> = ({ company, stats, setCurrentPage }) => {
-  const { visitorCount, loading, error } = useVisitorCount();
-  const monogram = `${company.introLetter1}${company.introLetter2}`;
-
   return (
     <section id="hero" className="pt-6 pb-4 md:pt-10">
       <div className="flex flex-col lg:flex-row lg:items-center gap-10 lg:gap-12">
@@ -33,8 +29,7 @@ export const Hero: React.FC<HeroProps> = ({ company, stats, setCurrentPage }) =>
             {company.heroDescription}
           </p>
 
-          <div className="animated-item anim-fadeInUp anim-delay-300 flex flex-wrap gap-4">
-            <VisitorStats count={visitorCount} loading={loading} error={error} />
+          <div className="animated-item anim-fadeInUp anim-delay-300">
             <LiveTime
               timezone={company.timezone}
               timezoneLabel={company.timezoneLabel}
@@ -71,13 +66,12 @@ export const Hero: React.FC<HeroProps> = ({ company, stats, setCurrentPage }) =>
               letterSpacing={company.circularTextLetterSpacing}
               className="absolute inset-0 w-full h-full animate-spin-slow"
             />
-            <div
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center w-36 h-36 md:w-44 md:h-44 rounded-full bg-card dark:bg-dark-card border border-border dark:border-dark-border shadow-lg"
-              aria-hidden="true"
-            >
-              <span className="text-4xl md:text-5xl font-bold tracking-tight text-text-primary dark:text-dark-text-primary">
-                {monogram}
-              </span>
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center w-36 h-36 md:w-44 md:h-44 rounded-full bg-card dark:bg-dark-card border border-border dark:border-dark-border shadow-lg overflow-hidden">
+              <img
+                src={logo}
+                alt={`${company.name} logo`}
+                className="w-full h-full object-cover"
+              />
             </div>
           </div>
         </div>
