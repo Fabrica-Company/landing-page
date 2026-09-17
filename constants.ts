@@ -18,6 +18,8 @@ import {
   ServerIcon,
   TerminalIcon,
 } from "./components/icons";
+import whatsTheWorkoutBanner from "./assets/App_previews/Whats_the_Workout_Banner.webp";
+import skFranceBanner from "./assets/Website_previews/SKfrance_Banner.webp";
 
 /*
  * ---------------------------------------------------------------------------
@@ -31,7 +33,7 @@ import {
  */
 
 /** Web3Forms key powering the contact form. Get one free at https://web3forms.com */
-export const WEB3FORMS_ACCESS_KEY = ""; // TODO: add your Web3Forms access key
+export const WEB3FORMS_ACCESS_KEY = "3e9256d4-7606-4f32-8855-615e3d892cd5"; 
 
 export const COMPANY_INFO: CompanyInfo = {
   name: "FabricaLabs",
@@ -41,18 +43,18 @@ export const COMPANY_INFO: CompanyInfo = {
   heroHeadlineSuffix: "that work as hard as you do.",
   heroDescription:
     "FabricaLabs designs new websites, modernizes dated ones, and builds web and mobile apps. One team from the first wireframe — to the day it ships.",
-  email: "hello@fabricalabs.com", // TODO: replace with your real address
+  email: "support@fabricalabs.net", // TODO: replace with your real address
   location: "We work remotely across the world — based in Paris, France.",
   timezone: "Europe/Paris",
   timezoneLabel: "CET",
   officeHours: { start: 9, end: 19 },
   circularText: "FABRICA LABS • DESIGN • DEVELOPMENT • ",
   circularTextLetterSpacing: "0.55em",
-  introLetter1: "F",
-  introLetter2: "L",
+  introWord1: "Fabrica",
+  introWord2: "Labs",
   introTagline: "Design • Development • Modernization",
   websitesPageIntro:
-    "Websites we designed, rebuilt and modernized for clients — with the results and the feedback that came out of each one.",
+    "Websites we designed, rebuilt and modernized for clients — with the results that came out of each one.",
   appsPageIntro:
     "Web and mobile apps we design and build end to end, from the first screen through to store release or hosting.",
   contactPageTitle: "Start a project",
@@ -158,6 +160,8 @@ export const WEBSITE_PROJECTS: WebsiteProject[] = [
       "A 2018 website rebuilt into a responsive and interactive landing-page, offering a real user experience.",
     services: ["Brand-aligned design", "Complete rebuild", "Landing page"],
     liveLink: "https://skfrance.fr",
+    cardImageUrl: skFranceBanner,
+    cardImageFit: "contain",
   },
 ];
 
@@ -181,6 +185,7 @@ export const APP_PROJECTS: AppProject[] = [
     overview:
       "What's the Workout? is a fitness app that helps you discover and complete workouts tailored to your favorite activities, from swimming, running and gym sessions to yoga, cycling, and calisthenics. Choose your fitness level, find a workout that suits you, and get moving with simple, effective training sessions designed to keep you motivated and make exercise part of your routine.",
     technologies: ["React Native", "TypeScript", "Expo"],
+    cardImageUrl: whatsTheWorkoutBanner,
     privacyPolicyUrl:
       "/privacy_policies/Privacy%20Policy%20Whats%20The%20Workout.pdf",
   },

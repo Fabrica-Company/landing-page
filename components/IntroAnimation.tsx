@@ -11,7 +11,7 @@ export const IntroAnimation: React.FC<IntroAnimationProps> = ({
   const [animationState, setAnimationState] = useState<
     'entering' | 'static' | 'exiting'
   >('entering');
-  const { introLetter1, introLetter2, introTagline } = COMPANY_INFO;
+  const { introWord1, introWord2, introTagline } = COMPANY_INFO;
 
   useEffect(() => {
     // Letters and underline finish drawing.
@@ -42,12 +42,12 @@ export const IntroAnimation: React.FC<IntroAnimationProps> = ({
         <div className="intro-diagonal-text absolute inset-0" />
       </div>
 
-      <div className="relative flex items-center justify-center text-6xl md:text-8xl font-bold tracking-tight text-text-primary dark:text-dark-text-primary">
+      <div className="relative flex items-center justify-center text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight text-text-primary dark:text-dark-text-primary">
         <span className="intro-letter block" style={{ animationDelay: '0.1s' }}>
-          {introLetter1}
+          {introWord1}
         </span>
         <span className="intro-letter block" style={{ animationDelay: '0.2s' }}>
-          {introLetter2}
+          {introWord2}
         </span>
         <div className="intro-line absolute bottom-0 w-full h-0.5 bg-accent-blue dark:bg-dark-accent-blue" />
       </div>

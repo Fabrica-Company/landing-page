@@ -30,12 +30,12 @@ export interface CompanyInfo {
   timezoneLabel: string;
   /** Local hours (inclusive start, exclusive end) the studio shows as online. */
   officeHours: { start: number; end: number };
-  /** Text spinning around the hero monogram. */
+  /** Text spinning around the hero logo. */
   circularText: string;
   circularTextLetterSpacing: string;
-  /** Opening splash: two letters plus a tagline. */
-  introLetter1: string;
-  introLetter2: string;
+  /** Opening splash: the name in two staggered halves, plus a tagline. */
+  introWord1: string;
+  introWord2: string;
   introTagline: string;
   websitesPageIntro: string;
   appsPageIntro: string;
@@ -93,6 +93,8 @@ export interface WebsiteProject {
   liveLink?: string;
   /** Card thumbnail. A placeholder is rendered when omitted. */
   cardImageUrl?: string;
+  /** `contain` shows the whole image on a white pad. Default is `cover`. */
+  cardImageFit?: "cover" | "contain";
   /** Client feedback, surfaced in the websites page feedback grid. */
   testimonial?: Testimonial;
 }

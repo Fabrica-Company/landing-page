@@ -19,11 +19,21 @@ export const WebsiteCard: React.FC<WebsiteCardProps> = ({
   const body = (
     <article className="flex flex-col h-full overflow-hidden bg-card dark:bg-dark-card border border-border dark:border-dark-border rounded-xl shadow-lg transition-all duration-300 ease-in-out group-hover:-translate-y-1 group-hover:bg-card-hover dark:group-hover:bg-dark-card-hover">
       {website.cardImageUrl ? (
-        <img
-          src={website.cardImageUrl}
-          alt={`${website.name} website`}
-          className="w-full aspect-video object-cover"
-        />
+        website.cardImageFit === 'contain' ? (
+          <div className="w-full aspect-video bg-white flex items-center justify-center p-8">
+            <img
+              src={website.cardImageUrl}
+              alt={`${website.name} website`}
+              className="max-w-full max-h-full object-contain"
+            />
+          </div>
+        ) : (
+          <img
+            src={website.cardImageUrl}
+            alt={`${website.name} website`}
+            className="w-full aspect-video object-cover"
+          />
+        )
       ) : (
         <ImagePlaceholder
           label={`${website.name} preview`}

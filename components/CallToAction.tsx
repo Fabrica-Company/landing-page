@@ -1,7 +1,6 @@
 import React from 'react';
 import { CallToActionProps } from '../types';
-import { COMPANY_INFO } from '../constants';
-import { ArrowRightIcon, MailIcon } from './icons';
+import { MailIcon } from './icons';
 
 export const CallToAction: React.FC<CallToActionProps> = ({ setCurrentPage }) => (
   <section className="animated-item anim-fadeInUp anim-delay-400 py-12 md:py-16 text-center bg-card dark:bg-dark-card border border-border dark:border-dark-border rounded-xl shadow-xl">
@@ -23,16 +22,6 @@ export const CallToAction: React.FC<CallToActionProps> = ({ setCurrentPage }) =>
           <MailIcon className="w-5 h-5 mr-2" aria-hidden />
           Start a project
         </button>
-        <a
-          href={`mailto:${COMPANY_INFO.email}`}
-          className="group inline-flex items-center justify-center px-6 py-3 text-base font-medium rounded-lg bg-button-secondary-bg dark:bg-dark-button-secondary-bg text-button-secondary-text dark:text-dark-button-secondary-text hover:bg-button-secondary-hover dark:hover:bg-dark-button-secondary-hover transition-colors focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
-        >
-          {COMPANY_INFO.email}
-          <ArrowRightIcon
-            className="w-4 h-4 ml-2 transition-transform duration-200 ease-in-out group-hover:translate-x-1"
-            aria-hidden
-          />
-        </a>
       </div>
     </div>
   </section>
