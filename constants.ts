@@ -18,19 +18,12 @@ import {
   ServerIcon,
   TerminalIcon,
 } from "./components/icons";
-import whatsTheWorkoutBanner from "./assets/App_previews/Whats_the_Workout_Banner.webp";
+import whatsTheWorkoutBanner from "./assets/App_previews/Whats_the_Workout/Whats_the_Workout_Banner.webp";
+import whatsTheWorkoutSnapshot1 from "./assets/App_previews/Whats_the_Workout/Snapshot1.webp";
+import whatsTheWorkoutSnapshot2 from "./assets/App_previews/Whats_the_Workout/Snapshot2.webp";
+import whatsTheWorkoutSnapshot3 from "./assets/App_previews/Whats_the_Workout/Snapshot3.webp";
 import skFranceBanner from "./assets/Website_previews/SKfrance_Banner.webp";
 
-/*
- * ---------------------------------------------------------------------------
- * SAMPLE CONTENT
- *
- * Client work, apps and testimonials below are placeholders so the layout can
- * be reviewed. Replace every entry marked "TODO" with real work before this
- * goes live. Images are intentionally omitted — the UI renders a labelled
- * placeholder wherever an image is missing.
- * ---------------------------------------------------------------------------
- */
 
 /** Web3Forms key powering the contact form. Get one free at https://web3forms.com */
 export const WEB3FORMS_ACCESS_KEY = "3e9256d4-7606-4f32-8855-615e3d892cd5"; 
@@ -43,7 +36,7 @@ export const COMPANY_INFO: CompanyInfo = {
   heroHeadlineSuffix: "that work as hard as you do.",
   heroDescription:
     "FabricaLabs designs new websites, modernizes dated ones, and builds web and mobile apps. One team from the first wireframe — to the day it ships.",
-  email: "support@fabricalabs.net", // TODO: replace with your real address
+  email: "support@fabricalabs.net",
   location: "We work remotely across the world — based in Paris, France.",
   timezone: "Europe/Paris",
   timezoneLabel: "CET",
@@ -165,14 +158,7 @@ export const WEBSITE_PROJECTS: WebsiteProject[] = [
   },
 ];
 
-/**
- * Web and mobile apps.
- *
- * TODO for What's The Workout?: confirm `platforms`, `tag`, `year` and
- * `technologies`, then fill in `tagline`, `overview`, `keyFeatures`, `link`,
- * `cardImageUrl` and `images`. Optional fields left out here simply don't
- * render, so the detail page stays clean until you add them.
- */
+/** Web and mobile apps. */
 export const APP_PROJECTS: AppProject[] = [
   {
     id: "whats-the-workout",
@@ -186,6 +172,11 @@ export const APP_PROJECTS: AppProject[] = [
       "What's the Workout? is a fitness app that helps you discover and complete workouts tailored to your favorite activities, from swimming, running and gym sessions to yoga, cycling, and calisthenics. Choose your fitness level, find a workout that suits you, and get moving with simple, effective training sessions designed to keep you motivated and make exercise part of your routine.",
     technologies: ["React Native", "TypeScript", "Expo"],
     cardImageUrl: whatsTheWorkoutBanner,
+    images: [
+      whatsTheWorkoutSnapshot1,
+      whatsTheWorkoutSnapshot2,
+      whatsTheWorkoutSnapshot3,
+    ],
     privacyPolicyUrl:
       "/privacy_policies/Privacy%20Policy%20Whats%20The%20Workout.pdf",
   },

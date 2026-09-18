@@ -171,17 +171,17 @@ export const AppDetailsPage: React.FC<{
         <h2 className="text-2xl font-bold text-text-primary dark:text-dark-text-primary">
           Screens
         </h2>
-        <div className="grid gap-4 sm:grid-cols-2">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {galleryItems.map((item, index) =>
             hasRealImages ? (
               <div
                 key={item}
-                className="overflow-hidden rounded-xl border border-border dark:border-dark-border shadow-lg"
+                className="overflow-hidden rounded-xl border border-border dark:border-dark-border shadow-lg bg-card dark:bg-dark-card"
               >
                 <img
                   src={item}
                   alt={`${app.name} screenshot ${index + 1}`}
-                  className="w-full h-auto"
+                  className="w-full h-auto object-contain"
                 />
               </div>
             ) : (
