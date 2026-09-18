@@ -29,11 +29,20 @@ export const AppCard: React.FC<AppCardProps> = ({
     >
       <article className="flex flex-col h-full overflow-hidden bg-card dark:bg-dark-card border border-border dark:border-dark-border rounded-xl shadow-lg transition-all duration-300 ease-in-out group-hover:-translate-y-1 group-hover:bg-card-hover dark:group-hover:bg-dark-card-hover">
         {app.cardImageUrl ? (
-          <img
-            src={app.cardImageUrl}
-            alt={`${app.name} interface`}
-            className="w-full aspect-video object-cover"
-          />
+          <div className="w-full aspect-video bg-card dark:bg-dark-card overflow-hidden">
+            <img
+              src={app.cardImageUrl}
+              alt={`${app.name} interface`}
+              className={`w-full h-full ${
+                app.cardImageFit === 'contain' ? 'object-contain' : 'object-cover'
+              }`}
+              style={
+                app.cardImagePosition
+                  ? { objectPosition: app.cardImagePosition }
+                  : undefined
+              }
+            />
+          </div>
         ) : (
           <ImagePlaceholder
             label={`${app.name} preview`}

@@ -18,7 +18,7 @@ import {
   ServerIcon,
   TerminalIcon,
 } from "./components/icons";
-import whatsTheWorkoutBanner from "./assets/App_previews/Whats_the_Workout/Whats_the_Workout_Banner.webp";
+import whatsTheWorkoutBanner from "./assets/App_previews/Whats_the_Workout/Banner Preview.webp";
 import whatsTheWorkoutSnapshot1 from "./assets/App_previews/Whats_the_Workout/Snapshot1.webp";
 import whatsTheWorkoutSnapshot2 from "./assets/App_previews/Whats_the_Workout/Snapshot2.webp";
 import whatsTheWorkoutSnapshot3 from "./assets/App_previews/Whats_the_Workout/Snapshot3.webp";
@@ -172,6 +172,8 @@ export const APP_PROJECTS: AppProject[] = [
       "What's the Workout? is a fitness app that helps you discover and complete workouts tailored to your favorite activities, from swimming, running and gym sessions to yoga, cycling, and calisthenics. Choose your fitness level, find a workout that suits you, and get moving with simple, effective training sessions designed to keep you motivated and make exercise part of your routine.",
     technologies: ["React Native", "TypeScript", "Expo"],
     cardImageUrl: whatsTheWorkoutBanner,
+    cardImageFit: "cover",
+    cardImagePosition: "30% 50%",
     images: [
       whatsTheWorkoutSnapshot1,
       whatsTheWorkoutSnapshot2,

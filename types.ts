@@ -123,6 +123,10 @@ export interface AppProject {
   privacyPolicyUrl?: string;
   /** Card thumbnail. A placeholder is rendered when omitted. */
   cardImageUrl?: string;
+  /** `contain` shows the whole image. Default is `cover`. */
+  cardImageFit?: "cover" | "contain";
+  /** CSS object-position, e.g. "70% 50%". */
+  cardImagePosition?: string;
   /** Detail page gallery. Placeholders are rendered when empty. */
   images?: string[];
   storeStats?: {
