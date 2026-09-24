@@ -164,7 +164,7 @@ export const APP_PROJECTS: AppProject[] = [
     id: "whats-the-workout",
     name: "What's The Workout?",
     kind: "Mobile App",
-    platforms: ["iOS", "Android"],
+    platforms: ["Android"],
     year: "2026",
     description:
       "A workout app with 100+ workouts to choose from across multiple sports. Local only, lives on your phone.",
