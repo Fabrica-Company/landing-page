@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
   BrowserRouter as Router,
+  Navigate,
   Route,
   Routes,
   useLocation,
@@ -27,6 +28,7 @@ import {
   APP_PROJECTS,
   COMPANY_INFO,
   COMPANY_STATS,
+  HIDE_APPS,
   NAV_ITEMS_MAIN,
   PROCESS_STEPS,
   SERVICES,
@@ -35,7 +37,9 @@ import {
 import clickSound from './assets/click_sound.wav';
 
 /** Left-to-right order used by mobile swipe navigation. */
-const MENU_TABS = ['home', 'websites', 'apps'];
+const MENU_TABS = HIDE_APPS
+  ? ['home', 'websites']
+  : ['home', 'websites', 'apps'];
 
 const AppContent: React.FC = () => {
   const navigate = useNavigate();
@@ -52,6 +56,22 @@ const AppContent: React.FC = () => {
   });
 
   const handleAnimationComplete = useCallback(() => setShowIntro(false), []);
+
+  useEffect(() => {
+    document.title = HIDE_APPS
+      ? 'FabricaLabs — Websites & web apps'
+      : 'FabricaLabs — Websites, web apps & mobile apps';
+
+    const description = document.querySelector('meta[name="description"]');
+    if (description) {
+      description.setAttribute(
+        'content',
+        HIDE_APPS
+          ? 'FabricaLabs is a design and development studio. We design new websites, modernize dated ones, and build web apps.'
+          : 'FabricaLabs is a design and development studio. We design new websites, modernize dated ones, and build web and mobile apps.'
+      );
+    }
+  }, []);
 
   useEffect(() => {
     if (theme === 'dark') {
@@ -128,7 +148,7 @@ const AppContent: React.FC = () => {
     (page: string, itemId?: string) => {
       setIsTransitioning(true);
       window.setTimeout(() => {
-        if (page === 'home') {
+        if (page === 'home' || (HIDE_APPS && (page === 'apps' || page === 'app-detail'))) {
           navigate('/');
         } else if (page === 'app-detail' && itemId) {
           navigate(`/apps/${itemId}`);
@@ -231,7 +251,11 @@ const AppContent: React.FC = () => {
                 <ServicesSection
                   services={SERVICES}
                   title="What we do"
-                  subtitle="Four things, done properly: new sites, modernizing dated ones, and web and mobile apps."
+                  subtitle={
+                    HIDE_APPS
+                      ? "New sites, modernizing dated ones, and web apps."
+                      : "Four things, done properly: new sites, modernizing dated ones, and web and mobile apps."
+                  }
                 />
                 <ProcessSection
                   steps={PROCESS_STEPS}
@@ -258,17 +282,27 @@ const AppContent: React.FC = () => {
           <Route
             path="/apps"
             element={
-              <AppsPage
-                apps={APP_PROJECTS}
-                intro={COMPANY_INFO.appsPageIntro}
-                setCurrentPage={handleSetPage}
-              />
+              HIDE_APPS ? (
+                <Navigate to="/" replace />
+              ) : (
+                <AppsPage
+                  apps={APP_PROJECTS}
+                  intro={COMPANY_INFO.appsPageIntro}
+                  setCurrentPage={handleSetPage}
+                />
+              )
             }
           />
 
           <Route
             path="/apps/:appId"
-            element={<AppDetailsPage setCurrentPage={handleSetPage} />}
+            element={
+              HIDE_APPS ? (
+                <Navigate to="/" replace />
+              ) : (
+                <AppDetailsPage setCurrentPage={handleSetPage} />
+              )
+            }
           />
 
           <Route

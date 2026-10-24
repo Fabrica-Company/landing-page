@@ -1,5 +1,6 @@
 import React from 'react';
 import { CompanyInfo, NavItem } from '../types';
+import { HIDE_APPS } from '../constants';
 import { MailIcon, MapPinIcon } from './icons';
 
 interface FooterProps {
@@ -21,8 +22,10 @@ export const Footer: React.FC<FooterProps> = ({
             {company.name}
           </p>
           <p className="mt-2 max-w-sm text-sm text-text-secondary dark:text-dark-text-secondary leading-relaxed">
-            {company.tagline}. Websites, web apps and mobile apps, designed and
-            built to last.
+            {company.tagline}.{' '}
+            {HIDE_APPS
+              ? 'Websites and web apps, designed and built to last.'
+              : 'Websites, web apps and mobile apps, designed and built to last.'}
           </p>
         </div>
 

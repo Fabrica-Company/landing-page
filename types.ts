@@ -93,8 +93,12 @@ export interface WebsiteProject {
   liveLink?: string;
   /** Card thumbnail. A placeholder is rendered when omitted. */
   cardImageUrl?: string;
-  /** `contain` shows the whole image on a white pad. Default is `cover`. */
+  /** `contain` shows the whole image inside the shared 16:9 frame. Default is `cover`. */
   cardImageFit?: "cover" | "contain";
+  /** Color behind a contained image. Defaults to white. */
+  cardImageBackground?: string;
+  /** Inset a contained image. Turn off when the artwork is already the 16:9 frame. */
+  cardImageInset?: boolean;
   /** Client feedback, surfaced in the websites page feedback grid. */
   testimonial?: Testimonial;
 }

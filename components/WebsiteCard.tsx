@@ -20,11 +20,16 @@ export const WebsiteCard: React.FC<WebsiteCardProps> = ({
     <article className="flex flex-col h-full overflow-hidden bg-card dark:bg-dark-card border border-border dark:border-dark-border rounded-xl shadow-lg transition-all duration-300 ease-in-out group-hover:-translate-y-1 group-hover:bg-card-hover dark:group-hover:bg-dark-card-hover">
       {website.cardImageUrl ? (
         website.cardImageFit === 'contain' ? (
-          <div className="w-full aspect-video bg-white flex items-center justify-center p-8">
+          <div
+            className="relative w-full aspect-video overflow-hidden"
+            style={{ backgroundColor: website.cardImageBackground ?? '#ffffff' }}
+          >
             <img
               src={website.cardImageUrl}
               alt={`${website.name} website`}
-              className="max-w-full max-h-full object-contain"
+              className={`absolute inset-0 h-full w-full object-contain ${
+                website.cardImageInset === false ? '' : 'p-8'
+              }`}
             />
           </div>
         ) : (
@@ -42,14 +47,9 @@ export const WebsiteCard: React.FC<WebsiteCardProps> = ({
       )}
 
       <div className="flex flex-col flex-grow p-5">
-        <div className="flex items-center gap-2 mb-3">
-          <span className="px-2 py-0.5 text-xs font-medium rounded-full bg-accent-blue/15 text-accent-blue">
-            {website.workType}
-          </span>
-          <span className="text-xs text-text-secondary dark:text-dark-text-secondary">
-            {website.industry} &middot; {website.year}
-          </span>
-        </div>
+        <p className="mb-3 text-xs text-text-secondary dark:text-dark-text-secondary">
+          {website.industry} &middot; {website.year}
+        </p>
 
         <h3 className="text-lg font-semibold text-text-primary dark:text-dark-text-primary">
           {website.name}

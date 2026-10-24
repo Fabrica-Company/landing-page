@@ -23,19 +23,25 @@ import whatsTheWorkoutSnapshot1 from "./assets/App_previews/Whats_the_Workout/Sn
 import whatsTheWorkoutSnapshot2 from "./assets/App_previews/Whats_the_Workout/Snapshot2.webp";
 import whatsTheWorkoutSnapshot3 from "./assets/App_previews/Whats_the_Workout/Snapshot3.webp";
 import skFranceBanner from "./assets/Website_previews/SKfrance_Banner.webp";
+import skillTeamBanner from "./assets/Website_previews/SkillTeam_Banner.webp";
 
 
 /** Web3Forms key powering the contact form. Get one free at https://web3forms.com */
 export const WEB3FORMS_ACCESS_KEY = "3e9256d4-7606-4f32-8855-615e3d892cd5"; 
 
+export const HIDE_APPS = true;
+
 export const COMPANY_INFO: CompanyInfo = {
   name: "FabricaLabs",
   tagline: "Design & development studio",
   heroHeadlinePrefix: "We build",
-  heroRotatingWords: ["websites", "web apps", "mobile apps"],
+  heroRotatingWords: HIDE_APPS
+    ? ["websites", "web apps"]
+    : ["websites", "web apps", "mobile apps"],
   heroHeadlineSuffix: "that work as hard as you do.",
-  heroDescription:
-    "FabricaLabs designs new websites, modernizes dated ones, and builds web and mobile apps. One team from the first wireframe — to the day it ships.",
+  heroDescription: HIDE_APPS
+    ? "FabricaLabs designs new websites, modernizes dated ones, and builds web apps. One team from the first wireframe — to the day it ships."
+    : "FabricaLabs designs new websites, modernizes dated ones, and builds web and mobile apps. One team from the first wireframe — to the day it ships.",
   email: "support@fabricalabs.net",
   location: "We work remotely across the world — based in Paris, France.",
   timezone: "Europe/Paris",
@@ -55,20 +61,28 @@ export const COMPANY_INFO: CompanyInfo = {
     "Tell us what you're building or what needs modernizing. We reply within one business day with next steps and a ballpark.",
 };
 
-export const NAV_ITEMS_MAIN: NavItem[] = [
+const NAV_ITEMS_MAIN_ALL: NavItem[] = [
   { id: "home", name: "Home", href: "/", icon: HomeIcon },
   { id: "websites", name: "Websites", href: "/websites", icon: CodeIcon },
   { id: "apps", name: "Apps", href: "/apps", icon: AppsIcon },
 ];
 
+export const NAV_ITEMS_MAIN: NavItem[] = HIDE_APPS
+  ? NAV_ITEMS_MAIN_ALL.filter((item) => item.id !== "apps")
+  : NAV_ITEMS_MAIN_ALL;
+
 /** Headline numbers under the hero. TODO: replace with your real figures. */
-export const COMPANY_STATS: Stat[] = [
-  { value: "1", label: "Site designed & modernized" },
+const COMPANY_STATS_ALL: Stat[] = [
+  { value: "2", label: "Sites designed & modernized" },
   { value: "1", label: "App shipped" },
   { value: "2", label: "Years building for the web" },
 ];
 
-export const SERVICES: Service[] = [
+export const COMPANY_STATS: Stat[] = HIDE_APPS
+  ? COMPANY_STATS_ALL.filter((stat) => stat.label !== "App shipped")
+  : COMPANY_STATS_ALL;
+
+const SERVICES_ALL: Service[] = [
   {
     id: "service-websites",
     name: "Building & modernizing websites",
@@ -103,6 +117,10 @@ export const SERVICES: Service[] = [
     deliverables: ["Native-feeling UI", "iOS and Android builds"],
   },
 ];
+
+export const SERVICES: Service[] = HIDE_APPS
+  ? SERVICES_ALL.filter((service) => service.id !== "service-mobile-apps")
+  : SERVICES_ALL;
 
 export const PROCESS_STEPS: ProcessStep[] = [
   {
@@ -155,6 +173,21 @@ export const WEBSITE_PROJECTS: WebsiteProject[] = [
     liveLink: "https://skfrance.fr",
     cardImageUrl: skFranceBanner,
     cardImageFit: "contain",
+  },
+  {
+    id: "skillteam",
+    name: "SkillTeam",
+    industry: "Corporate Communication Training",
+    workType: "New build",
+    year: "2026",
+    description:
+      "Landing page built from scratch according to visual brand design, optimized for conversions and clarity.",
+    services: ["Brand-aligned design", "Landing page", "Complete rebuild"],
+    liveLink: "https://skillteam.net",
+    cardImageUrl: skillTeamBanner,
+    cardImageFit: "contain",
+    cardImageBackground: "#e5f3fe",
+    cardImageInset: false,
   },
 ];
 
