@@ -187,21 +187,36 @@ export interface DevTeamStage {
   number: string;
   title: string;
   items: string[];
+  icon: React.ComponentType<IconProps>;
+}
+
+export interface DevTeamAudienceProfile {
+  id: string;
+  name: string;
+  /** Optional photo. A placeholder is shown when omitted. */
+  imageUrl?: string;
+  imageAlt?: string;
+}
+
+export interface DevTeamLeakPoint {
+  id: string;
+  number: string;
+  title: string;
+  description: string;
+  icon: React.ComponentType<IconProps>;
 }
 
 export interface DevTeamsPageContent {
-  eyebrow: string;
   valueProposition: string;
   valuePropositionSupport: string;
   audienceLabel: string;
   audience: string;
+  audienceProfiles: DevTeamAudienceProfile[];
   problemLabel: string;
   problem: string;
-  solutionLabel: string;
+  leakPointsTitle: string;
+  leakPoints: DevTeamLeakPoint[];
   solution: string;
-  deliverablesTitle: string;
-  deliverablesSubtitle: string;
-  deliverables: string[];
   stagesTitle: string;
   stagesSubtitle: string;
   stages: DevTeamStage[];
@@ -216,33 +231,28 @@ export interface LocalBusinessLeakPoint {
   number: string;
   title: string;
   description: string;
+  icon: React.ComponentType<IconProps>;
 }
 
-export interface LocalBusinessPillar {
+export interface LocalBusinessIndustry {
   id: string;
-  number: string;
-  title: string;
-  objective: string;
-  items: string[];
+  name: string;
+  /** Optional photo. A placeholder is shown when omitted. */
+  imageUrl?: string;
+  imageAlt?: string;
 }
 
 export interface LocalBusinessesPageContent {
-  eyebrow: string;
   valueProposition: string;
   valuePropositionSupport: string;
   audienceLabel: string;
   audience: string;
-  industries: string[];
+  industries: LocalBusinessIndustry[];
   problemLabel: string;
   problem: string;
-  problemSummary: string;
   leakPointsTitle: string;
   leakPoints: LocalBusinessLeakPoint[];
-  solutionLabel: string;
   solution: string;
-  pillarsTitle: string;
-  pillarsSubtitle: string;
-  pillars: LocalBusinessPillar[];
 }
 
 export interface ForLocalBusinessesPageProps {
@@ -252,10 +262,11 @@ export interface ForLocalBusinessesPageProps {
 export interface HomeAudiencePath {
   id: string;
   pageId: string;
-  eyebrow: string;
   title: string;
   description: string;
   cta: string;
+  imageUrl: string;
+  imageAlt: string;
 }
 
 export interface HomePageContent {

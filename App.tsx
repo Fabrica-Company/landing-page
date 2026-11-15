@@ -326,11 +326,13 @@ const AppContent: React.FC = () => {
         </Routes>
       </main>
 
-      <Footer
-        company={COMPANY_INFO}
-        navItems={NAV_ITEMS_MAIN}
-        setCurrentPage={handleSetPage}
-      />
+      {currentPage !== 'home' && (
+        <Footer
+          company={COMPANY_INFO}
+          navItems={NAV_ITEMS_MAIN}
+          setCurrentPage={handleSetPage}
+        />
+      )}
     </div>
   );
 };

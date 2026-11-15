@@ -1,7 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { NavItem as NavItemType } from '../types';
 import { NAV_ITEMS_MAIN, COMPANY_INFO } from '../constants';
-import { MailIcon, MoonIcon, SunIcon } from './icons';
+import { HomeIcon, MailIcon, MoonIcon, SunIcon } from './icons';
+
+const TEXT_NAV_ITEMS = NAV_ITEMS_MAIN.filter((item) => item.id !== 'home');
 
 interface NavItemProps {
   item: NavItemType;
@@ -45,7 +47,7 @@ export const Header: React.FC<{
   const [hoveredItemId, setHoveredItemId] = useState<string | null>(null);
 
   useEffect(() => {
-    navItemRefs.current = navItemRefs.current.slice(0, NAV_ITEMS_MAIN.length);
+    navItemRefs.current = navItemRefs.current.slice(0, TEXT_NAV_ITEMS.length);
   }, []);
 
   useEffect(() => {
@@ -55,7 +57,7 @@ export const Header: React.FC<{
       if (!pill || !container) return;
 
       const targetId = hoveredItemId || currentPage;
-      const targetIndex = NAV_ITEMS_MAIN.findIndex((item) => item.id === targetId);
+      const targetIndex = TEXT_NAV_ITEMS.findIndex((item) => item.id === targetId);
       const targetEl = navItemRefs.current[targetIndex];
 
       if (!targetEl) {
@@ -79,26 +81,44 @@ export const Header: React.FC<{
     return () => window.removeEventListener('resize', positionPill);
   }, [currentPage, hoveredItemId, theme]);
 
+  const isHomeActive = currentPage === 'home';
+
   return (
     <header className="sticky top-0 z-50 w-full bg-background/80 dark:bg-dark-background/80 backdrop-blur-md border-b border-border dark:border-dark-border">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 gap-3">
-          <div className="flex items-center gap-2 sm:gap-4 min-w-0 flex-1">
+          <div className="flex items-center gap-1 sm:gap-2 shrink-0">
             <button
               type="button"
               onClick={() => setCurrentPage('home')}
-              className="text-base font-bold tracking-tight text-text-primary dark:text-dark-text-primary hover:opacity-70 transition-opacity shrink-0"
+              className="text-base font-bold tracking-tight text-text-primary dark:text-dark-text-primary hover:opacity-70 transition-opacity"
               aria-label={`${COMPANY_INFO.name} home`}
             >
               {COMPANY_INFO.name}
             </button>
 
+            <button
+              type="button"
+              onClick={() => setCurrentPage('home')}
+              aria-label="Home"
+              aria-current={isHomeActive ? 'page' : undefined}
+              className={`p-2 rounded-full transition-colors ${
+                isHomeActive
+                  ? 'text-text-primary dark:text-dark-text-primary bg-card-hover dark:bg-dark-card-hover'
+                  : 'text-text-secondary dark:text-dark-text-secondary hover:text-text-primary dark:hover:text-dark-text-primary hover:bg-card-hover dark:hover:bg-dark-card-hover'
+              }`}
+            >
+              <HomeIcon className="w-5 h-5" aria-hidden />
+            </button>
+          </div>
+
+          <div className="flex items-center gap-1 sm:gap-2 min-w-0">
             <nav
               ref={navContainerRef}
               className="relative flex items-center gap-0.5 min-w-0 overflow-x-auto"
               aria-label="Primary"
             >
-              {NAV_ITEMS_MAIN.map((item, index) => (
+              {TEXT_NAV_ITEMS.map((item, index) => (
                 <NavItem
                   key={item.id}
                   ref={(el) => {
@@ -113,16 +133,14 @@ export const Header: React.FC<{
               ))}
               <div ref={activePillRef} className="nav-active-pill" />
             </nav>
-          </div>
 
-          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
             <button
               type="button"
               onClick={(event) => toggleTheme(event)}
               aria-label={
                 theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'
               }
-              className="group p-2 rounded-full text-text-secondary dark:text-dark-text-secondary hover:text-text-primary dark:hover:text-dark-text-primary hover:bg-card-hover dark:hover:bg-dark-card-hover transition-colors"
+              className="group p-2 rounded-full text-text-secondary dark:text-dark-text-secondary hover:text-text-primary dark:hover:text-dark-text-primary hover:bg-card-hover dark:hover:bg-dark-card-hover transition-colors shrink-0"
             >
               {theme === 'light' ? (
                 <MoonIcon className="w-5 h-5" aria-hidden />
@@ -137,7 +155,7 @@ export const Header: React.FC<{
             <button
               type="button"
               onClick={() => setCurrentPage('contact')}
-              className="inline-flex items-center px-3 py-2 text-sm font-medium rounded-lg bg-button-primary-bg dark:bg-dark-button-primary-bg text-button-primary-text dark:text-dark-button-primary-text hover:bg-button-primary-hover dark:hover:bg-dark-button-primary-hover transition-colors"
+              className="inline-flex items-center px-3 py-2 text-sm font-medium rounded-lg bg-button-primary-bg dark:bg-dark-button-primary-bg text-button-primary-text dark:text-dark-button-primary-text hover:bg-button-primary-hover dark:hover:bg-dark-button-primary-hover transition-colors shrink-0"
             >
               <MailIcon className="w-4 h-4 sm:mr-1.5" aria-hidden />
               <span className="hidden sm:inline">Start a project</span>

@@ -17,6 +17,8 @@ export {
   FiMapPin as MapPinIcon,
   FiClock as ClockIcon,
   FiCheckCircle as CheckCircleIcon,
+  FiPhoneOff as PhoneOffIcon,
+  FiXCircle as XCircleIcon,
 
   // Services
   FiLayout as LayoutIcon,
