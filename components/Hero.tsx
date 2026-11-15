@@ -4,7 +4,6 @@ import { CircularText } from './CircularText';
 import { RotatingWord } from './RotatingWord';
 import { StatsStrip } from './StatsStrip';
 import { LiveTime } from './LiveTime';
-import { OnlineStatus } from './OnlineStatus';
 import { ArrowRightIcon, MailIcon } from './icons';
 import logo from '../assets/Logo.webp';
 
@@ -13,12 +12,7 @@ export const Hero: React.FC<HeroProps> = ({ company, stats, setCurrentPage }) =>
     <section id="hero" className="pt-6 pb-4 md:pt-10">
       <div className="flex flex-col lg:flex-row lg:items-center gap-10 lg:gap-12">
         <div className="lg:w-2/3 space-y-5">
-          <p className="animated-item anim-fadeInUp flex items-center text-sm font-medium tracking-wide text-text-secondary dark:text-dark-text-secondary">
-            <OnlineStatus />
-            {company.tagline}
-          </p>
-
-          <h1 className="animated-item anim-fadeInUp anim-delay-100 text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-text-primary dark:text-dark-text-primary">
+          <h1 className="animated-item anim-fadeInUp text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-text-primary dark:text-dark-text-primary">
             {company.heroHeadlinePrefix}{' '}
             <RotatingWord words={company.heroRotatingWords} />
             <br className="hidden sm:block" />
