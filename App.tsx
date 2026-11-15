@@ -10,10 +10,10 @@ import {
 import { useSwipeable } from 'react-swipeable';
 import { useLenis } from 'lenis/react';
 import { Header } from './components/Header';
-import { Hero } from './components/Hero';
-import { ServicesSection } from './components/ServicesSection';
-import { ProcessSection } from './components/ProcessSection';
-import { CallToAction } from './components/CallToAction';
+import { AboutPage } from './components/AboutPage';
+import { ForDevTeamsPage } from './components/ForDevTeamsPage';
+import { ForLocalBusinessesPage } from './components/ForLocalBusinessesPage';
+import { HomePage } from './components/HomePage';
 import { Footer } from './components/Footer';
 import { WebsitesPage } from './components/WebsitesPage';
 import { AppsPage } from './components/AppsPage';
@@ -27,19 +27,14 @@ import {
 import {
   APP_PROJECTS,
   COMPANY_INFO,
-  COMPANY_STATS,
   HIDE_APPS,
   NAV_ITEMS_MAIN,
-  PROCESS_STEPS,
-  SERVICES,
   WEBSITE_PROJECTS,
 } from './constants';
 import clickSound from './assets/click_sound.wav';
 
-/** Left-to-right order used by mobile swipe navigation. */
-const MENU_TABS = HIDE_APPS
-  ? ['home', 'websites']
-  : ['home', 'websites', 'apps'];
+/** Left-to-right order used by mobile swipe navigation (header tabs only). */
+const MENU_TABS = NAV_ITEMS_MAIN.map((item) => item.id);
 
 const AppContent: React.FC = () => {
   const navigate = useNavigate();
@@ -169,7 +164,7 @@ const AppContent: React.FC = () => {
 
   const path = location.pathname;
 
-  // App detail pages keep the Apps nav pill lit.
+  // App detail pages keep the Apps nav pill lit when apps appear in nav.
   const currentPage = (() => {
     if (path === '/') return 'home';
     if (path.startsWith('/apps')) return 'apps';
@@ -177,6 +172,8 @@ const AppContent: React.FC = () => {
   })();
 
   const isDetailPage = /^\/apps\/.+/.test(path);
+  /** Websites is not a header tab — skip swipe tab switching there. */
+  const isOffNavPage = path === '/websites' || path === '/contact' || isDetailPage;
 
   const isMobile =
     typeof window !== 'undefined' && window.innerWidth <= 768;
@@ -189,7 +186,7 @@ const AppContent: React.FC = () => {
     }
   };
 
-  const canSwipe = isMobile && currentTabIdx !== -1 && !isDetailPage;
+  const canSwipe = isMobile && currentTabIdx !== -1 && !isOffNavPage;
 
   const swipeHandlers = useSwipeable({
     onSwipeStart: (event) => {
@@ -241,31 +238,24 @@ const AppContent: React.FC = () => {
         <Routes>
           <Route
             path="/"
+            element={<HomePage setCurrentPage={handleSetPage} />}
+          />
+
+          <Route
+            path="/about"
+            element={<AboutPage setCurrentPage={handleSetPage} />}
+          />
+
+          <Route
+            path="/for-local-businesses"
             element={
-              <>
-                <Hero
-                  company={COMPANY_INFO}
-                  stats={COMPANY_STATS}
-                  setCurrentPage={handleSetPage}
-                />
-                <ServicesSection
-                  services={SERVICES}
-                  title="What we do"
-                  subtitle={
-                    HIDE_APPS
-                      ? "New sites, modernizing dated ones, and web apps."
-                      : "Four things, done properly: new sites, modernizing dated ones, and web and mobile apps."
-                  }
-                />
-                <ProcessSection
-                  steps={PROCESS_STEPS}
-                  title="How we work"
-                  subtitle="A fixed scope up front, record delivery, and support after launch."
-                  onViewAllClick={() => handleSetPage('websites')}
-                />
-                <CallToAction setCurrentPage={handleSetPage} />
-              </>
+              <ForLocalBusinessesPage setCurrentPage={handleSetPage} />
             }
+          />
+
+          <Route
+            path="/for-dev-teams"
+            element={<ForDevTeamsPage setCurrentPage={handleSetPage} />}
           />
 
           <Route

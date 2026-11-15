@@ -8,7 +8,8 @@ export interface NavItem {
   id: string;
   name: string;
   href: string;
-  icon: React.ComponentType<IconProps>;
+  /** Optional; header uses text labels. Kept for any icon-based surfaces. */
+  icon?: React.ComponentType<IconProps>;
 }
 
 export interface CompanyInfo {
@@ -179,4 +180,92 @@ export interface AppsPageProps {
 export interface ContactPageProps {
   company: CompanyInfo;
   setCurrentPage: (pageId: string) => void;
+}
+
+export interface DevTeamStage {
+  id: string;
+  number: string;
+  title: string;
+  items: string[];
+}
+
+export interface DevTeamsPageContent {
+  eyebrow: string;
+  valueProposition: string;
+  valuePropositionSupport: string;
+  audienceLabel: string;
+  audience: string;
+  problemLabel: string;
+  problem: string;
+  solutionLabel: string;
+  solution: string;
+  deliverablesTitle: string;
+  deliverablesSubtitle: string;
+  deliverables: string[];
+  stagesTitle: string;
+  stagesSubtitle: string;
+  stages: DevTeamStage[];
+}
+
+export interface ForDevTeamsPageProps {
+  setCurrentPage: (pageId: string, itemId?: string) => void;
+}
+
+export interface LocalBusinessLeakPoint {
+  id: string;
+  number: string;
+  title: string;
+  description: string;
+}
+
+export interface LocalBusinessPillar {
+  id: string;
+  number: string;
+  title: string;
+  objective: string;
+  items: string[];
+}
+
+export interface LocalBusinessesPageContent {
+  eyebrow: string;
+  valueProposition: string;
+  valuePropositionSupport: string;
+  audienceLabel: string;
+  audience: string;
+  industries: string[];
+  problemLabel: string;
+  problem: string;
+  problemSummary: string;
+  leakPointsTitle: string;
+  leakPoints: LocalBusinessLeakPoint[];
+  solutionLabel: string;
+  solution: string;
+  pillarsTitle: string;
+  pillarsSubtitle: string;
+  pillars: LocalBusinessPillar[];
+}
+
+export interface ForLocalBusinessesPageProps {
+  setCurrentPage: (pageId: string, itemId?: string) => void;
+}
+
+export interface HomeAudiencePath {
+  id: string;
+  pageId: string;
+  eyebrow: string;
+  title: string;
+  description: string;
+  cta: string;
+}
+
+export interface HomePageContent {
+  eyebrow: string;
+  headline: string;
+  description: string;
+  pathsLabel: string;
+  paths: HomeAudiencePath[];
+}
+
+export interface HomePageProps {
+  setCurrentPage: (pageId: string, itemId?: string) => void;
 }

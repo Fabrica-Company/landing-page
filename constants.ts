@@ -1,6 +1,9 @@
 import {
   AppProject,
   CompanyInfo,
+  DevTeamsPageContent,
+  HomePageContent,
+  LocalBusinessesPageContent,
   NavItem,
   ProcessStep,
   Service,
@@ -9,8 +12,6 @@ import {
 } from "./types";
 import {
   AppsIcon,
-  CodeIcon,
-  HomeIcon,
   LayersIcon,
   LayoutIcon,
   RefreshIcon,
@@ -61,15 +62,17 @@ export const COMPANY_INFO: CompanyInfo = {
     "Tell us what you're building or what needs modernizing. We reply within one business day with next steps and a ballpark.",
 };
 
-const NAV_ITEMS_MAIN_ALL: NavItem[] = [
-  { id: "home", name: "Home", href: "/", icon: HomeIcon },
-  { id: "websites", name: "Websites", href: "/websites", icon: CodeIcon },
-  { id: "apps", name: "Apps", href: "/apps", icon: AppsIcon },
+/** Header / footer nav. Websites is intentionally omitted — reach it via About → See our work. */
+export const NAV_ITEMS_MAIN: NavItem[] = [
+  { id: "home", name: "Home", href: "/" },
+  {
+    id: "for-local-businesses",
+    name: "For local businesses",
+    href: "/for-local-businesses",
+  },
+  { id: "for-dev-teams", name: "For dev teams", href: "/for-dev-teams" },
+  { id: "about", name: "About", href: "/about" },
 ];
-
-export const NAV_ITEMS_MAIN: NavItem[] = HIDE_APPS
-  ? NAV_ITEMS_MAIN_ALL.filter((item) => item.id !== "apps")
-  : NAV_ITEMS_MAIN_ALL;
 
 /** Headline numbers under the hero. TODO: replace with your real figures. */
 const COMPANY_STATS_ALL: Stat[] = [
@@ -190,6 +193,188 @@ export const WEBSITE_PROJECTS: WebsiteProject[] = [
     cardImageInset: false,
   },
 ];
+
+/** Concise homepage — routes to audience pages without repeating them. */
+export const HOME_PAGE: HomePageContent = {
+  eyebrow: "Design & development studio",
+  headline: "Choose who you're building for.",
+  description:
+    "FabricaLabs helps local businesses get found and capture customers — and helps engineering teams ship AI-assisted work safely.",
+  pathsLabel: "Where to go next",
+  paths: [
+    {
+      id: "path-local",
+      pageId: "for-local-businesses",
+      eyebrow: "Cities · health · food · home · sports",
+      title: "For local businesses",
+      description:
+        "Get found online, then capture the enquiry — websites, local SEO, and AI agents that answer when you can't.",
+      cta: "Explore local businesses",
+    },
+    {
+      id: "path-dev",
+      pageId: "for-dev-teams",
+      eyebrow: "Teams of 3–15 developers",
+      title: "For dev teams",
+      description:
+        "Help small engineering teams build faster with AI — while keeping control, shipping safely, and understanding production.",
+      cta: "Explore dev teams",
+    },
+  ],
+};
+
+/** Content for the For Local Businesses page. */
+export const LOCAL_BUSINESSES_PAGE: LocalBusinessesPageContent = {
+  eyebrow: "For local businesses",
+  valueProposition:
+    "Get found online — and don't lose customers when they're ready to get in touch.",
+  valuePropositionSupport:
+    "A system that helps local businesses get found and capture more customers online.",
+  audienceLabel: "Who this is for",
+  audience:
+    "Local businesses in cities — health, food, home maintenance & renovation, and sports.",
+  industries: [
+    "Health",
+    "Food",
+    "Home maintenance & renovation",
+    "Sports",
+  ],
+  problemLabel: "The problem",
+  problem:
+    "Local businesses lose potential customers online because they are difficult to find, difficult to trust, or unavailable when customers are ready to contact them.",
+  problemSummary:
+    "Local businesses are losing customers throughout their online customer journey: they aren't always visible when people search, don't always convert visitors into enquiries, and can't always respond when potential customers are ready to contact them.",
+  leakPointsTitle: "Three places a customer is lost",
+  leakPoints: [
+    {
+      id: "leak-find",
+      number: "01",
+      title: "They don't find the business",
+      description:
+        "Poor local SEO, a weak website, or an incomplete online presence.",
+    },
+    {
+      id: "leak-convert",
+      number: "02",
+      title: "They find it but don't convert",
+      description:
+        "An outdated website, unclear information, lack of trust signals, or a difficult booking and contact process.",
+    },
+    {
+      id: "leak-respond",
+      number: "03",
+      title: "They try to contact it but nobody responds",
+      description:
+        "Missed calls, messages outside working hours, or slow follow-up.",
+    },
+  ],
+  solutionLabel: "The solution",
+  solution:
+    "We help local businesses get found online and make sure they don't lose potential customers when they're ready to get in touch.",
+  pillarsTitle: "Two pillars",
+  pillarsSubtitle:
+    "Everything we do for local businesses fits into getting found, then capturing the enquiry.",
+  pillars: [
+    {
+      id: "pillar-get-found",
+      number: "01",
+      title: "Get found",
+      objective:
+        "The objective isn't a prettier website. It's making sure potential customers can find and understand your business when they search for your services.",
+      items: [
+        "Modern website creation or renovation",
+        "Local SEO",
+        "AI search optimization",
+      ],
+    },
+    {
+      id: "pillar-capture",
+      number: "02",
+      title: "Capture customers",
+      objective:
+        "When someone is interested, the business shouldn't lose them because nobody is available to respond.",
+      items: [
+        "AI voice agent",
+        "AI text agent",
+        "Booking and enquiry automation",
+      ],
+    },
+  ],
+};
+
+/** Content for the For Dev Teams page. */
+export const DEV_TEAMS_PAGE: DevTeamsPageContent = {
+  eyebrow: "For engineering teams",
+  valueProposition: "Help your developers build faster. Make sure your systems can keep up.",
+  valuePropositionSupport:
+    "We help small engineering teams increase delivery speed safely by improving the workflow around AI-assisted development.",
+  audienceLabel: "Who this is for",
+  audience:
+    "Companies with roughly 3–15 software developers, without a large dedicated DevOps or platform engineering team.",
+  problemLabel: "The problem",
+  problem:
+    "The arrival of LLMs radically changed the way a developer works. Small engineering teams are generating software faster with AI, but their development, security and deployment processes haven't evolved at the same pace.",
+  solutionLabel: "The solution",
+  solution:
+    "We help engineering teams increase delivery speed safely by improving the workflow around AI-assisted development.",
+  deliverablesTitle: "What we put in place",
+  deliverablesSubtitle:
+    "Practical upgrades to how your team codes, ships, and stays secure — without adding a full platform org.",
+  deliverables: [
+    "Automatic dependencies vulnerability scans and updates",
+    "Shared enterprise knowledge context through all dev agents on IDE (hook)",
+    "Automation of part or the entire deployment process",
+    "Monitoring setup and explanation through a presentation/Q&A with the dev team",
+    "Coding agents setup and best practices through a presentation/Q&A with the dev team",
+  ],
+  stagesTitle: "Four stages",
+  stagesSubtitle: "Your services fit into a clear path from coding faster to understanding production.",
+  stages: [
+    {
+      id: "stage-build",
+      number: "01",
+      title: "Build faster",
+      items: [
+        "Coding agent setup",
+        "Best practices",
+        "Shared AI context",
+        "Team workflows",
+      ],
+    },
+    {
+      id: "stage-control",
+      number: "02",
+      title: "Keep control",
+      items: [
+        "Dependency management",
+        "Vulnerability scanning",
+        "Automated checks",
+        "Code quality processes",
+      ],
+    },
+    {
+      id: "stage-ship",
+      number: "03",
+      title: "Ship faster",
+      items: [
+        "CI/CD automation",
+        "Testing automation",
+        "Deployment workflows",
+      ],
+    },
+    {
+      id: "stage-production",
+      number: "04",
+      title: "Understand production",
+      items: [
+        "Monitoring",
+        "Error tracking",
+        "Alerts",
+        "Team onboarding",
+      ],
+    },
+  ],
+};
 
 /** Web and mobile apps. */
 export const APP_PROJECTS: AppProject[] = [

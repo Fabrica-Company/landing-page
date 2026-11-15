@@ -19,19 +19,19 @@ const NavItem = React.forwardRef<HTMLButtonElement, NavItemProps>(
       onClick={onClick}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
-      className={`relative flex items-center justify-center p-2 rounded-full text-sm font-medium transition-colors ${
+      className={`relative flex items-center justify-center px-2 sm:px-3 py-1.5 rounded-full text-xs sm:text-sm font-medium whitespace-nowrap transition-colors ${
         isActive
           ? 'text-text-primary dark:text-dark-text-primary'
           : 'text-text-secondary dark:text-dark-text-secondary hover:text-text-primary dark:hover:text-dark-text-primary'
       }`}
-      aria-label={item.name}
       aria-current={isActive ? 'page' : undefined}
-      title={item.name}
     >
-      <item.icon className="w-5 h-5" aria-hidden />
+      {item.name}
     </button>
   )
 );
+
+NavItem.displayName = 'NavItem';
 
 export const Header: React.FC<{
   currentPage: string;
@@ -83,17 +83,21 @@ export const Header: React.FC<{
     <header className="sticky top-0 z-50 w-full bg-background/80 dark:bg-dark-background/80 backdrop-blur-md border-b border-border dark:border-dark-border">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 gap-3">
-          <div className="flex items-center gap-2 sm:gap-4 min-w-0">
+          <div className="flex items-center gap-2 sm:gap-4 min-w-0 flex-1">
             <button
               type="button"
               onClick={() => setCurrentPage('home')}
-              className="text-base font-bold tracking-tight text-text-primary dark:text-dark-text-primary hover:opacity-70 transition-opacity truncate"
+              className="text-base font-bold tracking-tight text-text-primary dark:text-dark-text-primary hover:opacity-70 transition-opacity shrink-0"
               aria-label={`${COMPANY_INFO.name} home`}
             >
               {COMPANY_INFO.name}
             </button>
 
-            <nav ref={navContainerRef} className="relative flex items-center">
+            <nav
+              ref={navContainerRef}
+              className="relative flex items-center gap-0.5 min-w-0 overflow-x-auto"
+              aria-label="Primary"
+            >
               {NAV_ITEMS_MAIN.map((item, index) => (
                 <NavItem
                   key={item.id}
