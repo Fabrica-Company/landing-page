@@ -1,14 +1,26 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { ForDevTeamsPageProps } from '../types';
 import { DEV_TEAMS_PAGE } from '../constants';
 import { SectionTitle } from './SectionTitle';
-import { ImagePlaceholder } from './ImagePlaceholder';
+import { ImageCrossfade } from './ImageCrossfade';
 import { CheckCircleIcon, MailIcon } from './icons';
 
 export const ForDevTeamsPage: React.FC<ForDevTeamsPageProps> = ({
   setCurrentPage,
 }) => {
   const content = DEV_TEAMS_PAGE;
+
+  const audienceSlides = useMemo(
+    () =>
+      content.audienceProfiles
+        .filter((profile) => !!profile.imageUrl)
+        .map((profile) => ({
+          id: profile.id,
+          imageUrl: profile.imageUrl as string,
+          imageAlt: profile.imageAlt || profile.name,
+        })),
+    [content.audienceProfiles]
+  );
 
   return (
     <>
@@ -32,38 +44,23 @@ export const ForDevTeamsPage: React.FC<ForDevTeamsPageProps> = ({
       </section>
 
       <section id="dev-teams-audience">
-        <SectionTitle title={content.audienceLabel} subtitle={content.audience} />
-        <ul className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-          {content.audienceProfiles.map((profile, index) => (
-            <li
-              key={profile.id}
-              className="animated-item anim-fadeInUp"
-              style={{ animationDelay: `${index * 80 + 150}ms` }}
-            >
-              <article className="group relative overflow-hidden rounded-xl border border-border dark:border-dark-border bg-card dark:bg-dark-card shadow-lg aspect-[3/4] transition-transform duration-300 ease-in-out hover:scale-[1.02]">
-                {profile.imageUrl ? (
-                  <img
-                    src={profile.imageUrl}
-                    alt={profile.imageAlt || profile.name}
-                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]"
-                  />
-                ) : (
-                  <ImagePlaceholder
-                    label={profile.name}
-                    className="absolute inset-0 h-full w-full rounded-none border-0"
-                  />
-                )}
-                <div
-                  className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"
-                  aria-hidden
-                />
-                <p className="absolute inset-x-0 bottom-0 p-3 sm:p-4 text-sm sm:text-base font-semibold text-white leading-snug">
-                  {profile.name}
-                </p>
-              </article>
-            </li>
-          ))}
-        </ul>
+        <div className="grid gap-8 lg:grid-cols-2 lg:gap-10 lg:items-center">
+          <div className="animated-item anim-fadeInUp">
+            <SectionTitle
+              title={content.audienceLabel}
+              subtitle={content.audience}
+              className="mb-0"
+            />
+          </div>
+
+          <div className="animated-item anim-fadeInUp anim-delay-100">
+            <ImageCrossfade
+              slides={audienceSlides}
+              intervalMs={5000}
+              className="aspect-[4/3] w-full"
+            />
+          </div>
+        </div>
       </section>
 
       <section id="dev-teams-problem">

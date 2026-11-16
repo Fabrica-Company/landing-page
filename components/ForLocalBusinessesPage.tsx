@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { ForLocalBusinessesPageProps } from '../types';
 import { LOCAL_BUSINESSES_PAGE } from '../constants';
 import { SectionTitle } from './SectionTitle';
-import { ImagePlaceholder } from './ImagePlaceholder';
+import { ImageCrossfade } from './ImageCrossfade';
 import { MailIcon } from './icons';
 
 export const ForLocalBusinessesPage: React.FC<ForLocalBusinessesPageProps> = ({
@@ -10,16 +10,29 @@ export const ForLocalBusinessesPage: React.FC<ForLocalBusinessesPageProps> = ({
 }) => {
   const content = LOCAL_BUSINESSES_PAGE;
 
+  const audienceSlides = useMemo(
+    () =>
+      content.industries
+        .filter((industry) => !!industry.imageUrl)
+        .map((industry) => ({
+          id: industry.id,
+          imageUrl: industry.imageUrl as string,
+          imageAlt: industry.imageAlt || industry.name,
+          label: industry.name,
+        })),
+    [content.industries]
+  );
+
   return (
     <>
       <section id="local-businesses-hero" className="pt-6 pb-4 md:pt-10">
         <h1 className="animated-item anim-fadeInUp max-w-3xl text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-text-primary dark:text-dark-text-primary">
           {content.valueProposition}
         </h1>
-        <p className="animated-item anim-fadeInUp anim-delay-200 mt-4 max-w-2xl text-lg text-text-secondary dark:text-dark-text-secondary leading-relaxed">
+        <p className="animated-item anim-fadeInUp anim-delay-100 mt-4 max-w-2xl text-lg text-text-secondary dark:text-dark-text-secondary leading-relaxed">
           {content.valuePropositionSupport}
         </p>
-        <div className="animated-item anim-fadeInUp anim-delay-300 mt-6 flex flex-wrap gap-3">
+        <div className="animated-item anim-fadeInUp anim-delay-200 mt-6 flex flex-wrap gap-3">
           <button
             type="button"
             onClick={() => setCurrentPage('contact')}
@@ -32,38 +45,23 @@ export const ForLocalBusinessesPage: React.FC<ForLocalBusinessesPageProps> = ({
       </section>
 
       <section id="local-businesses-audience">
-        <SectionTitle title={content.audienceLabel} subtitle={content.audience} />
-        <ul className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-          {content.industries.map((industry, index) => (
-            <li
-              key={industry.id}
-              className="animated-item anim-fadeInUp"
-              style={{ animationDelay: `${index * 80 + 150}ms` }}
-            >
-              <article className="group relative overflow-hidden rounded-xl border border-border dark:border-dark-border bg-card dark:bg-dark-card shadow-lg aspect-[3/4] transition-transform duration-300 ease-in-out hover:scale-[1.02]">
-                {industry.imageUrl ? (
-                  <img
-                    src={industry.imageUrl}
-                    alt={industry.imageAlt || industry.name}
-                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]"
-                  />
-                ) : (
-                  <ImagePlaceholder
-                    label={industry.name}
-                    className="absolute inset-0 h-full w-full rounded-none border-0"
-                  />
-                )}
-                <div
-                  className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"
-                  aria-hidden
-                />
-                <p className="absolute inset-x-0 bottom-0 p-3 sm:p-4 text-sm sm:text-base font-semibold text-white leading-snug">
-                  {industry.name}
-                </p>
-              </article>
-            </li>
-          ))}
-        </ul>
+        <div className="grid gap-8 lg:grid-cols-2 lg:gap-10 lg:items-center">
+          <div className="animated-item anim-fadeInUp">
+            <SectionTitle
+              title={content.audienceLabel}
+              subtitle={content.audience}
+              className="mb-0"
+            />
+          </div>
+
+          <div className="animated-item anim-fadeInUp anim-delay-100">
+            <ImageCrossfade
+              slides={audienceSlides}
+              intervalMs={5000}
+              className="aspect-[4/3] w-full"
+            />
+          </div>
+        </div>
       </section>
 
       <section id="local-businesses-problem">

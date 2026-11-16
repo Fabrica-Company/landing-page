@@ -39,7 +39,6 @@ export interface CompanyInfo {
   introWord2: string;
   introTagline: string;
   websitesPageIntro: string;
-  appsPageIntro: string;
   contactPageTitle: string;
   contactPageSubtitle: string;
 }
@@ -50,11 +49,9 @@ export interface Service {
   description: string;
   icon: React.ComponentType<IconProps>;
   deliverables: string[];
-}
-
-export interface Stat {
-  label: string;
-  value: string;
+  /** Optional page to open from the service card. */
+  pageId?: string;
+  cta?: string;
 }
 
 export interface ProcessStep {
@@ -71,11 +68,6 @@ export interface Testimonial {
   company: string;
   /** Client logo. A placeholder is rendered when omitted. */
   logoImageUrl?: string;
-}
-
-export interface ProjectMetric {
-  label: string;
-  value: string;
 }
 
 export type WebsiteWorkType = "New build" | "Modernization";
@@ -104,47 +96,8 @@ export interface WebsiteProject {
   testimonial?: Testimonial;
 }
 
-export type AppPlatform = "iOS" | "Android" | "Web" | "Cross-platform";
-
-export type AppKind = "Mobile App" | "Web App";
-
-export interface AppProject {
-  id: string;
-  name: string;
-  kind: AppKind;
-  platforms: AppPlatform[];
-  /** Optional status badge, e.g. "Live on the App Store". */
-  tag?: string;
-  description: string;
-  tagline?: string;
-  overview?: string;
-  year: string;
-  client?: string;
-  technologies: string[];
-  keyFeatures?: string[];
-  link?: string;
-  linkText?: string;
-  /** Privacy policy. The detail page alerts instead while this is empty. */
-  privacyPolicyUrl?: string;
-  /** Card thumbnail. A placeholder is rendered when omitted. */
-  cardImageUrl?: string;
-  /** `contain` shows the whole image. Default is `cover`. */
-  cardImageFit?: "cover" | "contain";
-  /** CSS object-position, e.g. "70% 50%". */
-  cardImagePosition?: string;
-  /** Detail page gallery. Placeholders are rendered when empty. */
-  images?: string[];
-  storeStats?: {
-    downloads: string;
-    rating: string;
-  };
-  metrics?: ProjectMetric[];
-  testimonial?: Testimonial;
-}
-
 export interface HeroProps {
   company: CompanyInfo;
-  stats: Stat[];
   setCurrentPage: (pageId: string, itemId?: string) => void;
 }
 
@@ -156,6 +109,7 @@ export interface ServicesSectionProps {
   services: Service[];
   title?: string;
   subtitle?: string;
+  setCurrentPage?: (pageId: string, itemId?: string) => void;
 }
 
 export interface ProcessSectionProps {
@@ -167,12 +121,6 @@ export interface ProcessSectionProps {
 
 export interface WebsitesPageProps {
   websites: WebsiteProject[];
-  intro: string;
-  setCurrentPage: (pageId: string, itemId?: string) => void;
-}
-
-export interface AppsPageProps {
-  apps: AppProject[];
   intro: string;
   setCurrentPage: (pageId: string, itemId?: string) => void;
 }

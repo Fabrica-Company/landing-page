@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
   BrowserRouter as Router,
-  Navigate,
   Route,
   Routes,
   useLocation,
@@ -16,8 +15,6 @@ import { ForLocalBusinessesPage } from './components/ForLocalBusinessesPage';
 import { HomePage } from './components/HomePage';
 import { Footer } from './components/Footer';
 import { WebsitesPage } from './components/WebsitesPage';
-import { AppsPage } from './components/AppsPage';
-import { AppDetailsPage } from './components/AppDetailsPage';
 import { ContactPage } from './components/ContactPage';
 import { IntroAnimation } from './components/IntroAnimation';
 import {
@@ -25,9 +22,7 @@ import {
   SmoothScrollToTop,
 } from './components/SmoothScrollProvider';
 import {
-  APP_PROJECTS,
   COMPANY_INFO,
-  HIDE_APPS,
   NAV_ITEMS_MAIN,
   WEBSITE_PROJECTS,
 } from './constants';
@@ -53,17 +48,13 @@ const AppContent: React.FC = () => {
   const handleAnimationComplete = useCallback(() => setShowIntro(false), []);
 
   useEffect(() => {
-    document.title = HIDE_APPS
-      ? 'FabricaLabs — Websites & web apps'
-      : 'FabricaLabs — Websites, web apps & mobile apps';
+    document.title = 'FabricaLabs — Websites & web apps';
 
     const description = document.querySelector('meta[name="description"]');
     if (description) {
       description.setAttribute(
         'content',
-        HIDE_APPS
-          ? 'FabricaLabs is a design and development studio. We design new websites, modernize dated ones, and build web apps.'
-          : 'FabricaLabs is a design and development studio. We design new websites, modernize dated ones, and build web and mobile apps.'
+        'FabricaLabs is a design and development studio. We design new websites, modernize dated ones, and build web apps.'
       );
     }
   }, []);
@@ -140,13 +131,11 @@ const AppContent: React.FC = () => {
   }, [theme]);
 
   const handleSetPage = useCallback(
-    (page: string, itemId?: string) => {
+    (page: string) => {
       setIsTransitioning(true);
       window.setTimeout(() => {
-        if (page === 'home' || (HIDE_APPS && (page === 'apps' || page === 'app-detail'))) {
+        if (page === 'home') {
           navigate('/');
-        } else if (page === 'app-detail' && itemId) {
-          navigate(`/apps/${itemId}`);
         } else {
           navigate(`/${page}`);
         }
@@ -164,16 +153,10 @@ const AppContent: React.FC = () => {
 
   const path = location.pathname;
 
-  // App detail pages keep the Apps nav pill lit when apps appear in nav.
-  const currentPage = (() => {
-    if (path === '/') return 'home';
-    if (path.startsWith('/apps')) return 'apps';
-    return path.slice(1);
-  })();
+  const currentPage = path === '/' ? 'home' : path.slice(1);
 
-  const isDetailPage = /^\/apps\/.+/.test(path);
-  /** Websites is not a header tab — skip swipe tab switching there. */
-  const isOffNavPage = path === '/websites' || path === '/contact' || isDetailPage;
+  /** Websites / contact are not header tabs — skip swipe tab switching there. */
+  const isOffNavPage = path === '/websites' || path === '/contact';
 
   const isMobile =
     typeof window !== 'undefined' && window.innerWidth <= 768;
@@ -266,32 +249,6 @@ const AppContent: React.FC = () => {
                 intro={COMPANY_INFO.websitesPageIntro}
                 setCurrentPage={handleSetPage}
               />
-            }
-          />
-
-          <Route
-            path="/apps"
-            element={
-              HIDE_APPS ? (
-                <Navigate to="/" replace />
-              ) : (
-                <AppsPage
-                  apps={APP_PROJECTS}
-                  intro={COMPANY_INFO.appsPageIntro}
-                  setCurrentPage={handleSetPage}
-                />
-              )
-            }
-          />
-
-          <Route
-            path="/apps/:appId"
-            element={
-              HIDE_APPS ? (
-                <Navigate to="/" replace />
-              ) : (
-                <AppDetailsPage setCurrentPage={handleSetPage} />
-              )
             }
           />
 

@@ -3,7 +3,6 @@ export {
   // Navigation
   FiHome as HomeIcon,
   FiCode as CodeIcon,
-  FiSmartphone as AppsIcon,
 
   // Controls
   FiSun as SunIcon,
@@ -30,10 +29,6 @@ export {
   FiTerminal as TerminalIcon,
   FiRefreshCw as RefreshIcon,
   FiServer as ServerIcon,
-
-  // App store metrics
-  FiStar as StarIcon,
-  FiDownload as DownloadIcon,
 
   // Media
   FiImage as ImageIcon,

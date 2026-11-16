@@ -1,12 +1,13 @@
 import React from 'react';
 import { ServicesSectionProps } from '../types';
 import { SectionTitle } from './SectionTitle';
-import { CheckCircleIcon } from './icons';
+import { ArrowRightIcon, CheckCircleIcon } from './icons';
 
 export const ServicesSection: React.FC<ServicesSectionProps> = ({
   services,
   title = 'What we do',
   subtitle,
+  setCurrentPage,
 }) => (
   <section id="services">
     <SectionTitle title={title} subtitle={subtitle} />
@@ -18,7 +19,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
           style={{ animationDelay: `${index * 100 + 200}ms` }}
         >
           <div className="flex items-center gap-3 mb-3">
-            <span className="flex items-center justify-center w-10 h-10 shrink-0 rounded-full bg-accent-blue/15 text-accent-blue">
+            <span className="flex items-center justify-center w-10 h-10 shrink-0 rounded-full bg-accent-blue/15 text-accent-blue dark:bg-dark-accent-blue/15 dark:text-dark-accent-blue">
               <service.icon className="w-5 h-5" aria-hidden />
             </span>
             <h3 className="text-lg font-semibold text-text-primary dark:text-dark-text-primary">
@@ -44,6 +45,20 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
               </li>
             ))}
           </ul>
+
+          {service.pageId && service.cta && setCurrentPage && (
+            <button
+              type="button"
+              onClick={() => setCurrentPage(service.pageId as string)}
+              className="group mt-5 inline-flex items-center self-start text-sm font-medium text-accent-blue hover:text-accent-blue/80 transition-colors"
+            >
+              {service.cta}
+              <ArrowRightIcon
+                className="w-4 h-4 ml-1.5 transition-transform duration-200 ease-in-out group-hover:translate-x-1"
+                aria-hidden
+              />
+            </button>
+          )}
         </article>
       ))}
     </div>

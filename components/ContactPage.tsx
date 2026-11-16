@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { ContactPageProps } from '../types';
-import { HIDE_APPS, WEB3FORMS_ACCESS_KEY } from '../constants';
+import { WEB3FORMS_ACCESS_KEY } from '../constants';
 import { ArrowLeftIcon, CheckCircleIcon, MailIcon, MapPinIcon } from './icons';
 
 const PROJECT_TYPES = [
   'New website',
   'Website modernization',
   'Web app',
-  ...(HIDE_APPS ? [] : ['Mobile app']),
   'Not sure yet',
 ];
 

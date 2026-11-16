@@ -2,12 +2,11 @@ import React from 'react';
 import { HeroProps } from '../types';
 import { CircularText } from './CircularText';
 import { RotatingWord } from './RotatingWord';
-import { StatsStrip } from './StatsStrip';
 import { LiveTime } from './LiveTime';
 import { ArrowRightIcon, MailIcon } from './icons';
 import logo from '../assets/Logo.webp';
 
-export const Hero: React.FC<HeroProps> = ({ company, stats, setCurrentPage }) => {
+export const Hero: React.FC<HeroProps> = ({ company, setCurrentPage }) => {
   return (
     <section id="hero" className="pt-6 pb-4 md:pt-10">
       <div className="flex flex-col lg:flex-row lg:items-center gap-10 lg:gap-12">
@@ -70,8 +69,6 @@ export const Hero: React.FC<HeroProps> = ({ company, stats, setCurrentPage }) =>
           </div>
         </div>
       </div>
-
-      <StatsStrip stats={stats} className="mt-12 md:mt-16" />
     </section>
   );
 };

@@ -6,12 +6,12 @@ export const CallToAction: React.FC<CallToActionProps> = ({ setCurrentPage }) =>
   <section className="animated-item anim-fadeInUp anim-delay-400 py-12 md:py-16 text-center bg-card dark:bg-dark-card border border-border dark:border-dark-border rounded-xl shadow-xl">
     <div className="max-w-2xl mx-auto px-4">
       <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-text-primary dark:text-dark-text-primary mb-4">
-        Got something to build?
+        Ready to get more done — safely?
       </h2>
       <p className="text-lg text-text-secondary dark:text-dark-text-secondary mb-8">
-        Whether it&rsquo;s a new site, a rebuild of a tired one, or an app you
-        need shipped &mdash; tell us about it and we&rsquo;ll tell you what it
-        takes.
+        Whether you need to capture more local customers or help developers
+        ship faster &mdash; tell us where things break down and we&rsquo;ll
+        outline the process.
       </p>
       <div className="flex flex-col sm:flex-row justify-center gap-4">
         <button

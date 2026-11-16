@@ -1,5 +1,4 @@
 import {
-  AppProject,
   CompanyInfo,
   DevTeamsPageContent,
   HomePageContent,
@@ -7,13 +6,12 @@ import {
   NavItem,
   ProcessStep,
   Service,
-  Stat,
   WebsiteProject,
 } from "./types";
 import {
-  AppsIcon,
+  CodeIcon,
+  HomeIcon,
   LayersIcon,
-  LayoutIcon,
   MonitorIcon,
   PhoneOffIcon,
   RefreshIcon,
@@ -22,20 +20,22 @@ import {
   TerminalIcon,
   XCircleIcon,
 } from "./components/icons";
-import whatsTheWorkoutBanner from "./assets/App_previews/Whats_the_Workout/Banner Preview.webp";
-import whatsTheWorkoutSnapshot1 from "./assets/App_previews/Whats_the_Workout/Snapshot1.webp";
-import whatsTheWorkoutSnapshot2 from "./assets/App_previews/Whats_the_Workout/Snapshot2.webp";
-import whatsTheWorkoutSnapshot3 from "./assets/App_previews/Whats_the_Workout/Snapshot3.webp";
 import skFranceBanner from "./assets/Website_previews/SKfrance_Banner.webp";
 import skillTeamBanner from "./assets/Website_previews/SkillTeam_Banner.webp";
 import localBusinessesHomeImage from "./assets/Friendly Shopkeeper Outside a Modern Store.png";
 import devTeamsHomeImage from "./assets/Collaborative Coding in a Bright Office.png";
+import codingSlide1 from "./assets/coding 1.jpg";
+import codingSlide2 from "./assets/coding 2.jpg";
+import codingSlide3 from "./assets/coding 3.jpg";
+import codingSlide4 from "./assets/coding 4.jpg";
+import clinicHealthImage from "./assets/clinic health.jpg";
+import restaurantImage from "./assets/restaurant.jpg";
+import homeMaintenanceImage from "./assets/home maintenance & renovation.jpg";
+import gymImage from "./assets/gym.jpg";
 
 
 /** Web3Forms key powering the contact form. Get one free at https://web3forms.com */
 export const WEB3FORMS_ACCESS_KEY = "3e9256d4-7606-4f32-8855-615e3d892cd5"; 
-
-export const HIDE_APPS = true;
 
 export const COMPANY_INFO: CompanyInfo = {
   name: "FabricaLabs",
@@ -57,8 +57,6 @@ export const COMPANY_INFO: CompanyInfo = {
   introTagline: "IT Services and IT Consulting",
   websitesPageIntro:
     "Websites we designed, rebuilt and modernized for clients — with the results that came out of each one.",
-  appsPageIntro:
-    "Web and mobile apps we design and build end to end, from the first screen through to store release or hosting.",
   contactPageTitle: "Start a project",
   contactPageSubtitle:
     "Tell us what you're building or what needs modernizing. We reply within one business day with next steps and a ballpark.",
@@ -76,88 +74,68 @@ export const NAV_ITEMS_MAIN: NavItem[] = [
   { id: "about", name: "About", href: "/about" },
 ];
 
-/** Headline numbers under the hero. TODO: replace with your real figures. */
-const COMPANY_STATS_ALL: Stat[] = [
-  { value: "2", label: "Sites designed & modernized" },
-  { value: "1", label: "App shipped" },
-  { value: "2", label: "Years building for the web" },
-];
-
-export const COMPANY_STATS: Stat[] = HIDE_APPS
-  ? COMPANY_STATS_ALL.filter((stat) => stat.label !== "App shipped")
-  : COMPANY_STATS_ALL;
-
-const SERVICES_ALL: Service[] = [
+export const SERVICES: Service[] = [
   {
-    id: "service-websites",
-    name: "Building & modernizing websites",
+    id: "service-local-businesses",
+    name: "For local businesses",
     description:
-      "New sites designed around what your business actually needs to say, and dated ones rebuilt on a modern stack without losing the SEO you've earned.",
-    icon: LayoutIcon,
+      "Get found online, earn trust, and capture the enquiry — even outside opening hours.",
+    icon: HomeIcon,
     deliverables: [
-      "Brand-aligned visual design",
-      "Responsive layouts",
-      "Rebuilt on a modern stack",
+      "Websites and local SEO",
+      "Clear booking and contact flows",
+      "AI agents that answer when you can't",
     ],
+    pageId: "for-local-businesses",
+    cta: "Explore local businesses",
   },
   {
-    id: "service-web-apps",
-    name: "Web app development",
+    id: "service-dev-teams",
+    name: "For developer teams",
     description:
-      "Dashboards, portals and internal tools. Real product work with authentication, data and the boring reliability details handled.",
-    icon: LayersIcon,
+      "Help small engineering teams build faster with AI — while keeping control, shipping safely, and understanding production.",
+    icon: CodeIcon,
     deliverables: [
-      "Responsive layouts",
-      "Front and back end build",
-      "Integrations, APIs and Machine Learning",
-      "Deployment and monitoring",
+      "AI-assisted coding workflows",
+      "CI/CD, testing, and quality gates",
+      "Monitoring and production visibility",
     ],
-  },
-  {
-    id: "service-mobile-apps",
-    name: "Mobile app development",
-    description:
-      "iOS and Android apps from a single React Native codebase. To have an impact on our users.",
-    icon: AppsIcon,
-    deliverables: ["Native-feeling UI", "iOS and Android builds"],
+    pageId: "for-dev-teams",
+    cta: "Explore developer teams",
   },
 ];
-
-export const SERVICES: Service[] = HIDE_APPS
-  ? SERVICES_ALL.filter((service) => service.id !== "service-mobile-apps")
-  : SERVICES_ALL;
 
 export const PROCESS_STEPS: ProcessStep[] = [
   {
-    id: "step-discover",
-    title: "Discover",
+    id: "step-diagnose",
+    title: "Diagnose",
     description:
-      "We dig into your business, your existing website if you have one. You get a price before anything is built.",
+      "We map where customers drop off, or where delivery, security, and production break down — then agree a fixed scope before anything is built.",
   },
   {
-    id: "step-build",
-    title: "Build",
+    id: "step-design",
+    title: "Design",
     description:
-      "We build your website in record time. If the delivery time is more than 48h we will factor in an increment meeting to check everything just like you desired.",
+      "We design the process around how you already work: the site, agents, or engineering workflow that closes the gap.",
   },
   {
-    id: "step-revision",
-    title: "Revision",
+    id: "step-implement",
+    title: "Implement",
     description:
-      "We offer one revision for all our missions. Take the time to review everything made, and give us a set of instructions to polish your website as you want before delivery.",
+      "We build and wire it in — websites, AI agents, CI/CD, monitoring — with check-ins so the result matches what you asked for.",
   },
   {
-    id: "step-hosting",
-    title: "Hosting",
+    id: "step-handover",
+    title: "Hand over",
     description:
-      "Time for delivery! You can decide to host the website built yourself, or we can host it for you, that way you ensure it's online as fast as possible.",
+      "You get something your team can run day to day, with clear ownership, documentation, and support after launch.",
   },
 ];
 
 export const PROCESS_STEP_ICONS = [
   SearchIcon,
+  LayersIcon,
   TerminalIcon,
-  RefreshIcon,
   ServerIcon,
 ];
 
@@ -240,22 +218,26 @@ export const LOCAL_BUSINESSES_PAGE: LocalBusinessesPageContent = {
     {
       id: "industry-health",
       name: "Health",
-      imageAlt: "Health and wellness local business",
+      imageUrl: clinicHealthImage,
+      imageAlt: "Clinic and health practice",
     },
     {
       id: "industry-food",
       name: "Food",
-      imageAlt: "Food and hospitality local business",
+      imageUrl: restaurantImage,
+      imageAlt: "Restaurant dining room",
     },
     {
       id: "industry-home",
       name: "Home maintenance & renovation",
-      imageAlt: "Home maintenance and renovation business",
+      imageUrl: homeMaintenanceImage,
+      imageAlt: "Home maintenance and renovation work",
     },
     {
       id: "industry-sports",
       name: "Sports",
-      imageAlt: "Sports and fitness local business",
+      imageUrl: gymImage,
+      imageAlt: "Gym and fitness studio",
     },
   ],
   problemLabel: "A problem familiar to you ?",
@@ -298,28 +280,31 @@ export const DEV_TEAMS_PAGE: DevTeamsPageContent = {
   valuePropositionSupport:
     "Workflows that help small engineering teams like you increase delivery speed safely.",
   audienceLabel: "Who this is for",
-  audience:
-    "Companies with roughly 3–15 software developers, without a large dedicated DevOps or platform engineering team.",
+  audience: "Companies with software developers and DevOps teams.",
   audienceProfiles: [
     {
       id: "profile-small-teams",
       name: "Teams of 3–15 developers",
-      imageAlt: "Small software development team collaborating",
+      imageUrl: codingSlide1,
+      imageAlt: "Developers collaborating on code at shared monitors",
     },
     {
       id: "profile-no-devops",
       name: "No dedicated DevOps",
-      imageAlt: "Engineering team without a dedicated DevOps function",
+      imageUrl: codingSlide2,
+      imageAlt: "Engineering team reviewing work without a dedicated DevOps role",
     },
     {
       id: "profile-no-platform",
       name: "No platform engineering team",
-      imageAlt: "Product team shipping without a platform org",
+      imageUrl: codingSlide3,
+      imageAlt: "Product engineers shipping without a platform org",
     },
     {
       id: "profile-ai-assisted",
       name: "AI-assisted development",
-      imageAlt: "Developers using AI coding tools",
+      imageUrl: codingSlide4,
+      imageAlt: "Developers working with AI-assisted coding tools",
     },
   ],
   problemLabel: "A problem familiar to you ?",
@@ -406,29 +391,3 @@ export const DEV_TEAMS_PAGE: DevTeamsPageContent = {
     },
   ],
 };
-
-/** Web and mobile apps. */
-export const APP_PROJECTS: AppProject[] = [
-  {
-    id: "whats-the-workout",
-    name: "What's The Workout?",
-    kind: "Mobile App",
-    platforms: ["Android"],
-    year: "2026",
-    description:
-      "A workout app with 100+ workouts to choose from across multiple sports. Local only, lives on your phone.",
-    overview:
-      "What's the Workout? is a fitness app that helps you discover and complete workouts tailored to your favorite activities, from swimming, running and gym sessions to yoga, cycling, and calisthenics. Choose your fitness level, find a workout that suits you, and get moving with simple, effective training sessions designed to keep you motivated and make exercise part of your routine.",
-    technologies: ["React Native", "TypeScript", "Expo"],
-    cardImageUrl: whatsTheWorkoutBanner,
-    cardImageFit: "cover",
-    cardImagePosition: "30% 50%",
-    images: [
-      whatsTheWorkoutSnapshot1,
-      whatsTheWorkoutSnapshot2,
-      whatsTheWorkoutSnapshot3,
-    ],
-    privacyPolicyUrl:
-      "/privacy_policies/Privacy%20Policy%20Whats%20The%20Workout.pdf",
-  },
-];
