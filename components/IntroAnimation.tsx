@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { COMPANY_INFO } from '../constants';
+import { useLanguage } from '../LanguageContext';
 
 interface IntroAnimationProps {
   onAnimationComplete: () => void;
@@ -8,10 +8,11 @@ interface IntroAnimationProps {
 export const IntroAnimation: React.FC<IntroAnimationProps> = ({
   onAnimationComplete,
 }) => {
+  const { company } = useLanguage();
   const [animationState, setAnimationState] = useState<
     'entering' | 'static' | 'exiting'
   >('entering');
-  const { introWord1, introWord2, introTagline } = COMPANY_INFO;
+  const { introWord1, introWord2, introTagline } = company;
 
   useEffect(() => {
     // Letters and underline finish drawing.

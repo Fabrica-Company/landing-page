@@ -1,21 +1,25 @@
 import React from 'react';
 import { WebsitesPageProps } from '../types';
+import { useLanguage } from '../LanguageContext';
 import { SectionTitle } from './SectionTitle';
 import { WebsiteCard } from './WebsiteCard';
 import { CallToAction } from './CallToAction';
 
-export const WebsitesPage: React.FC<WebsitesPageProps> = ({
-  websites,
-  intro,
-  setCurrentPage,
-}) => {
+export const WebsitesPage: React.FC<
+  Pick<WebsitesPageProps, 'setCurrentPage'>
+> = ({ setCurrentPage }) => {
+  const { websiteProjects, company, t } = useLanguage();
+
   return (
     <div className="space-y-16 md:space-y-24">
       <section id="websites">
-        <SectionTitle title="Websites" subtitle={intro} />
+        <SectionTitle
+          title={t.ui.websitesTitle}
+          subtitle={company.websitesPageIntro}
+        />
 
         <div className="grid gap-4 md:grid-cols-2">
-          {websites.map((website, index) => (
+          {websiteProjects.map((website, index) => (
             <WebsiteCard
               key={website.id}
               website={website}

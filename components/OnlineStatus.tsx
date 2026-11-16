@@ -1,22 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import { COMPANY_INFO } from '../constants';
+import { useLanguage } from '../LanguageContext';
 
 /**
  * Green dot while the studio is inside its local office hours, grey outside.
  */
 export const OnlineStatus: React.FC = () => {
+  const { company, t } = useLanguage();
   const [isOnline, setIsOnline] = useState(true);
 
   useEffect(() => {
     const formatter = new Intl.DateTimeFormat('en-GB', {
-      timeZone: COMPANY_INFO.timezone,
+      timeZone: company.timezone,
       hour: '2-digit',
       hourCycle: 'h23',
     });
 
     const checkStatus = () => {
       const hour = Number(formatter.format(new Date()));
-      const { start, end } = COMPANY_INFO.officeHours;
+      const { start, end } = company.officeHours;
       setIsOnline(hour >= start && hour < end);
     };
 
@@ -24,7 +25,7 @@ export const OnlineStatus: React.FC = () => {
     const interval = window.setInterval(checkStatus, 60000);
 
     return () => window.clearInterval(interval);
-  }, []);
+  }, [company.officeHours, company.timezone]);
 
   return (
     <span
@@ -33,7 +34,7 @@ export const OnlineStatus: React.FC = () => {
           ? 'bg-accent-blue animate-pulse'
           : 'bg-text-placeholder dark:bg-dark-text-placeholder'
       }`}
-      title={isOnline ? 'Online now' : 'Outside office hours'}
+      title={isOnline ? t.ui.onlineNow : t.ui.outsideHours}
     />
   );
 };

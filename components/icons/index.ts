@@ -9,6 +9,7 @@ export {
   FiMoon as MoonIcon,
   FiArrowRight as ArrowRightIcon,
   FiArrowLeft as ArrowLeftIcon,
+  FiChevronDown as ChevronDownIcon,
   FiExternalLink as ExternalLinkIcon,
 
   // Contact / meta
@@ -33,3 +34,5 @@ export {
   // Media
   FiImage as ImageIcon,
 } from "react-icons/fi";
+
+export { FaLinkedin as LinkedInIcon } from "react-icons/fa";

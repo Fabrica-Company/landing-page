@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { ForDevTeamsPageProps } from '../types';
-import { DEV_TEAMS_PAGE } from '../constants';
+import { useLanguage } from '../LanguageContext';
 import { SectionTitle } from './SectionTitle';
 import { ImageCrossfade } from './ImageCrossfade';
 import { CheckCircleIcon, MailIcon } from './icons';
@@ -8,7 +8,7 @@ import { CheckCircleIcon, MailIcon } from './icons';
 export const ForDevTeamsPage: React.FC<ForDevTeamsPageProps> = ({
   setCurrentPage,
 }) => {
-  const content = DEV_TEAMS_PAGE;
+  const { devTeamsPage: content, t } = useLanguage();
 
   const audienceSlides = useMemo(
     () =>
@@ -38,7 +38,7 @@ export const ForDevTeamsPage: React.FC<ForDevTeamsPageProps> = ({
             className="inline-flex items-center justify-center px-5 py-2.5 text-sm font-medium rounded-lg bg-button-primary-bg dark:bg-dark-button-primary-bg text-button-primary-text dark:text-dark-button-primary-text hover:bg-button-primary-hover dark:hover:bg-dark-button-primary-hover transition-colors"
           >
             <MailIcon className="w-4 h-4 mr-2" aria-hidden />
-            Start a project
+            {t.ui.startProject}
           </button>
         </div>
       </section>
@@ -155,7 +155,7 @@ export const ForDevTeamsPage: React.FC<ForDevTeamsPageProps> = ({
             className="inline-flex items-center justify-center px-6 py-3 text-base font-medium rounded-lg bg-button-primary-bg dark:bg-dark-button-primary-bg text-button-primary-text dark:text-dark-button-primary-text hover:bg-button-primary-hover dark:hover:bg-dark-button-primary-hover transition-colors focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-700"
           >
             <MailIcon className="w-5 h-5 mr-2" aria-hidden />
-            Start a project
+            {t.ui.startProject}
           </button>
         </div>
       </section>

@@ -1,12 +1,16 @@
 import React from 'react';
 import { HeroProps } from '../types';
+import { LINKEDIN_URL } from '../constants';
+import { useLanguage } from '../LanguageContext';
 import { CircularText } from './CircularText';
 import { RotatingWord } from './RotatingWord';
 import { LiveTime } from './LiveTime';
-import { ArrowRightIcon, MailIcon } from './icons';
+import { ArrowRightIcon, LinkedInIcon, MailIcon } from './icons';
 import logo from '../assets/Logo.webp';
 
 export const Hero: React.FC<HeroProps> = ({ company, setCurrentPage }) => {
+  const { t } = useLanguage();
+
   return (
     <section id="hero" className="pt-6 pb-4 md:pt-10">
       <div className="flex flex-col lg:flex-row lg:items-center gap-10 lg:gap-12">
@@ -22,11 +26,23 @@ export const Hero: React.FC<HeroProps> = ({ company, setCurrentPage }) => {
             {company.heroDescription}
           </p>
 
-          <div className="animated-item anim-fadeInUp anim-delay-300">
+          <div className="animated-item anim-fadeInUp anim-delay-300 flex flex-wrap items-center gap-x-4 gap-y-2">
             <LiveTime
               timezone={company.timezone}
               timezoneLabel={company.timezoneLabel}
             />
+            <a
+              href={LINKEDIN_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center gap-2 text-xs font-medium text-text-secondary dark:text-dark-text-secondary hover:text-[#0A66C2] transition-colors"
+            >
+              <LinkedInIcon
+                className="w-4 h-4 transition-transform duration-200 ease-in-out group-hover:scale-110"
+                aria-hidden
+              />
+              {t.ui.followUsOnLinkedIn}
+            </a>
           </div>
 
           <div className="animated-item anim-fadeInUp anim-delay-400 flex flex-wrap gap-3 pt-2">
@@ -36,14 +52,14 @@ export const Hero: React.FC<HeroProps> = ({ company, setCurrentPage }) => {
               className="inline-flex items-center justify-center px-5 py-2.5 text-sm font-medium rounded-lg bg-button-primary-bg dark:bg-dark-button-primary-bg text-button-primary-text dark:text-dark-button-primary-text hover:bg-button-primary-hover dark:hover:bg-dark-button-primary-hover transition-colors focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-700"
             >
               <MailIcon className="w-4 h-4 mr-2" aria-hidden />
-              Start a project
+              {t.ui.startProject}
             </button>
             <button
               type="button"
               onClick={() => setCurrentPage('websites')}
               className="group inline-flex items-center justify-center px-5 py-2.5 text-sm font-medium rounded-lg bg-button-secondary-bg dark:bg-dark-button-secondary-bg text-button-secondary-text dark:text-dark-button-secondary-text hover:bg-button-secondary-hover dark:hover:bg-dark-button-secondary-hover transition-colors focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
             >
-              See our work
+              {t.ui.seeOurWork}
               <ArrowRightIcon
                 className="w-4 h-4 ml-2 transition-transform duration-200 ease-in-out group-hover:translate-x-1"
                 aria-hidden

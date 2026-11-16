@@ -1,13 +1,9 @@
 import React, { useState } from 'react';
 import { ContactPageProps } from '../types';
 import { WEB3FORMS_ACCESS_KEY } from '../constants';
+import { useLanguage } from '../LanguageContext';
+import { PROJECT_TYPE_IDS, ProjectTypeId } from '../translations';
 import { ArrowLeftIcon, CheckCircleIcon, MailIcon, MapPinIcon } from './icons';
-
-const PROJECT_TYPES = [
-  'Local Business',
-  'Developer Team',
-  'Other',
-];
 
 interface FormErrors {
   name?: string;
@@ -17,14 +13,14 @@ interface FormErrors {
 }
 
 export const ContactPage: React.FC<ContactPageProps> = ({
-  company,
   setCurrentPage,
 }) => {
+  const { company, t } = useLanguage();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     company: '',
-    projectType: PROJECT_TYPES[0],
+    projectType: 'local' as ProjectTypeId,
     message: '',
   });
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>(
@@ -35,14 +31,14 @@ export const ContactPage: React.FC<ContactPageProps> = ({
   const validateForm = () => {
     const nextErrors: FormErrors = {};
 
-    if (!formData.name.trim()) nextErrors.name = 'Your name is required.';
+    if (!formData.name.trim()) nextErrors.name = t.contact.errors.nameRequired;
     if (!formData.email.trim()) {
-      nextErrors.email = 'An email address is required.';
+      nextErrors.email = t.contact.errors.emailRequired;
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      nextErrors.email = 'That email address looks incomplete.';
+      nextErrors.email = t.contact.errors.emailInvalid;
     }
     if (!formData.message.trim()) {
-      nextErrors.message = 'Tell us a little about the project.';
+      nextErrors.message = t.contact.errors.messageRequired;
     }
 
     setErrors(nextErrors);
@@ -77,7 +73,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({
     if (!WEB3FORMS_ACCESS_KEY) {
       setStatus('error');
       setErrors({
-        form: 'The contact form is not connected yet. Add your Web3Forms access key in constants.ts.',
+        form: t.contact.errors.missingKey,
       });
       return;
     }
@@ -85,17 +81,23 @@ export const ContactPage: React.FC<ContactPageProps> = ({
     setStatus('loading');
     setErrors({});
 
+    const projectTypeLabel =
+      t.contact.projectTypes[formData.projectType] ?? formData.projectType;
+
     const payload = new FormData();
     payload.append('access_key', WEB3FORMS_ACCESS_KEY);
-    payload.append('subject', `New project enquiry from ${formData.name}`);
+    payload.append(
+      'subject',
+      `${t.contact.subjectPrefix} ${formData.name}`
+    );
     payload.append('from_name', company.name);
     payload.append('name', formData.name);
     payload.append('email', formData.email);
     payload.append('company', formData.company);
-    payload.append('project_type', formData.projectType);
+    payload.append('project_type', projectTypeLabel);
     payload.append('message', formData.message);
     payload.append('replyto', formData.email);
-    payload.append('botcheck', ''); // Web3Forms honeypot
+    payload.append('botcheck', '');
 
     try {
       const response = await fetch('https://api.web3forms.com/submit', {
@@ -111,19 +113,19 @@ export const ContactPage: React.FC<ContactPageProps> = ({
           name: '',
           email: '',
           company: '',
-          projectType: PROJECT_TYPES[0],
+          projectType: 'local',
           message: '',
         });
       } else {
         setStatus('error');
         setErrors({
-          form: result.message || 'Something went wrong. Please try again.',
+          form: result.message || t.contact.errors.formGeneric,
         });
       }
     } catch {
       setStatus('error');
       setErrors({
-        form: 'Network error. Check your connection and try again.',
+        form: t.contact.errors.network,
       });
     }
   };
@@ -147,18 +149,18 @@ export const ContactPage: React.FC<ContactPageProps> = ({
           className="w-4 h-4 mr-2 transition-transform group-hover:-translate-x-1"
           aria-hidden
         />
-        Back to home
+        {t.ui.backToHome}
       </button>
 
       <div className="animated-item anim-fadeInUp anim-delay-100 p-6 sm:p-8 md:p-10 bg-card dark:bg-dark-card border border-border dark:border-dark-border rounded-xl shadow-xl">
         <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
           <h2 className="flex items-center text-sm font-medium tracking-wide text-text-secondary dark:text-dark-text-secondary">
             <span className="inline-block w-1.5 h-1.5 mr-2 rounded-full bg-text-secondary dark:bg-dark-text-secondary" />
-            Contact
+            {t.ui.contactEyebrow}
           </h2>
           <span className="inline-flex items-center px-2.5 py-0.5 text-xs font-medium rounded-full bg-accent-blue/20 text-accent-blue">
             <CheckCircleIcon className="w-3 h-3 mr-1" aria-hidden />
-            Taking on new projects
+            {t.ui.takingProjects}
           </span>
         </div>
 
@@ -187,7 +189,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div>
               <label htmlFor="name" className="sr-only">
-                Your name
+                {t.contact.labels.name}
               </label>
               <input
                 type="text"
@@ -195,7 +197,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
-                placeholder="Your name"
+                placeholder={t.contact.placeholders.name}
                 className={`${fieldBase} ${
                   errors.name ? fieldError : fieldNormal
                 } ${fieldFocus}`}
@@ -211,7 +213,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({
 
             <div>
               <label htmlFor="email" className="sr-only">
-                Email address
+                {t.contact.labels.email}
               </label>
               <input
                 type="email"
@@ -219,7 +221,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                placeholder="Email address"
+                placeholder={t.contact.placeholders.email}
                 className={`${fieldBase} ${
                   errors.email ? fieldError : fieldNormal
                 } ${fieldFocus}`}
@@ -235,7 +237,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({
 
             <div>
               <label htmlFor="company" className="sr-only">
-                Company (optional)
+                {t.contact.labels.company}
               </label>
               <input
                 type="text"
@@ -243,17 +245,14 @@ export const ContactPage: React.FC<ContactPageProps> = ({
                 name="company"
                 value={formData.company}
                 onChange={handleChange}
-                placeholder="Company (optional)"
+                placeholder={t.contact.placeholders.company}
                 className={`${fieldBase} ${fieldNormal} ${fieldFocus}`}
               />
             </div>
 
             <div>
-              <label
-                htmlFor="projectType"
-                className="sr-only"
-              >
-                What do you need?
+              <label htmlFor="projectType" className="sr-only">
+                {t.contact.labels.projectType}
               </label>
               <select
                 id="projectType"
@@ -262,9 +261,9 @@ export const ContactPage: React.FC<ContactPageProps> = ({
                 onChange={handleChange}
                 className={`${fieldBase} ${fieldNormal} ${fieldFocus}`}
               >
-                {PROJECT_TYPES.map((type) => (
-                  <option key={type} value={type}>
-                    {type}
+                {PROJECT_TYPE_IDS.map((id) => (
+                  <option key={id} value={id}>
+                    {t.contact.projectTypes[id]}
                   </option>
                 ))}
               </select>
@@ -273,7 +272,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({
 
           <div>
             <label htmlFor="message" className="sr-only">
-              Project details
+              {t.contact.labels.message}
             </label>
             <textarea
               id="message"
@@ -281,7 +280,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({
               rows={5}
               value={formData.message}
               onChange={handleChange}
-              placeholder="What does success look like ?"
+              placeholder={t.contact.placeholders.message}
               className={`${fieldBase} ${
                 errors.message ? fieldError : fieldNormal
               } ${fieldFocus}`}
@@ -300,21 +299,18 @@ export const ContactPage: React.FC<ContactPageProps> = ({
             disabled={status === 'loading'}
             className="w-full px-6 py-3 rounded-lg font-medium bg-button-primary-bg dark:bg-dark-button-primary-bg text-button-primary-text dark:text-dark-button-primary-text hover:bg-button-primary-hover dark:hover:bg-dark-button-primary-hover transition-colors duration-200 ease-in-out disabled:opacity-70 disabled:cursor-not-allowed"
           >
-            {status === 'loading' ? 'Sending…' : 'Send enquiry'}
+            {status === 'loading' ? t.contact.sending : t.contact.send}
           </button>
 
           {status === 'success' && (
-            <p className="text-sm text-accent-blue">
-              Thanks — your enquiry is in. We&rsquo;ll reply within one business
-              day.
-            </p>
+            <p className="text-sm text-accent-blue">{t.contact.success}</p>
           )}
           {status === 'error' && errors.form && (
             <p className="text-sm text-accent-red">{errors.form}</p>
           )}
           {status === 'error' && !errors.form && (
             <p className="text-sm text-accent-red">
-              Please fix the highlighted fields.
+              {t.contact.errors.fixFields}
             </p>
           )}
         </form>

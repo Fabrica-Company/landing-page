@@ -1,11 +1,11 @@
 import React from 'react';
 import { HomePageProps } from '../types';
-import { COMPANY_INFO, HOME_PAGE } from '../constants';
+import { useLanguage } from '../LanguageContext';
 import { OnlineStatus } from './OnlineStatus';
 import { ArrowRightIcon } from './icons';
 
 export const HomePage: React.FC<HomePageProps> = ({ setCurrentPage }) => {
-  const content = HOME_PAGE;
+  const { company, homePage: content } = useLanguage();
 
   return (
     <div className="space-y-8 md:space-y-10">
@@ -18,7 +18,7 @@ export const HomePage: React.FC<HomePageProps> = ({ setCurrentPage }) => {
           {content.eyebrow}
         </p>
         <h1 className="animated-item anim-fadeInUp anim-delay-100 mt-3 text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-text-primary dark:text-dark-text-primary">
-          {COMPANY_INFO.name}
+          {company.name}
         </h1>
         <p className="animated-item anim-fadeInUp anim-delay-200 mt-3 max-w-2xl text-xl sm:text-2xl font-semibold tracking-tight text-text-primary dark:text-dark-text-primary">
           {content.headline}

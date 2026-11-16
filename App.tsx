@@ -21,20 +21,22 @@ import {
   SmoothScrollProvider,
   SmoothScrollToTop,
 } from './components/SmoothScrollProvider';
-import {
-  COMPANY_INFO,
-  NAV_ITEMS_MAIN,
-  WEBSITE_PROJECTS,
-} from './constants';
+import { LanguageProvider, useLanguage } from './LanguageContext';
 import clickSound from './assets/click_sound.wav';
 
 /** Left-to-right order used by mobile swipe navigation (header tabs only). */
-const MENU_TABS = NAV_ITEMS_MAIN.map((item) => item.id);
+const MENU_TABS = [
+  'home',
+  'for-local-businesses',
+  'for-dev-teams',
+  'about',
+];
 
 const AppContent: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const lenis = useLenis();
+  const { t } = useLanguage();
   const [showIntro, setShowIntro] = useState(true);
   const [isTransitioning, setIsTransitioning] = useState(false);
 
@@ -48,16 +50,13 @@ const AppContent: React.FC = () => {
   const handleAnimationComplete = useCallback(() => setShowIntro(false), []);
 
   useEffect(() => {
-    document.title = 'FabricaLabs — Websites & web apps';
+    document.title = t.meta.title;
 
     const description = document.querySelector('meta[name="description"]');
     if (description) {
-      description.setAttribute(
-        'content',
-        'FabricaLabs is a design and development studio. We design new websites, modernize dated ones, and build web apps.'
-      );
+      description.setAttribute('content', t.meta.description);
     }
-  }, []);
+  }, [t.meta.description, t.meta.title]);
 
   useEffect(() => {
     if (theme === 'dark') {
@@ -71,7 +70,6 @@ const AppContent: React.FC = () => {
   }, [theme]);
 
   useEffect(() => {
-    // Global UI click sound for buttons and menus.
     const audio = new Audio(clickSound);
     audio.preload = 'auto';
     audio.volume = 0.35;
@@ -80,7 +78,6 @@ const AppContent: React.FC = () => {
       const target = event.target as HTMLElement | null;
       if (!target) return;
 
-      // Skip form typing interactions.
       if (target.closest('input, textarea, select, label')) return;
 
       const interactive = target.closest(
@@ -155,7 +152,6 @@ const AppContent: React.FC = () => {
 
   const currentPage = path === '/' ? 'home' : path.slice(1);
 
-  /** Websites / contact are not header tabs — skip swipe tab switching there. */
   const isOffNavPage = path === '/websites' || path === '/contact';
 
   const isMobile =
@@ -173,8 +169,6 @@ const AppContent: React.FC = () => {
 
   const swipeHandlers = useSwipeable({
     onSwipeStart: (event) => {
-      // Only deliberate horizontal swipes from the middle of the screen count,
-      // so slight drags while scrolling don't change tabs.
       const startRatio = event.initial[0] / (window.innerWidth || 1);
       const withinMiddle = startRatio >= 0.22 && startRatio <= 0.78;
 
@@ -213,7 +207,7 @@ const AppContent: React.FC = () => {
       />
 
       <main
-        key={location.pathname} // Re-run entry animations on route change.
+        key={location.pathname}
         className={`w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-16 md:space-y-24 flex-grow page-transition ${
           isTransitioning ? 'page-fade-exit-active' : 'page-fade-enter-active'
         }`}
@@ -243,39 +237,30 @@ const AppContent: React.FC = () => {
 
           <Route
             path="/websites"
-            element={
-              <WebsitesPage
-                websites={WEBSITE_PROJECTS}
-                intro={COMPANY_INFO.websitesPageIntro}
-                setCurrentPage={handleSetPage}
-              />
-            }
+            element={<WebsitesPage setCurrentPage={handleSetPage} />}
           />
 
           <Route
             path="/contact"
-            element={
-              <ContactPage
-                company={COMPANY_INFO}
-                setCurrentPage={handleSetPage}
-              />
-            }
+            element={<ContactPage setCurrentPage={handleSetPage} />}
           />
 
           <Route
             path="*"
             element={
               <div className="text-center py-10">
-                <h1 className="text-2xl font-bold mb-4">Page not found</h1>
+                <h1 className="text-2xl font-bold mb-4">
+                  {t.ui.pageNotFoundTitle}
+                </h1>
                 <p className="text-text-secondary dark:text-dark-text-secondary mb-6">
-                  The page you are looking for does not exist.
+                  {t.ui.pageNotFoundBody}
                 </p>
                 <button
                   type="button"
                   onClick={() => handleSetPage('home')}
                   className="px-4 py-2 rounded-lg bg-button-primary-bg dark:bg-dark-button-primary-bg text-button-primary-text dark:text-dark-button-primary-text hover:bg-button-primary-hover dark:hover:bg-dark-button-primary-hover transition-colors"
                 >
-                  Go home
+                  {t.ui.goHome}
                 </button>
               </div>
             }
@@ -284,22 +269,20 @@ const AppContent: React.FC = () => {
       </main>
 
       {currentPage !== 'home' && (
-        <Footer
-          company={COMPANY_INFO}
-          navItems={NAV_ITEMS_MAIN}
-          setCurrentPage={handleSetPage}
-        />
+        <Footer setCurrentPage={handleSetPage} />
       )}
     </div>
   );
 };
 
 const App: React.FC = () => (
-  <SmoothScrollProvider>
-    <Router>
-      <AppContent />
-    </Router>
-  </SmoothScrollProvider>
+  <LanguageProvider>
+    <SmoothScrollProvider>
+      <Router>
+        <AppContent />
+      </Router>
+    </SmoothScrollProvider>
+  </LanguageProvider>
 );
 
 export default App;

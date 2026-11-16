@@ -70,7 +70,7 @@ export interface Testimonial {
   logoImageUrl?: string;
 }
 
-export type WebsiteWorkType = "New build" | "Modernization";
+export type WebsiteWorkType = string;
 
 export interface WebsiteProject {
   id: string;
@@ -126,7 +126,6 @@ export interface WebsitesPageProps {
 }
 
 export interface ContactPageProps {
-  company: CompanyInfo;
   setCurrentPage: (pageId: string) => void;
 }
 

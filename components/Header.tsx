@@ -1,9 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { NavItem as NavItemType } from '../types';
-import { NAV_ITEMS_MAIN, COMPANY_INFO } from '../constants';
-import { HomeIcon, MailIcon, MoonIcon, SunIcon } from './icons';
-
-const TEXT_NAV_ITEMS = NAV_ITEMS_MAIN.filter((item) => item.id !== 'home');
+import { useLanguage } from '../LanguageContext';
+import { Locale, LOCALES, LOCALE_LABELS } from '../translations';
+import {
+  ChevronDownIcon,
+  HomeIcon,
+  MailIcon,
+  MoonIcon,
+  SunIcon,
+} from './icons';
 
 interface NavItemProps {
   item: NavItemType;
@@ -41,14 +46,48 @@ export const Header: React.FC<{
   theme: string;
   toggleTheme: (event?: React.MouseEvent) => void;
 }> = ({ currentPage, setCurrentPage, theme, toggleTheme }) => {
+  const { company, navItems, t, locale, setLocale } = useLanguage();
+  const textNavItems = navItems.filter((item) => item.id !== 'home');
   const navContainerRef = useRef<HTMLElement>(null);
   const activePillRef = useRef<HTMLDivElement>(null);
   const navItemRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const languageMenuRef = useRef<HTMLDivElement>(null);
   const [hoveredItemId, setHoveredItemId] = useState<string | null>(null);
+  const [isLanguageOpen, setIsLanguageOpen] = useState(false);
+  const currentLocaleLabel = LOCALE_LABELS[locale];
 
   useEffect(() => {
-    navItemRefs.current = navItemRefs.current.slice(0, TEXT_NAV_ITEMS.length);
-  }, []);
+    if (!isLanguageOpen) return;
+
+    const onPointerDown = (event: MouseEvent) => {
+      if (
+        languageMenuRef.current &&
+        !languageMenuRef.current.contains(event.target as Node)
+      ) {
+        setIsLanguageOpen(false);
+      }
+    };
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setIsLanguageOpen(false);
+    };
+
+    document.addEventListener('mousedown', onPointerDown);
+    document.addEventListener('keydown', onKeyDown);
+    return () => {
+      document.removeEventListener('mousedown', onPointerDown);
+      document.removeEventListener('keydown', onKeyDown);
+    };
+  }, [isLanguageOpen]);
+
+  const selectLocale = (next: Locale) => {
+    setLocale(next);
+    setIsLanguageOpen(false);
+  };
+
+  useEffect(() => {
+    navItemRefs.current = navItemRefs.current.slice(0, textNavItems.length);
+  }, [textNavItems.length]);
 
   useEffect(() => {
     const positionPill = () => {
@@ -57,7 +96,7 @@ export const Header: React.FC<{
       if (!pill || !container) return;
 
       const targetId = hoveredItemId || currentPage;
-      const targetIndex = TEXT_NAV_ITEMS.findIndex((item) => item.id === targetId);
+      const targetIndex = textNavItems.findIndex((item) => item.id === targetId);
       const targetEl = navItemRefs.current[targetIndex];
 
       if (!targetEl) {
@@ -79,7 +118,7 @@ export const Header: React.FC<{
     window.addEventListener('resize', positionPill);
 
     return () => window.removeEventListener('resize', positionPill);
-  }, [currentPage, hoveredItemId, theme]);
+  }, [currentPage, hoveredItemId, theme, textNavItems]);
 
   const isHomeActive = currentPage === 'home';
 
@@ -92,15 +131,15 @@ export const Header: React.FC<{
               type="button"
               onClick={() => setCurrentPage('home')}
               className="text-base font-bold tracking-tight text-text-primary dark:text-dark-text-primary hover:opacity-70 transition-opacity"
-              aria-label={`${COMPANY_INFO.name} home`}
+              aria-label={`${company.name} ${t.ui.homeAria}`}
             >
-              {COMPANY_INFO.name}
+              {company.name}
             </button>
 
             <button
               type="button"
               onClick={() => setCurrentPage('home')}
-              aria-label="Home"
+              aria-label={t.ui.homeAria}
               aria-current={isHomeActive ? 'page' : undefined}
               className={`p-2 rounded-full transition-colors ${
                 isHomeActive
@@ -116,9 +155,9 @@ export const Header: React.FC<{
             <nav
               ref={navContainerRef}
               className="relative flex items-center gap-0.5 min-w-0 overflow-x-auto"
-              aria-label="Primary"
+              aria-label={t.ui.primaryNavAria}
             >
-              {TEXT_NAV_ITEMS.map((item, index) => (
+              {textNavItems.map((item, index) => (
                 <NavItem
                   key={item.id}
                   ref={(el) => {
@@ -134,11 +173,66 @@ export const Header: React.FC<{
               <div ref={activePillRef} className="nav-active-pill" />
             </nav>
 
+            <div ref={languageMenuRef} className="relative shrink-0">
+              <button
+                type="button"
+                onClick={() => setIsLanguageOpen((open) => !open)}
+                aria-label={t.ui.switchLanguageAria}
+                aria-haspopup="listbox"
+                aria-expanded={isLanguageOpen}
+                className="inline-flex items-center gap-1.5 px-2 sm:px-2.5 py-1.5 rounded-full text-xs sm:text-sm font-medium text-text-secondary dark:text-dark-text-secondary hover:text-text-primary dark:hover:text-dark-text-primary hover:bg-card-hover dark:hover:bg-dark-card-hover transition-colors"
+              >
+                <span aria-hidden className="text-base leading-none">
+                  {currentLocaleLabel.flag}
+                </span>
+                <span className="hidden sm:inline">{currentLocaleLabel.name}</span>
+                <span className="sm:hidden">{currentLocaleLabel.short}</span>
+                <ChevronDownIcon
+                  className={`w-3.5 h-3.5 transition-transform duration-200 ${
+                    isLanguageOpen ? 'rotate-180' : ''
+                  }`}
+                  aria-hidden
+                />
+              </button>
+
+              {isLanguageOpen && (
+                <ul
+                  role="listbox"
+                  aria-label={t.ui.switchLanguageAria}
+                  className="absolute right-0 top-full mt-2 min-w-[10.5rem] overflow-hidden rounded-xl border border-border dark:border-dark-border bg-card dark:bg-dark-card shadow-lg z-50 py-1"
+                >
+                  {LOCALES.map((option) => {
+                    const label = LOCALE_LABELS[option];
+                    const isActive = option === locale;
+
+                    return (
+                      <li key={option} role="option" aria-selected={isActive}>
+                        <button
+                          type="button"
+                          onClick={() => selectLocale(option)}
+                          className={`flex w-full items-center gap-2.5 px-3 py-2 text-sm text-left transition-colors ${
+                            isActive
+                              ? 'bg-card-hover dark:bg-dark-card-hover text-text-primary dark:text-dark-text-primary font-medium'
+                              : 'text-text-secondary dark:text-dark-text-secondary hover:bg-card-hover dark:hover:bg-dark-card-hover hover:text-text-primary dark:hover:text-dark-text-primary'
+                          }`}
+                        >
+                          <span aria-hidden className="text-base leading-none">
+                            {label.flag}
+                          </span>
+                          {label.name}
+                        </button>
+                      </li>
+                    );
+                  })}
+                </ul>
+              )}
+            </div>
+
             <button
               type="button"
               onClick={(event) => toggleTheme(event)}
               aria-label={
-                theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'
+                theme === 'light' ? t.ui.switchToDark : t.ui.switchToLight
               }
               className="group p-2 rounded-full text-text-secondary dark:text-dark-text-secondary hover:text-text-primary dark:hover:text-dark-text-primary hover:bg-card-hover dark:hover:bg-dark-card-hover transition-colors shrink-0"
             >
@@ -158,7 +252,7 @@ export const Header: React.FC<{
               className="inline-flex items-center px-3 py-2 text-sm font-medium rounded-lg bg-button-primary-bg dark:bg-dark-button-primary-bg text-button-primary-text dark:text-dark-button-primary-text hover:bg-button-primary-hover dark:hover:bg-dark-button-primary-hover transition-colors shrink-0"
             >
               <MailIcon className="w-4 h-4 sm:mr-1.5" aria-hidden />
-              <span className="hidden sm:inline">Start a project</span>
+              <span className="hidden sm:inline">{t.ui.startProject}</span>
             </button>
           </div>
         </div>
