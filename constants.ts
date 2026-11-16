@@ -59,7 +59,7 @@ export const COMPANY_INFO: CompanyInfo = {
     "Websites we designed, rebuilt and modernized for clients — with the results that came out of each one.",
   contactPageTitle: "Start a project",
   contactPageSubtitle:
-    "Tell us what you're building or what needs modernizing. We reply within one business day with next steps and a ballpark.",
+    "We reply within one business day with next steps and a ballpark.",
 };
 
 /** Header / footer nav. Websites is intentionally omitted — reach it via About → See our work. */

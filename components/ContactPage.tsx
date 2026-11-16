@@ -4,10 +4,9 @@ import { WEB3FORMS_ACCESS_KEY } from '../constants';
 import { ArrowLeftIcon, CheckCircleIcon, MailIcon, MapPinIcon } from './icons';
 
 const PROJECT_TYPES = [
-  'New website',
-  'Website modernization',
-  'Web app',
-  'Not sure yet',
+  'Local Business',
+  'Developer Team',
+  'Other',
 ];
 
 interface FormErrors {
@@ -282,7 +281,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({
               rows={5}
               value={formData.message}
               onChange={handleChange}
-              placeholder="What are you building, and what does success look like?"
+              placeholder="What does success look like ?"
               className={`${fieldBase} ${
                 errors.message ? fieldError : fieldNormal
               } ${fieldFocus}`}
