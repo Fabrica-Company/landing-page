@@ -1,14 +1,12 @@
 import React from 'react';
 import { ProcessSectionProps } from '../types';
 import { SectionTitle } from './SectionTitle';
-import { ArrowRightIcon } from './icons';
 import { PROCESS_STEP_ICONS } from '../constants';
 
 export const ProcessSection: React.FC<ProcessSectionProps> = ({
   steps,
   title = 'How we work',
   subtitle,
-  onViewAllClick,
 }) => (
   <section id="process">
     <SectionTitle title={title} subtitle={subtitle} />
@@ -47,24 +45,5 @@ export const ProcessSection: React.FC<ProcessSectionProps> = ({
         );
       })}
     </ol>
-
-    {onViewAllClick && (
-      <div
-        className="animated-item anim-fadeInUp mt-8 md:mt-12 text-center"
-        style={{ animationDelay: `${steps.length * 100 + 300}ms` }}
-      >
-        <button
-          type="button"
-          onClick={onViewAllClick}
-          className="group inline-flex items-center text-sm font-medium text-accent-blue hover:text-accent-blue/80 transition-colors"
-        >
-          View all client websites
-          <ArrowRightIcon
-            className="w-4 h-4 ml-1.5 transition-transform duration-200 ease-in-out group-hover:translate-x-1"
-            aria-hidden
-          />
-        </button>
-      </div>
-    )}
   </section>
 );

@@ -10,7 +10,6 @@ export {
   FiArrowRight as ArrowRightIcon,
   FiArrowLeft as ArrowLeftIcon,
   FiChevronDown as ChevronDownIcon,
-  FiExternalLink as ExternalLinkIcon,
 
   // Contact / meta
   FiMail as MailIcon,
@@ -21,7 +20,6 @@ export {
   FiXCircle as XCircleIcon,
 
   // Services
-  FiLayout as LayoutIcon,
   FiLayers as LayersIcon,
   FiMonitor as MonitorIcon,
 
@@ -30,9 +28,6 @@ export {
   FiTerminal as TerminalIcon,
   FiRefreshCw as RefreshIcon,
   FiServer as ServerIcon,
-
-  // Media
-  FiImage as ImageIcon,
 } from "react-icons/fi";
 
 export { FaLinkedin as LinkedInIcon } from "react-icons/fa";

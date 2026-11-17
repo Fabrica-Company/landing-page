@@ -5,7 +5,7 @@ import { useLanguage } from '../LanguageContext';
 import { CircularText } from './CircularText';
 import { RotatingWord } from './RotatingWord';
 import { LiveTime } from './LiveTime';
-import { ArrowRightIcon, LinkedInIcon, MailIcon } from './icons';
+import { LinkedInIcon, MailIcon } from './icons';
 import logo from '../assets/Logo.webp';
 
 export const Hero: React.FC<HeroProps> = ({ company, setCurrentPage }) => {
@@ -53,17 +53,6 @@ export const Hero: React.FC<HeroProps> = ({ company, setCurrentPage }) => {
             >
               <MailIcon className="w-4 h-4 mr-2" aria-hidden />
               {t.ui.startProject}
-            </button>
-            <button
-              type="button"
-              onClick={() => setCurrentPage('websites')}
-              className="group inline-flex items-center justify-center px-5 py-2.5 text-sm font-medium rounded-lg bg-button-secondary-bg dark:bg-dark-button-secondary-bg text-button-secondary-text dark:text-dark-button-secondary-text hover:bg-button-secondary-hover dark:hover:bg-dark-button-secondary-hover transition-colors focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
-            >
-              {t.ui.seeOurWork}
-              <ArrowRightIcon
-                className="w-4 h-4 ml-2 transition-transform duration-200 ease-in-out group-hover:translate-x-1"
-                aria-hidden
-              />
             </button>
           </div>
         </div>

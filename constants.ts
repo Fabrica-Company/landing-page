@@ -6,8 +6,6 @@ import {
   NavItem,
   ProcessStep,
   Service,
-  WebsiteProject,
-  WebsiteWorkType,
 } from "./types";
 import {
   CodeIcon,
@@ -21,8 +19,6 @@ import {
   TerminalIcon,
   XCircleIcon,
 } from "./components/icons";
-import skFranceBanner from "./assets/Website_previews/SKfrance_Banner.webp";
-import skillTeamBanner from "./assets/Website_previews/SkillTeam_Banner.webp";
 import localBusinessesHomeImage from "./assets/Friendly Shopkeeper Outside a Modern Store.png";
 import devTeamsHomeImage from "./assets/Collaborative Coding in a Bright Office.png";
 import codingSlide1 from "./assets/coding 1.jpg";
@@ -44,7 +40,7 @@ export const LINKEDIN_URL =
 /** Non-translatable company facts shared across locales. */
 export const COMPANY_BASE = {
   name: "FabricaLabs",
-  email: "support@fabricalabs.net",
+  email: "aurelien.fabricalabs@gmail.com",
   timezone: "Europe/Paris",
   timezoneLabel: "CET",
   officeHours: { start: 9, end: 19 },
@@ -114,7 +110,6 @@ export interface LocalizedSiteContent {
   homePage: HomePageContent;
   localBusinessesPage: LocalBusinessesPageContent;
   devTeamsPage: DevTeamsPageContent;
-  websiteProjects: WebsiteProject[];
 }
 
 export function getLocalizedContent(locale: Locale): LocalizedSiteContent {
@@ -137,7 +132,6 @@ export function getLocalizedContent(locale: Locale): LocalizedSiteContent {
     introWord1: COMPANY_BASE.introWord1,
     introWord2: COMPANY_BASE.introWord2,
     introTagline: t.company.introTagline,
-    websitesPageIntro: t.company.websitesPageIntro,
     contactPageTitle: t.company.contactPageTitle,
     contactPageSubtitle: t.company.contactPageSubtitle,
   };
@@ -219,35 +213,6 @@ export function getLocalizedContent(locale: Locale): LocalizedSiteContent {
     })),
   };
 
-  const websiteProjects: WebsiteProject[] = [
-    {
-      id: "skfrance",
-      name: "SKFrance",
-      industry: t.websites.skfrance.industry,
-      workType: t.websites.skfrance.workType as WebsiteWorkType,
-      year: "2026",
-      description: t.websites.skfrance.description,
-      services: t.websites.skfrance.services,
-      liveLink: "https://skfrance.fr",
-      cardImageUrl: skFranceBanner,
-      cardImageFit: "contain",
-    },
-    {
-      id: "skillteam",
-      name: "SkillTeam",
-      industry: t.websites.skillteam.industry,
-      workType: t.websites.skillteam.workType as WebsiteWorkType,
-      year: "2026",
-      description: t.websites.skillteam.description,
-      services: t.websites.skillteam.services,
-      liveLink: "https://skillteam.net",
-      cardImageUrl: skillTeamBanner,
-      cardImageFit: "contain",
-      cardImageBackground: "#e5f3fe",
-      cardImageInset: false,
-    },
-  ];
-
   return {
     locale,
     t,
@@ -258,7 +223,6 @@ export function getLocalizedContent(locale: Locale): LocalizedSiteContent {
     homePage,
     localBusinessesPage,
     devTeamsPage,
-    websiteProjects,
   };
 }
 
@@ -271,4 +235,3 @@ export const PROCESS_STEPS = defaults.processSteps;
 export const HOME_PAGE = defaults.homePage;
 export const LOCAL_BUSINESSES_PAGE = defaults.localBusinessesPage;
 export const DEV_TEAMS_PAGE = defaults.devTeamsPage;
-export const WEBSITE_PROJECTS = defaults.websiteProjects;

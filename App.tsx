@@ -14,7 +14,6 @@ import { ForDevTeamsPage } from './components/ForDevTeamsPage';
 import { ForLocalBusinessesPage } from './components/ForLocalBusinessesPage';
 import { HomePage } from './components/HomePage';
 import { Footer } from './components/Footer';
-import { WebsitesPage } from './components/WebsitesPage';
 import { ContactPage } from './components/ContactPage';
 import { IntroAnimation } from './components/IntroAnimation';
 import {
@@ -152,7 +151,7 @@ const AppContent: React.FC = () => {
 
   const currentPage = path === '/' ? 'home' : path.slice(1);
 
-  const isOffNavPage = path === '/websites' || path === '/contact';
+  const isOffNavPage = path === '/contact';
 
   const isMobile =
     typeof window !== 'undefined' && window.innerWidth <= 768;
@@ -233,11 +232,6 @@ const AppContent: React.FC = () => {
           <Route
             path="/for-dev-teams"
             element={<ForDevTeamsPage setCurrentPage={handleSetPage} />}
-          />
-
-          <Route
-            path="/websites"
-            element={<WebsitesPage setCurrentPage={handleSetPage} />}
           />
 
           <Route

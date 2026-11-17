@@ -38,7 +38,6 @@ export interface CompanyInfo {
   introWord1: string;
   introWord2: string;
   introTagline: string;
-  websitesPageIntro: string;
   contactPageTitle: string;
   contactPageSubtitle: string;
 }
@@ -58,42 +57,6 @@ export interface ProcessStep {
   id: string;
   title: string;
   description: string;
-}
-
-export interface Testimonial {
-  id: string;
-  quote: string;
-  authorName: string;
-  authorRole: string;
-  company: string;
-  /** Client logo. A placeholder is rendered when omitted. */
-  logoImageUrl?: string;
-}
-
-export type WebsiteWorkType = string;
-
-export interface WebsiteProject {
-  id: string;
-  name: string;
-  industry: string;
-  workType: WebsiteWorkType;
-  year: string;
-  /** One-line summary shown on the card. */
-  description: string;
-  /** What we delivered, e.g. "UX audit", "Design system". */
-  services: string[];
-  /** The live site. Cards link straight to it; without it they alert instead. */
-  liveLink?: string;
-  /** Card thumbnail. A placeholder is rendered when omitted. */
-  cardImageUrl?: string;
-  /** `contain` shows the whole image inside the shared 16:9 frame. Default is `cover`. */
-  cardImageFit?: "cover" | "contain";
-  /** Color behind a contained image. Defaults to white. */
-  cardImageBackground?: string;
-  /** Inset a contained image. Turn off when the artwork is already the 16:9 frame. */
-  cardImageInset?: boolean;
-  /** Client feedback, surfaced in the websites page feedback grid. */
-  testimonial?: Testimonial;
 }
 
 export interface HeroProps {
@@ -116,13 +79,6 @@ export interface ProcessSectionProps {
   steps: ProcessStep[];
   title?: string;
   subtitle?: string;
-  onViewAllClick?: () => void;
-}
-
-export interface WebsitesPageProps {
-  websites: WebsiteProject[];
-  intro: string;
-  setCurrentPage: (pageId: string, itemId?: string) => void;
 }
 
 export interface ContactPageProps {

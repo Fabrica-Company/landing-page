@@ -18,7 +18,6 @@ export interface TranslationBundle {
   };
   ui: {
     startProject: string;
-    seeOurWork: string;
     explore: string;
     getInTouch: string;
     allRightsReserved: string;
@@ -34,7 +33,6 @@ export interface TranslationBundle {
     backToHome: string;
     contactEyebrow: string;
     takingProjects: string;
-    websitesTitle: string;
     pageNotFoundTitle: string;
     pageNotFoundBody: string;
     goHome: string;
@@ -54,7 +52,6 @@ export interface TranslationBundle {
     heroDescription: string;
     location: string;
     introTagline: string;
-    websitesPageIntro: string;
     contactPageTitle: string;
     contactPageSubtitle: string;
   };
@@ -145,20 +142,6 @@ export interface TranslationBundle {
       items: string[];
     }[];
   };
-  websites: {
-    skfrance: {
-      industry: string;
-      workType: string;
-      description: string;
-      services: string[];
-    };
-    skillteam: {
-      industry: string;
-      workType: string;
-      description: string;
-      services: string[];
-    };
-  };
   contact: {
     projectTypes: Record<ProjectTypeId, string>;
     placeholders: {
@@ -199,7 +182,6 @@ const en: TranslationBundle = {
   },
   ui: {
     startProject: 'Start a project',
-    seeOurWork: 'See our work',
     explore: 'Explore',
     getInTouch: 'Get in touch',
     allRightsReserved: 'All rights reserved.',
@@ -215,7 +197,6 @@ const en: TranslationBundle = {
     backToHome: 'Back to home',
     contactEyebrow: 'Contact',
     takingProjects: 'Taking on new projects',
-    websitesTitle: 'Websites',
     pageNotFoundTitle: 'Page not found',
     pageNotFoundBody: 'The page you are looking for does not exist.',
     goHome: 'Go home',
@@ -236,8 +217,6 @@ const en: TranslationBundle = {
       'Processes and workflows that keep pace with the way you work today.',
     location: 'We work remotely across the world — based in Paris, France.',
     introTagline: 'IT Services and IT Consulting',
-    websitesPageIntro:
-      'Websites we designed, rebuilt and modernized for clients — with the results that came out of each one.',
     contactPageTitle: 'Start a project',
     contactPageSubtitle:
       'We reply within one business day with next steps and a ballpark.',
@@ -504,22 +483,6 @@ const en: TranslationBundle = {
       },
     ],
   },
-  websites: {
-    skfrance: {
-      industry: 'Perfumes & Raw Materials',
-      workType: 'Modernization',
-      description:
-        'A 2018 website rebuilt into a responsive and interactive landing-page, offering a real user experience.',
-      services: ['Brand-aligned design', 'Complete rebuild', 'Landing page'],
-    },
-    skillteam: {
-      industry: 'Corporate Communication Training',
-      workType: 'New build',
-      description:
-        'Landing page built from scratch according to visual brand design, optimized for conversions and clarity.',
-      services: ['Brand-aligned design', 'Landing page', 'Complete rebuild'],
-    },
-  },
   contact: {
     projectTypes: {
       local: 'Local Business',
@@ -566,7 +529,6 @@ const fr: TranslationBundle = {
   },
   ui: {
     startProject: 'Démarrer un projet',
-    seeOurWork: 'Voir nos réalisations',
     explore: 'Explorer',
     getInTouch: 'Nous contacter',
     allRightsReserved: 'Tous droits réservés.',
@@ -582,7 +544,6 @@ const fr: TranslationBundle = {
     backToHome: 'Retour à l\'accueil',
     contactEyebrow: 'Contact',
     takingProjects: 'Ouverts aux nouveaux projets',
-    websitesTitle: 'Sites web',
     pageNotFoundTitle: 'Page introuvable',
     pageNotFoundBody: 'La page que vous recherchez n\'existe pas.',
     goHome: 'Retour à l\'accueil',
@@ -604,8 +565,6 @@ const fr: TranslationBundle = {
     location:
       'Nous travaillons à distance partout dans le monde — basés à Paris, France.',
     introTagline: 'Services informatiques et conseil IT',
-    websitesPageIntro:
-      'Des sites conçus, reconstruits et modernisés pour nos clients — avec les résultats de chaque projet.',
     contactPageTitle: 'Démarrer un projet',
     contactPageSubtitle:
       'Nous répondons sous un jour ouvré avec les prochaines étapes et une estimation.',
@@ -874,30 +833,6 @@ const fr: TranslationBundle = {
         ],
       },
     ],
-  },
-  websites: {
-    skfrance: {
-      industry: 'Parfums & matières premières',
-      workType: 'Modernisation',
-      description:
-        'Un site de 2018 reconstruit en landing page responsive et interactive, pour une vraie expérience utilisateur.',
-      services: [
-        'Design aligné à la marque',
-        'Reconstruction complète',
-        'Landing page',
-      ],
-    },
-    skillteam: {
-      industry: 'Formation en communication corporate',
-      workType: 'Création',
-      description:
-        'Landing page créée from scratch selon l\'identité visuelle, optimisée pour la conversion et la clarté.',
-      services: [
-        'Design aligné à la marque',
-        'Landing page',
-        'Reconstruction complète',
-      ],
-    },
   },
   contact: {
     projectTypes: {
