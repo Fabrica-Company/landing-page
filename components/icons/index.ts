@@ -30,4 +30,4 @@ export {
   FiServer as ServerIcon,
 } from "react-icons/fi";
 
-export { FaLinkedin as LinkedInIcon } from "react-icons/fa";
+export { FaLinkedin as LinkedInIcon, FaYoutube as YouTubeIcon } from "react-icons/fa";

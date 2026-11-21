@@ -42,6 +42,7 @@ export interface TranslationBundle {
     pageNotFoundBody: string;
     goHome: string;
     followUsOnLinkedIn: string;
+    followUsOnYouTube: string;
   };
   nav: {
     home: string;
@@ -159,6 +160,7 @@ const en: TranslationBundle = {
     pageNotFoundBody: 'The page you are looking for does not exist.',
     goHome: 'Go home',
     followUsOnLinkedIn: 'Follow us on LinkedIn',
+    followUsOnYouTube: 'Follow us on YouTube',
   },
   nav: {
     home: 'Home',
@@ -386,6 +388,7 @@ const fr: TranslationBundle = {
     pageNotFoundBody: 'La page que vous recherchez n\'existe pas.',
     goHome: 'Retour à l\'accueil',
     followUsOnLinkedIn: 'Suivez-nous sur LinkedIn',
+    followUsOnYouTube: 'Suivez-nous sur YouTube',
   },
   nav: {
     home: 'Accueil',

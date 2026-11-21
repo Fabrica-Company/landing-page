@@ -25,6 +25,8 @@ export const WEB3FORMS_ACCESS_KEY = "3e9256d4-7606-4f32-8855-615e3d892cd5";
 export const LINKEDIN_URL =
   "https://www.linkedin.com/company/fabricalabs/?viewAsMember=true";
 
+export const YOUTUBE_URL = "https://www.youtube.com/@FabricaLabs";
+
 /** Non-translatable company facts shared across locales. */
 export const COMPANY_BASE = {
   name: "FabricaLabs",

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLanguage } from '../LanguageContext';
-import { LINKEDIN_URL } from '../constants';
-import { LinkedInIcon, MailIcon, MapPinIcon } from './icons';
+import { LINKEDIN_URL, YOUTUBE_URL } from '../constants';
+import { LinkedInIcon, MailIcon, MapPinIcon, YouTubeIcon } from './icons';
 
 interface FooterProps {
   setCurrentPage: (pageId: string) => void;
@@ -27,6 +27,15 @@ export const Footer: React.FC<FooterProps> = ({ setCurrentPage }) => {
                 className="inline-flex text-text-secondary dark:text-dark-text-secondary hover:text-[#0A66C2] transition-all duration-200 ease-in-out hover:scale-110"
               >
                 <LinkedInIcon className="w-5 h-5" aria-hidden />
+              </a>
+              <a
+                href={YOUTUBE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="FabricaLabs on YouTube"
+                className="inline-flex text-text-secondary dark:text-dark-text-secondary hover:text-[#FF0000] transition-all duration-200 ease-in-out hover:scale-110"
+              >
+                <YouTubeIcon className="w-5 h-5" aria-hidden />
               </a>
             </div>
           </div>

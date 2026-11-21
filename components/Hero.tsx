@@ -1,11 +1,11 @@
 import React from 'react';
 import { HeroProps } from '../types';
-import { LINKEDIN_URL } from '../constants';
+import { LINKEDIN_URL, YOUTUBE_URL } from '../constants';
 import { useLanguage } from '../LanguageContext';
 import { CircularText } from './CircularText';
 import { RotatingWord } from './RotatingWord';
 import { LiveTime } from './LiveTime';
-import { LinkedInIcon, MailIcon } from './icons';
+import { LinkedInIcon, MailIcon, YouTubeIcon } from './icons';
 import logo from '../assets/Logo.webp';
 
 export const Hero: React.FC<HeroProps> = ({ company, setCurrentPage }) => {
@@ -42,6 +42,18 @@ export const Hero: React.FC<HeroProps> = ({ company, setCurrentPage }) => {
                 aria-hidden
               />
               {t.ui.followUsOnLinkedIn}
+            </a>
+            <a
+              href={YOUTUBE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center gap-2 text-xs font-medium text-text-secondary dark:text-dark-text-secondary hover:text-[#FF0000] transition-colors"
+            >
+              <YouTubeIcon
+                className="w-4 h-4 transition-transform duration-200 ease-in-out group-hover:scale-110"
+                aria-hidden
+              />
+              {t.ui.followUsOnYouTube}
             </a>
           </div>
 
