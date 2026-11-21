@@ -20,7 +20,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({
     name: '',
     email: '',
     company: '',
-    projectType: 'local' as ProjectTypeId,
+    projectType: 'developer' as ProjectTypeId,
     message: '',
   });
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>(
@@ -113,7 +113,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({
           name: '',
           email: '',
           company: '',
-          projectType: 'local',
+          projectType: 'developer',
           message: '',
         });
       } else {

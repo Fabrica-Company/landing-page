@@ -8,7 +8,12 @@ export const LOCALE_LABELS: Record<Locale, { name: string; flag: string; short: 
 };
 
 /** Stable project-type ids used by the contact form. */
-export const PROJECT_TYPE_IDS = ['local', 'dev', 'other'] as const;
+export const PROJECT_TYPE_IDS = [
+  'developer',
+  'engineer',
+  'devops',
+  'other',
+] as const;
 export type ProjectTypeId = (typeof PROJECT_TYPE_IDS)[number];
 
 export interface TranslationBundle {
@@ -40,8 +45,6 @@ export interface TranslationBundle {
   };
   nav: {
     home: string;
-    forLocalBusinesses: string;
-    forDevTeams: string;
     about: string;
   };
   company: {
@@ -56,19 +59,9 @@ export interface TranslationBundle {
     contactPageSubtitle: string;
   };
   about: {
-    servicesTitle: string;
-    servicesSubtitle: string;
     processTitle: string;
     processSubtitle: string;
   };
-  services: {
-    id: string;
-    name: string;
-    description: string;
-    deliverables: string[];
-    pageId: string;
-    cta: string;
-  }[];
   processSteps: {
     id: string;
     title: string;
@@ -77,41 +70,6 @@ export interface TranslationBundle {
   cta: {
     title: string;
     body: string;
-  };
-  home: {
-    eyebrow: string;
-    headline: string;
-    description: string;
-    pathsLabel: string;
-    paths: {
-      id: string;
-      pageId: string;
-      title: string;
-      description: string;
-      cta: string;
-      imageAlt: string;
-    }[];
-  };
-  localBusinesses: {
-    valueProposition: string;
-    valuePropositionSupport: string;
-    audienceLabel: string;
-    audience: string;
-    industries: {
-      id: string;
-      name: string;
-      imageAlt: string;
-    }[];
-    problemLabel: string;
-    problem: string;
-    leakPointsTitle: string;
-    leakPoints: {
-      id: string;
-      number: string;
-      title: string;
-      description: string;
-    }[];
-    solution: string;
   };
   devTeams: {
     valueProposition: string;
@@ -176,9 +134,9 @@ export interface TranslationBundle {
 
 const en: TranslationBundle = {
   meta: {
-    title: 'FabricaLabs — Websites & web apps',
+    title: 'FabricaLabs — Developer team workflows',
     description:
-      'FabricaLabs is a design and development studio. We design new websites, modernize dated ones, and build web apps.',
+      'FabricaLabs helps small engineering teams build faster with AI — while keeping control, shipping safely, and understanding production.',
   },
   ui: {
     startProject: 'Start a project',
@@ -204,77 +162,44 @@ const en: TranslationBundle = {
   },
   nav: {
     home: 'Home',
-    forLocalBusinesses: 'For local businesses',
-    forDevTeams: 'For developer teams',
     about: 'About',
   },
   company: {
     tagline: 'Design & development studio',
     heroHeadlinePrefix: 'We help',
-    heroRotatingWords: ['local businesses', 'developer teams'],
+    heroRotatingWords: ['developer teams', 'engineering teams', 'DevOps teams'],
     heroHeadlineSuffix: 'get more done — safely.',
     heroDescription:
       'Processes and workflows that keep pace with the way you work today.',
     location: 'We work remotely across the world — based in Paris, France.',
-    introTagline: 'IT Services and IT Consulting',
+    introTagline: 'Work the best way, today.',
     contactPageTitle: 'Start a project',
     contactPageSubtitle:
       'We reply within one business day with next steps and a ballpark.',
   },
   about: {
-    servicesTitle: 'What we do',
-    servicesSubtitle:
-      'Two kinds of teams. Two sets of processes — built around how you already work.',
     processTitle: 'How we work',
     processSubtitle:
       'A fixed scope up front, then processes and workflows you can keep running.',
   },
-  services: [
-    {
-      id: 'service-local-businesses',
-      name: 'For local businesses',
-      description:
-        'Get found online, earn trust, and capture the enquiry — even outside opening hours.',
-      deliverables: [
-        'Websites and local SEO',
-        'Clear booking and contact flows',
-        'AI agents that answer when you can\'t',
-      ],
-      pageId: 'for-local-businesses',
-      cta: 'Explore local businesses',
-    },
-    {
-      id: 'service-dev-teams',
-      name: 'For developer teams',
-      description:
-        'Help small engineering teams build faster with AI — while keeping control, shipping safely, and understanding production.',
-      deliverables: [
-        'AI-assisted coding workflows',
-        'CI/CD, testing, and quality gates',
-        'Monitoring and production visibility',
-      ],
-      pageId: 'for-dev-teams',
-      cta: 'Explore developer teams',
-    },
-  ],
   processSteps: [
     {
       id: 'step-diagnose',
       title: 'Diagnose',
       description:
-        'We map where customers drop off, or where delivery, security, and production break down — then agree a fixed scope before anything is built.',
+        'We map where delivery, security, and production break down — then agree a fixed scope before anything is built.',
     },
     {
       id: 'step-design',
       title: 'Design',
       description:
-        'We design the process around how you already work: the site, agents, or engineering workflow that closes the gap.',
+        'We design the process around how you already work: the engineering workflow that closes the gap.',
     },
     {
       id: 'step-implement',
       title: 'Implement',
       description:
-        'We build and wire it in — websites, AI agents, CI/CD, monitoring — with check-ins so the result matches what you asked for.',
+        'We build and wire it in — CI/CD, monitoring, AI-assisted workflows — with check-ins so the result matches what you asked for.',
     },
     {
       id: 'step-handover',
@@ -285,95 +210,7 @@ const en: TranslationBundle = {
   ],
   cta: {
     title: 'Ready to get more done — safely?',
-    body: 'Whether you need to capture more local customers or help developers ship faster — tell us where things break down and we\'ll outline the process.',
-  },
-  home: {
-    eyebrow: 'IT Services and IT Consulting',
-    headline: 'We are here to help.',
-    description:
-      'You want to see increased efficiency and revenue? Who doesn\'t? You might need to modernize your operations. Don\'t worry — we are here to help.',
-    pathsLabel: 'Who are you ?',
-    paths: [
-      {
-        id: 'path-local',
-        pageId: 'for-local-businesses',
-        title: 'For local and city businesses',
-        description:
-          'Get found online, then capture the enquiry — websites, local SEO, and AI agents that answer when you can\'t.',
-        cta: 'Explore local businesses',
-        imageAlt:
-          'Local shopkeeper welcoming a customer outside a modern storefront',
-      },
-      {
-        id: 'path-dev',
-        pageId: 'for-dev-teams',
-        title: 'For developer teams',
-        description:
-          'Help small engineering teams build faster with AI — while keeping control, shipping safely, and understanding production.',
-        cta: 'Explore developer teams',
-        imageAlt: 'Engineering team collaborating over code in a bright office',
-      },
-    ],
-  },
-  localBusinesses: {
-    valueProposition:
-      'Get found online — and don\'t lose customers when they\'re ready to get in touch.',
-    valuePropositionSupport:
-      'Processes that help local businesses like you get found and capture more customers online.',
-    audienceLabel: 'Who this is for',
-    audience:
-      'Local businesses in cities — health, food, home maintenance & renovation, sports and more.',
-    industries: [
-      {
-        id: 'industry-health',
-        name: 'Health',
-        imageAlt: 'Clinic and health practice',
-      },
-      {
-        id: 'industry-food',
-        name: 'Food',
-        imageAlt: 'Restaurant dining room',
-      },
-      {
-        id: 'industry-home',
-        name: 'Home maintenance & renovation',
-        imageAlt: 'Home maintenance and renovation work',
-      },
-      {
-        id: 'industry-sports',
-        name: 'Sports',
-        imageAlt: 'Gym and fitness studio',
-      },
-    ],
-    problemLabel: 'A problem familiar to you ?',
-    problem:
-      'Are you difficult to find online, difficult to trust, or unavailable when potential customers want to contact you? Then you are losing customers in your online customer journey. You are losing money.',
-    leakPointsTitle: 'Three places a customer is lost',
-    leakPoints: [
-      {
-        id: 'leak-find',
-        number: '01',
-        title: 'They don\'t find the business',
-        description:
-          'Poor local SEO, a weak website, or an incomplete online presence.',
-      },
-      {
-        id: 'leak-convert',
-        number: '02',
-        title: 'They find it but don\'t convert',
-        description:
-          'An outdated website, unclear information, lack of trust signals, or a difficult booking and contact process.',
-      },
-      {
-        id: 'leak-respond',
-        number: '03',
-        title: 'They try to contact it but nobody responds',
-        description:
-          'Missed calls, messages outside working hours, or slow follow-up.',
-      },
-    ],
-    solution:
-      'We will help you get found online and make sure you don\'t lose potential customers 24/7.',
+    body: 'Tell us where delivery breaks down and we\'ll outline the process to help your developers ship faster.',
   },
   devTeams: {
     valueProposition:
@@ -436,7 +273,7 @@ const en: TranslationBundle = {
       'We will help you increase delivery speed safely by improving the workflow around your AI-assisted development.',
     stagesTitle: 'Four stages',
     stagesSubtitle:
-      'Services fit into a clear path from coding faster to understanding production.',
+      'Our services fit into a clear path from coding faster to understanding production.',
     stages: [
       {
         id: 'stage-build',
@@ -485,8 +322,9 @@ const en: TranslationBundle = {
   },
   contact: {
     projectTypes: {
-      local: 'Local Business',
-      dev: 'Developer Team',
+      developer: 'Developer',
+      engineer: 'Engineer',
+      devops: 'DevOps',
       other: 'Other',
     },
     placeholders: {
@@ -523,9 +361,9 @@ const en: TranslationBundle = {
 
 const fr: TranslationBundle = {
   meta: {
-    title: 'FabricaLabs — Sites web & applications',
+    title: 'FabricaLabs — Workflows pour équipes tech',
     description:
-      'FabricaLabs est un studio de design et de développement. Nous concevons de nouveaux sites, modernisons les sites datés et construisons des applications web.',
+      'FabricaLabs aide les petites équipes d\'ingénierie à construire plus vite avec l\'IA — tout en gardant le contrôle, en livrant en sécurité et en comprenant la production.',
   },
   ui: {
     startProject: 'Démarrer un projet',
@@ -551,14 +389,12 @@ const fr: TranslationBundle = {
   },
   nav: {
     home: 'Accueil',
-    forLocalBusinesses: 'Pour les commerces locaux',
-    forDevTeams: 'Pour les équipes tech',
     about: 'À propos',
   },
   company: {
     tagline: 'Studio de design & développement',
     heroHeadlinePrefix: 'Nous aidons',
-    heroRotatingWords: ['les commerces locaux', 'les équipes tech'],
+    heroRotatingWords: ['les équipes tech', 'les équipes d\'ingénierie', 'les équipes DevOps'],
     heroHeadlineSuffix: 'à en faire plus — en sécurité.',
     heroDescription:
       'Des processus et des workflows qui suivent la façon dont vous travaillez aujourd\'hui.',
@@ -570,59 +406,28 @@ const fr: TranslationBundle = {
       'Nous répondons sous un jour ouvré avec les prochaines étapes et une estimation.',
   },
   about: {
-    servicesTitle: 'Ce que nous faisons',
-    servicesSubtitle:
-      'Deux types d\'équipes. Deux ensembles de processus — construits autour de votre façon de travailler.',
     processTitle: 'Notre façon de travailler',
     processSubtitle:
       'Un périmètre fixe dès le départ, puis des processus et workflows que vous pouvez faire vivre.',
   },
-  services: [
-    {
-      id: 'service-local-businesses',
-      name: 'Pour les commerces locaux',
-      description:
-        'Être trouvé en ligne, inspirer confiance et capturer la demande — même hors horaires d\'ouverture.',
-      deliverables: [
-        'Sites web et SEO local',
-        'Parcours de contact et de réservation clairs',
-        'Agents IA qui répondent quand vous ne pouvez pas',
-      ],
-      pageId: 'for-local-businesses',
-      cta: 'Découvrir commerces locaux',
-    },
-    {
-      id: 'service-dev-teams',
-      name: 'Pour les équipes tech',
-      description:
-        'Aider les petites équipes d\'ingénierie à construire plus vite avec l\'IA — tout en gardant le contrôle, en livrant en sécurité et en comprenant la production.',
-      deliverables: [
-        'Workflows de coding assisté par IA',
-        'CI/CD, tests et portes qualité',
-        'Monitoring et visibilité en production',
-      ],
-      pageId: 'for-dev-teams',
-      cta: 'Découvrir équipes tech',
-    },
-  ],
   processSteps: [
     {
       id: 'step-diagnose',
       title: 'Diagnostiquer',
       description:
-        'Nous cartographions où les clients décrochent, ou où la livraison, la sécurité et la production cassent — puis nous fixons un périmètre avant de construire.',
+        'Nous cartographions où la livraison, la sécurité et la production cassent — puis nous fixons un périmètre avant de construire.',
     },
     {
       id: 'step-design',
       title: 'Concevoir',
       description:
-        'Nous concevons le processus autour de votre façon de travailler : le site, les agents ou le workflow d\'ingénierie qui comble l\'écart.',
+        'Nous concevons le processus autour de votre façon de travailler : le workflow d\'ingénierie qui comble l\'écart.',
     },
     {
       id: 'step-implement',
       title: 'Mettre en œuvre',
       description:
-        'Nous construisons et branchons le tout — sites, agents IA, CI/CD, monitoring — avec des points de contrôle pour coller à votre demande.',
+        'Nous construisons et branchons le tout — CI/CD, monitoring, workflows assistés par IA — avec des points de contrôle pour coller à votre demande.',
     },
     {
       id: 'step-handover',
@@ -633,96 +438,7 @@ const fr: TranslationBundle = {
   ],
   cta: {
     title: 'Prêt à en faire plus — en sécurité ?',
-    body: 'Que vous ayez besoin de capturer plus de clients locaux ou d\'aider vos développeurs à livrer plus vite — dites-nous où ça coince et nous tracerons le processus.',
-  },
-  home: {
-    eyebrow: 'Services informatiques et conseil IT',
-    headline: 'Nous sommes là pour vous aider.',
-    description:
-      'Vous voulez plus d\'efficacité et de chiffre d\'affaires ? Qui n\'en voudrait pas ? Il est peut-être temps de moderniser vos opérations. Pas d\'inquiétude — nous sommes là pour vous aider.',
-    pathsLabel: 'Qui êtes-vous ?',
-    paths: [
-      {
-        id: 'path-local',
-        pageId: 'for-local-businesses',
-        title: 'Pour les commerces locaux et de ville',
-        description:
-          'Être trouvé en ligne, puis capturer la demande — sites, SEO local et agents IA qui répondent quand vous ne pouvez pas.',
-        cta: 'Découvrir commerces locaux',
-        imageAlt:
-          'Commerçant accueillant un client devant une boutique moderne',
-      },
-      {
-        id: 'path-dev',
-        pageId: 'for-dev-teams',
-        title: 'Pour les équipes tech',
-        description:
-          'Aider les petites équipes d\'ingénierie à construire plus vite avec l\'IA — tout en gardant le contrôle, en livrant en sécurité et en comprenant la production.',
-        cta: 'Découvrir équipes tech',
-        imageAlt:
-          'Équipe d\'ingénierie collaborant sur du code dans un bureau lumineux',
-      },
-    ],
-  },
-  localBusinesses: {
-    valueProposition:
-      'Être trouvé en ligne — et ne pas perdre de clients quand ils sont prêts à vous contacter.',
-    valuePropositionSupport:
-      'Des processus qui aident les commerces locaux comme le vôtre à être trouvés et à capturer plus de clients en ligne.',
-    audienceLabel: 'Pour qui',
-    audience:
-      'Commerces locaux en ville — santé, restauration, entretien & rénovation, sport et plus encore.',
-    industries: [
-      {
-        id: 'industry-health',
-        name: 'Santé',
-        imageAlt: 'Cabinet et pratique de santé',
-      },
-      {
-        id: 'industry-food',
-        name: 'Restauration',
-        imageAlt: 'Salle de restaurant',
-      },
-      {
-        id: 'industry-home',
-        name: 'Entretien & rénovation',
-        imageAlt: 'Travaux d\'entretien et de rénovation',
-      },
-      {
-        id: 'industry-sports',
-        name: 'Sport',
-        imageAlt: 'Salle de sport et studio fitness',
-      },
-    ],
-    problemLabel: 'Un problème qui vous parle ?',
-    problem:
-      'Êtes-vous difficile à trouver en ligne, difficile à faire confiance, ou indisponible quand des clients potentiels veulent vous contacter ? Alors vous perdez des clients dans votre parcours digital. Vous perdez de l\'argent.',
-    leakPointsTitle: 'Trois endroits où un client est perdu',
-    leakPoints: [
-      {
-        id: 'leak-find',
-        number: '01',
-        title: 'Ils ne trouvent pas le commerce',
-        description:
-          'SEO local faible, site peu convaincant, ou présence en ligne incomplète.',
-      },
-      {
-        id: 'leak-convert',
-        number: '02',
-        title: 'Ils trouvent mais ne convertissent pas',
-        description:
-          'Site daté, informations floues, manque de signaux de confiance, ou parcours de contact et de réservation difficile.',
-      },
-      {
-        id: 'leak-respond',
-        number: '03',
-        title: 'Ils essaient de contacter mais personne ne répond',
-        description:
-          'Appels manqués, messages hors horaires, ou suivi trop lent.',
-      },
-    ],
-    solution:
-      'Nous vous aidons à être trouvé en ligne et à ne pas perdre de clients potentiels 24h/24.',
+    body: 'Dites-nous où la livraison coince et nous tracerons le processus pour aider vos développeurs à livrer plus vite.',
   },
   devTeams: {
     valueProposition:
@@ -787,7 +503,7 @@ const fr: TranslationBundle = {
       'Nous vous aidons à accélérer la livraison en sécurité en améliorant le workflow autour de votre développement assisté par IA.',
     stagesTitle: 'Quatre étapes',
     stagesSubtitle:
-      'Les services s\'inscrivent dans un parcours clair : coder plus vite jusqu\'à comprendre la production.',
+      'Nos services s\'inscrivent dans un parcours clair : coder plus vite jusqu\'à comprendre la production.',
     stages: [
       {
         id: 'stage-build',
@@ -836,8 +552,9 @@ const fr: TranslationBundle = {
   },
   contact: {
     projectTypes: {
-      local: 'Commerce local',
-      dev: 'Équipe tech',
+      developer: 'Développeur',
+      engineer: 'Ingénieur',
+      devops: 'DevOps',
       other: 'Autre',
     },
     placeholders: {

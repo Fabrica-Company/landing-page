@@ -42,17 +42,6 @@ export interface CompanyInfo {
   contactPageSubtitle: string;
 }
 
-export interface Service {
-  id: string;
-  name: string;
-  description: string;
-  icon: React.ComponentType<IconProps>;
-  deliverables: string[];
-  /** Optional page to open from the service card. */
-  pageId?: string;
-  cta?: string;
-}
-
 export interface ProcessStep {
   id: string;
   title: string;
@@ -66,13 +55,6 @@ export interface HeroProps {
 
 export interface CallToActionProps {
   setCurrentPage: (pageId: string, itemId?: string) => void;
-}
-
-export interface ServicesSectionProps {
-  services: Service[];
-  title?: string;
-  subtitle?: string;
-  setCurrentPage?: (pageId: string, itemId?: string) => void;
 }
 
 export interface ProcessSectionProps {
@@ -123,61 +105,6 @@ export interface DevTeamsPageContent {
   stagesTitle: string;
   stagesSubtitle: string;
   stages: DevTeamStage[];
-}
-
-export interface ForDevTeamsPageProps {
-  setCurrentPage: (pageId: string, itemId?: string) => void;
-}
-
-export interface LocalBusinessLeakPoint {
-  id: string;
-  number: string;
-  title: string;
-  description: string;
-  icon: React.ComponentType<IconProps>;
-}
-
-export interface LocalBusinessIndustry {
-  id: string;
-  name: string;
-  /** Optional photo. A placeholder is shown when omitted. */
-  imageUrl?: string;
-  imageAlt?: string;
-}
-
-export interface LocalBusinessesPageContent {
-  valueProposition: string;
-  valuePropositionSupport: string;
-  audienceLabel: string;
-  audience: string;
-  industries: LocalBusinessIndustry[];
-  problemLabel: string;
-  problem: string;
-  leakPointsTitle: string;
-  leakPoints: LocalBusinessLeakPoint[];
-  solution: string;
-}
-
-export interface ForLocalBusinessesPageProps {
-  setCurrentPage: (pageId: string, itemId?: string) => void;
-}
-
-export interface HomeAudiencePath {
-  id: string;
-  pageId: string;
-  title: string;
-  description: string;
-  cta: string;
-  imageUrl: string;
-  imageAlt: string;
-}
-
-export interface HomePageContent {
-  eyebrow: string;
-  headline: string;
-  description: string;
-  pathsLabel: string;
-  paths: HomeAudiencePath[];
 }
 
 export interface HomePageProps {

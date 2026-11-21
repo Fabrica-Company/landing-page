@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
   BrowserRouter as Router,
+  Navigate,
   Route,
   Routes,
   useLocation,
@@ -10,8 +11,6 @@ import { useSwipeable } from 'react-swipeable';
 import { useLenis } from 'lenis/react';
 import { Header } from './components/Header';
 import { AboutPage } from './components/AboutPage';
-import { ForDevTeamsPage } from './components/ForDevTeamsPage';
-import { ForLocalBusinessesPage } from './components/ForLocalBusinessesPage';
 import { HomePage } from './components/HomePage';
 import { Footer } from './components/Footer';
 import { ContactPage } from './components/ContactPage';
@@ -21,15 +20,9 @@ import {
   SmoothScrollToTop,
 } from './components/SmoothScrollProvider';
 import { LanguageProvider, useLanguage } from './LanguageContext';
-import clickSound from './assets/click_sound.wav';
 
 /** Left-to-right order used by mobile swipe navigation (header tabs only). */
-const MENU_TABS = [
-  'home',
-  'for-local-businesses',
-  'for-dev-teams',
-  'about',
-];
+const MENU_TABS = ['home', 'about'];
 
 const AppContent: React.FC = () => {
   const navigate = useNavigate();
@@ -67,39 +60,6 @@ const AppContent: React.FC = () => {
       localStorage.setItem('theme', theme);
     }
   }, [theme]);
-
-  useEffect(() => {
-    const audio = new Audio(clickSound);
-    audio.preload = 'auto';
-    audio.volume = 0.35;
-
-    const onDocumentClick = (event: MouseEvent) => {
-      const target = event.target as HTMLElement | null;
-      if (!target) return;
-
-      if (target.closest('input, textarea, select, label')) return;
-
-      const interactive = target.closest(
-        'button, a, [role="button"], [data-click-sound="true"]'
-      );
-      if (!interactive) return;
-      if ((interactive as HTMLButtonElement).disabled) return;
-      if (interactive.getAttribute('aria-disabled') === 'true') return;
-
-      try {
-        audio.currentTime = 0;
-        void audio.play();
-      } catch {
-        // Ignore autoplay / platform restrictions.
-      }
-    };
-
-    document.addEventListener('click', onDocumentClick, true);
-    return () => {
-      document.removeEventListener('click', onDocumentClick, true);
-      audio.pause();
-    };
-  }, []);
 
   const toggleTheme = useCallback(() => {
     const nextTheme = theme === 'light' ? 'dark' : 'light';
@@ -223,20 +183,14 @@ const AppContent: React.FC = () => {
           />
 
           <Route
-            path="/for-local-businesses"
-            element={
-              <ForLocalBusinessesPage setCurrentPage={handleSetPage} />
-            }
-          />
-
-          <Route
-            path="/for-dev-teams"
-            element={<ForDevTeamsPage setCurrentPage={handleSetPage} />}
-          />
-
-          <Route
             path="/contact"
             element={<ContactPage setCurrentPage={handleSetPage} />}
+          />
+
+          <Route path="/for-dev-teams" element={<Navigate to="/" replace />} />
+          <Route
+            path="/for-local-businesses"
+            element={<Navigate to="/" replace />}
           />
 
           <Route
@@ -262,9 +216,7 @@ const AppContent: React.FC = () => {
         </Routes>
       </main>
 
-      {currentPage !== 'home' && (
-        <Footer setCurrentPage={handleSetPage} />
-      )}
+      <Footer setCurrentPage={handleSetPage} />
     </div>
   );
 };

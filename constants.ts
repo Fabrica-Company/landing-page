@@ -1,34 +1,22 @@
 import {
   CompanyInfo,
   DevTeamsPageContent,
-  HomePageContent,
-  LocalBusinessesPageContent,
   NavItem,
   ProcessStep,
-  Service,
 } from "./types";
 import {
-  CodeIcon,
-  HomeIcon,
   LayersIcon,
   MonitorIcon,
-  PhoneOffIcon,
   RefreshIcon,
   SearchIcon,
   ServerIcon,
   TerminalIcon,
   XCircleIcon,
 } from "./components/icons";
-import localBusinessesHomeImage from "./assets/Friendly Shopkeeper Outside a Modern Store.png";
-import devTeamsHomeImage from "./assets/Collaborative Coding in a Bright Office.png";
 import codingSlide1 from "./assets/coding 1.jpg";
 import codingSlide2 from "./assets/coding 2.jpg";
 import codingSlide3 from "./assets/coding 3.jpg";
 import codingSlide4 from "./assets/coding 4.jpg";
-import clinicHealthImage from "./assets/clinic health.jpg";
-import restaurantImage from "./assets/restaurant.jpg";
-import homeMaintenanceImage from "./assets/home maintenance & renovation.jpg";
-import gymImage from "./assets/gym.jpg";
 import { getTranslations, Locale, TranslationBundle } from "./translations";
 
 /** Web3Forms key powering the contact form. Get one free at https://web3forms.com */
@@ -57,17 +45,6 @@ export const PROCESS_STEP_ICONS = [
   ServerIcon,
 ];
 
-const SERVICE_ICONS = {
-  "service-local-businesses": HomeIcon,
-  "service-dev-teams": CodeIcon,
-} as const;
-
-const LOCAL_LEAK_ICONS = {
-  "leak-find": SearchIcon,
-  "leak-convert": XCircleIcon,
-  "leak-respond": PhoneOffIcon,
-} as const;
-
 const DEV_LEAK_ICONS = {
   "leak-build": TerminalIcon,
   "leak-control": XCircleIcon,
@@ -81,13 +58,6 @@ const DEV_STAGE_ICONS = {
   "stage-production": MonitorIcon,
 } as const;
 
-const INDUSTRY_IMAGES = {
-  "industry-health": clinicHealthImage,
-  "industry-food": restaurantImage,
-  "industry-home": homeMaintenanceImage,
-  "industry-sports": gymImage,
-} as const;
-
 const PROFILE_IMAGES = {
   "profile-small-teams": codingSlide1,
   "profile-no-devops": codingSlide2,
@@ -95,20 +65,12 @@ const PROFILE_IMAGES = {
   "profile-ai-assisted": codingSlide4,
 } as const;
 
-const PATH_IMAGES = {
-  "path-local": localBusinessesHomeImage,
-  "path-dev": devTeamsHomeImage,
-} as const;
-
 export interface LocalizedSiteContent {
   locale: Locale;
   t: TranslationBundle;
   company: CompanyInfo;
   navItems: NavItem[];
-  services: Service[];
   processSteps: ProcessStep[];
-  homePage: HomePageContent;
-  localBusinessesPage: LocalBusinessesPageContent;
   devTeamsPage: DevTeamsPageContent;
 }
 
@@ -138,55 +100,10 @@ export function getLocalizedContent(locale: Locale): LocalizedSiteContent {
 
   const navItems: NavItem[] = [
     { id: "home", name: t.nav.home, href: "/" },
-    {
-      id: "for-local-businesses",
-      name: t.nav.forLocalBusinesses,
-      href: "/for-local-businesses",
-    },
-    {
-      id: "for-dev-teams",
-      name: t.nav.forDevTeams,
-      href: "/for-dev-teams",
-    },
     { id: "about", name: t.nav.about, href: "/about" },
   ];
 
-  const services: Service[] = t.services.map((service) => ({
-    ...service,
-    icon: SERVICE_ICONS[service.id as keyof typeof SERVICE_ICONS] ?? HomeIcon,
-  }));
-
   const processSteps: ProcessStep[] = t.processSteps;
-
-  const homePage: HomePageContent = {
-    eyebrow: t.home.eyebrow,
-    headline: t.home.headline,
-    description: t.home.description,
-    pathsLabel: t.home.pathsLabel,
-    paths: t.home.paths.map((path) => ({
-      ...path,
-      imageUrl: PATH_IMAGES[path.id as keyof typeof PATH_IMAGES],
-    })),
-  };
-
-  const localBusinessesPage: LocalBusinessesPageContent = {
-    valueProposition: t.localBusinesses.valueProposition,
-    valuePropositionSupport: t.localBusinesses.valuePropositionSupport,
-    audienceLabel: t.localBusinesses.audienceLabel,
-    audience: t.localBusinesses.audience,
-    industries: t.localBusinesses.industries.map((industry) => ({
-      ...industry,
-      imageUrl: INDUSTRY_IMAGES[industry.id as keyof typeof INDUSTRY_IMAGES],
-    })),
-    problemLabel: t.localBusinesses.problemLabel,
-    problem: t.localBusinesses.problem,
-    leakPointsTitle: t.localBusinesses.leakPointsTitle,
-    leakPoints: t.localBusinesses.leakPoints.map((point) => ({
-      ...point,
-      icon: LOCAL_LEAK_ICONS[point.id as keyof typeof LOCAL_LEAK_ICONS] ?? SearchIcon,
-    })),
-    solution: t.localBusinesses.solution,
-  };
 
   const devTeamsPage: DevTeamsPageContent = {
     valueProposition: t.devTeams.valueProposition,
@@ -218,10 +135,7 @@ export function getLocalizedContent(locale: Locale): LocalizedSiteContent {
     t,
     company,
     navItems,
-    services,
     processSteps,
-    homePage,
-    localBusinessesPage,
     devTeamsPage,
   };
 }
@@ -230,8 +144,5 @@ export function getLocalizedContent(locale: Locale): LocalizedSiteContent {
 const defaults = getLocalizedContent("en");
 export const COMPANY_INFO = defaults.company;
 export const NAV_ITEMS_MAIN = defaults.navItems;
-export const SERVICES = defaults.services;
 export const PROCESS_STEPS = defaults.processSteps;
-export const HOME_PAGE = defaults.homePage;
-export const LOCAL_BUSINESSES_PAGE = defaults.localBusinessesPage;
 export const DEV_TEAMS_PAGE = defaults.devTeamsPage;
